@@ -84,6 +84,7 @@ main {
 .menu-title {
   background-color: #f2f2f2;
   padding: 10px;
+  padding-left: 130px;
   cursor: pointer;
   font-weight: bold;
 }
