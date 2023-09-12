@@ -1,72 +1,72 @@
 main {
-    letter-spacing: 1px;
-    line-height: 1.5;
-  }
-  
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.volunteerNow-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
+  gap: 10px;
+  background-color: #f2f2f2;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.volunteerNow-grid-item {
+  padding: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+
+}
+
+.volunteerNow-grid-item.image img {
+  width: 350px;
+  height: auto;
+  max-width: 100%; 
+}
+
+
+.volunteerNow-grid-item.text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-self: center;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.ourProgram-grid-item.text h1 {
+  text-align: center;
+}
+
+.volunteerLink {
+  height: auto;
+  width: 250px;
+}
+.volunteerLinkDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
   .volunteerNow-grid-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-
-    background-color: #f2f2f2;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    grid-template-columns: 1fr;
   }
-  
+
   .volunteerNow-grid-item {
-    padding: 50px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-
+    padding: 20px;
   }
-  
+
   .volunteerNow-grid-item.image img {
-    width: 300px;
-    height: auto;
-    max-width: 100%; 
-  }
-  
-
-  .volunteerNow-grid-item.text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    align-self: center;
-    letter-spacing: 1px;
-    line-height: 1.5;
-  }
-
-  .ourProgram-grid-item.text h1 {
-    text-align: center;
-  }
-
-  .volunteerLink {
-    height: auto;
-    width: 250px;
-  }
-  .volunteerLinkDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-  
-  /* Mobile */
-  
-  @media (max-width: 600px) {
-    .volunteerNow-grid-container {
-      grid-template-columns: 1fr;
+      max-width: 100%;
+      height: auto;
     }
-  
-    .volunteerNow-grid-item {
-      padding: 20px;
-    }
-
-    .volunteerNow-grid-item.image img {
-        max-width: 100%;
-        height: auto;
-      }
-  }
+}
