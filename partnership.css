@@ -218,9 +218,82 @@ footer {
 }
 
 /* mobile responsiveness */
-@media (max-width: 600px) {
+.mobileTopBar {
+  display: none;
+}
+
+.mobile-icons {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.navMobile {
+  position: fixed;
+  margin-top: 49px;
+  left: -300px;
+  width: 150px;
+  height: 100%;
+  background-color: #ffffff;
+  color: #02383B;
+  overflow-y: auto;
+  padding-top: 10px;
+  transition: left 0.8s ease;
+  z-index: 2;
+}
+
+.navMobile a {
+  text-decoration: none;
+  color: #02383B;
+}
+
+.navMobile a:visited {
+  color: #02383B;
+}
+
+.navMobile.visible {
+  left: 0;
+}
+
+.navMobile ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.navMobile ul li {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 30px;
+  padding-bottom: 3.5px;
+  margin: 0;
+}
+
+.navMobile ul li ul {
+  list-style: none;
+  display: none;
+}
+
+.navMobile ul li:hover ul {
+  display: block;
+}
+
+.horizontal-line {
+  border-bottom: 1px solid #ccc;
+}
+
+@media (max-width: 768px) {
+  @media (max-width: 600px) {
+    table {
+      font-size: 14px;
+    }
+  }
+
+
     .partnership-grid-container {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .partnership-grid-item {
@@ -228,7 +301,76 @@ footer {
     }
 
         .partnership-grid-item.image img {
-            max-width: 100%;
+          
+            width: 50%;
             height: auto;
         }
+
+        .partnership-grid-item.text {
+            text-align: center;
+        }
+
+  main {
+    padding: 0px;
+    overflow-x: hidden;
+    padding-top: 4rem;
+  }
+
+  .nav ul li {
+    display: none;
+  }
+
+  .donation-bar {
+    display: none;
+  }
+
+  .mobileTopBar {
+    background: #ffffff;
+    width: 100%;
+    color: #02383B;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    margin-top: -16px;
+    position: fixed;
+    z-index: 2;
+  }
+
+  .donateBtnMobile {
+    margin-top: 0;
+  }
+
+  .donateBtnMobile img {
+    width: 145px;
+    height: 50px;
+    margin-left: 20px;
+  }
+
+  .hamburger-icon,
+  .phone-icon {
+    font-size: 20px;
+    margin-right: 20px;
+  }
+
+  .partner-section {
+    padding: 0;
+    margin: 0;
+  }
+
+
+  header {
+    background: #85D4FF;
+    text-align: center;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
 }
+
