@@ -78,6 +78,7 @@ main {
   border-radius: 5px;
   margin-bottom: 10px;
   overflow: hidden;
+
 }
 
 .menu-title {
@@ -90,6 +91,8 @@ main {
 .menu-content {
   padding: 10px;
   display: none;
+  padding-left: 130px;
+  padding-right: 130px;
 }
 
 /* Style for the toggle icon */
@@ -105,7 +108,7 @@ main {
 }
 
 table {
-  width: 70%;
+  width: 35%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }

@@ -112,33 +112,31 @@
 
   <main>
 
-    <div class="container1">
-      <div class="container">
-        <h1>Contact Us</h1>
-        <form id="contact-form"  method="POST">
-          <label for="full-name">Full Name:</label>
-          <input type="text" id="full-name" name="full-name" required>
-    
-          <label for="email">Email:</label>
+    <div class="container">
+      <h1>Contact Form</h1>
+      <p id="compulsory">Fields marked * are compulsory</p>
+      <form action="process_form.php" method="post">
+          <label for="full_name">Full Name <span id="red">*</span></label>
+          <input type="text" id="full_name" name="full_name" required autofocus>
+          
+          <label for="email">Email Address <span id="red">*</span></label>
           <input type="email" id="email" name="email" required>
-    
-          <label for="phone">Phone Number:</label>
+          
+          <label for="phone">Phone Number</label>
           <input type="tel" id="phone" name="phone">
-    
-          <label for="comments">Comments:</label>
+          
+          <label for="comments">Comments <span id="red">*</span></label>
           <textarea id="comments" name="comments" rows="4" required></textarea>
-    
+          
           <button type="submit">Submit</button>
-        </form>
-      </div>
-    </div>
+      </form>
+  </div>
   </main>
 
   <footer>
     <p>&copy; 2023 Free Laundry Access</p> <p>Charity Registration Number: 74952 8949 RR0001</p>
   </footer>
   <script src="app.js"></script>
-  <script src="contact.js"></script>
 </body>
 
 </html>
