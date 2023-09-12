@@ -131,7 +131,22 @@ th {
   table {
     font-size: 14px;
   }
+
+  .menu-content {
+    padding: 15px;
+    display: none;
+
+  }
+  
+  table {
+    width: 70%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+
 }
+
 
 
 @media (max-width: 600px) {
