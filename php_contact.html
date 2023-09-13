@@ -111,14 +111,30 @@
     </ul>
   </div>
   <main>
-    <iframe
-      src="https://docs.google.com/forms/d/e/1FAIpQLSc7oye7wM_p1fiEOF_LBjcPLcsTq9wo0W_ihG3JzWCnrqdKeg/viewform?embedded=true"
-      width="700" height="853" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+    <div class="container">
+      <h1>Contact Form</h1>
+      <p id="compulsory">Fields marked * are compulsory</p>
+      <form action="process_form.php" method="post">
+          <label for="full_name">Full Name <span id="red">*</span></label>
+          <input type="text" id="full_name" name="full_name" required autofocus>
+          
+          <label for="email">Email Address <span id="red">*</span></label>
+          <input type="email" id="email" name="email" required>
+          
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone">
+          
+          <label for="comments">Comments <span id="red">*</span></label>
+          <textarea id="comments" name="comments" rows="4" required></textarea>
+          
+          <button type="submit">Submit</button>
+      </form>
+  </div>
   </main>
 
   <footer>
-    <p>&copy; 2023 Free Laundry Access</p>
-    <p>Charity Registration Number: 74952 8949 RR0001</p>
+    <p>&copy; 2023 Free Laundry Access</p> <p>Charity Registration Number: 74952 8949 RR0001</p>
   </footer>
   <script src="app.js"></script>
 </body>
