@@ -1,12 +1,9 @@
-// program.html
+// program.html collapsible menus
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Select all menu titles
   const menuTitles = document.querySelectorAll('.menu-title');
 
-  // Function to toggle menu visibility
   function toggleMenu(content, title) {
-    // Toggle the content visibility
     if (content.style.display === 'block') {
       content.style.display = 'none';
       title.querySelector('.icon').textContent = '+';
@@ -16,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Loop through menu titles and add click event listeners
   menuTitles.forEach(title => {
     title.addEventListener('click', () => {
       const content = title.nextElementSibling;
@@ -24,15 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Check if there is a hash in the URL (e.g., #eligible)
   if (window.location.hash) {
-    // Remove the '#' character from the hash
     const hash = window.location.hash.substring(1);
-
-    // Find the menu with the corresponding ID
     const menu = document.getElementById(hash);
 
-    // If a matching menu is found, open it
     if (menu) {
       const content = menu.querySelector('.menu-content');
       const title = menu.querySelector('.menu-title');
@@ -40,6 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+
+// navigation bar mobile
 
 document.addEventListener("DOMContentLoaded", function () {
   const hamburgerIcon = document.querySelector(".hamburger-icon");
@@ -49,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
       event.stopPropagation();
       navMobile.classList.toggle("visible");
 
-      // Disable scrolling when the menu is visible
       if (navMobile.classList.contains("visible")) {
           document.body.style.overflow = "hidden";
       } else {
@@ -64,6 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   });
 });
+
+// homepage image slideshow
 
 let slideIndex = 0;
 showSlides();
@@ -85,15 +79,3 @@ function showSlides() {
   
   setTimeout(showSlides, 3500); 
 }
-
-document.getElementById('how-link').addEventListener('click', function(e) {
-  e.preventDefault();
-  const targetElement = document.querySelector(this.getAttribute('href'));
-  
-  if (targetElement) {
-    window.scrollTo({
-      top: targetElement.offsetTop - 50, // Adjust the value to control how much to scroll up
-      behavior: 'smooth'
-    });
-  }
-});
