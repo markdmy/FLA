@@ -96,7 +96,6 @@ main {
   padding-right: 130px;
 }
 
-/* Style for the toggle icon */
 .icon {
   float: right;
 }
@@ -144,13 +143,7 @@ th {
     border-collapse: collapse;
     margin-bottom: 20px;
   }
-  
 
-}
-
-
-
-@media (max-width: 600px) {
   .ourProgram-grid-container {
     grid-template-columns: 1fr;
   }
@@ -158,19 +151,20 @@ th {
   .ourProgram-grid-item {
     padding: 20px;
   }
-}
 
-@media (max-width: 600px) {
   .laundryExample-grid-container {
     grid-template-columns: 1fr;
     padding-left: 20px;
     padding-right: 20px;
   }
-}
 
-@media (max-width: 600px) {
   .thirdParagraph {
     padding-left: 20px;
     padding-right: 20px;
+  }
+  .menu-title {
+
+    padding-left: 16px;
+
   }
 }
