@@ -86,10 +86,6 @@ a.logo-link {
   color: rgb(3, 3, 116);
 }
 
-.nav ul li {
-  position: relative;
-}
-
 .nav ul li:hover .dropdown {
   display: block;
   position: absolute;
@@ -126,7 +122,6 @@ a.logo-link {
   display: flex;
   align-items: center;
   height: 77px;
-
 }
 
 #donationBarSpace {
@@ -499,8 +494,6 @@ footer {
     z-index: 1000;
   }
 }
-
-
 
 @media (max-width: 336px) {
   #mainTitle {
