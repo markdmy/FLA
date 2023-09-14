@@ -1,21 +1,18 @@
-﻿h2,
-h3 {
+﻿
+.privacypolicy h2,
+.privacypolicy h3 {
     padding: 20px 50px 10px 50px;
 }
 
-ul,
-li {
+.privacypolicy ul,
+.privacypolicy li {
     padding: 0px 50px 0px 50px;
 }
 
-p {
-    padding: 0px 50px 2px 50px;
+.privacypolicy p {
+    padding: 0px 50px 20px 50px;
 }
 
-footer{
-    margin-top: 30px;
-}
-
-body {
+.privacypolicy {
     background-color: #f2f2f2;
 }
