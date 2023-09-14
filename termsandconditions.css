@@ -1,0 +1,18 @@
+﻿
+.termsandconditions h1,
+.termsandconditions h3 {
+    padding: 20px 50px 10px 50px;
+}
+
+.termsandconditions ul,
+.termsandconditions li {
+    padding: 0px 50px 0px 50px;
+}
+
+.termsandconditions p {
+    padding: 0px 50px 20px 50px;
+}
+
+.termsandconditions {
+    background-color: #f2f2f2;
+}
