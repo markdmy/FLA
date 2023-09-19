@@ -1,237 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Free Laundry Access provides those in financial need living in Canada with access to clean laundry in self-service laundromats. "
+    />
+    <meta
+      name="keywords"
+      content="free laundry access, free laundry, laundromat, poverty, homelessness, charity laundry, Yummi Cafe Laundromat, free wash, free dry"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="canonical" href="https://www.freelaundryaccess.com" />
+    <title>Free Laundry Access</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Free Laundry Access provides those in financial need living in Canada with access to clean laundry in self-service laundromats. ">
-  <meta name="keywords"
-    content="free laundry access, free laundry, laundromat, poverty, homelessness, charity laundry, Yummi Cafe Laundromat, free wash, free dry">
-  <link rel="stylesheet" href="styles.css">
-  <title>Free Laundry Access</title>
-</head>
-
-<body>
-
-  <header>
-    <a href="index.html" class="logo-link">
-      <div class="logo">
-        <img src="assets/images/logo.png" alt="Logo">
-        <h1 id="mainTitle">FREE LAUNDRY <strong>ACCESS</strong></h1>
-
+  <body>
+    <header>
+      <a href="index.html" class="logo-link">
+        <div class="logo">
+          <img src="assets/images/logo.png" alt="Logo" />
+          <h1 id="mainTitle">FREE LAUNDRY <strong>ACCESS</strong></h1>
+        </div>
+      </a>
+      <div>
+        <nav class="nav">
+          <ul>
+            <li><a href="index.html">ABOUT US</a></li>
+            <li>
+              <a href="program.html">OUR PROGRAM</a>
+              <ul class="dropdown">
+                <li><a href="program.html">HOW IT WORKS</a></li>
+                <li><a href="program.html#eligible">WHO IS ELIGIBLE</a></li>
+                <li><a href="program.html#apply">HOW TO APPLY</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="help.html">YOUR HELP</a>
+              <ul class="dropdown">
+                <li><a href="help.html">DONATION</a></li>
+                <li><a href="volunteer.html">VOLUNTEER</a></li>
+              </ul>
+            </li>
+            <li><a href="partnership.html">PARTNERSHIP</a></li>
+            <li><a href="events.html">EVENTS</a></li>
+            <li><a href="contact.html">CONTACT US</a></li>
+          </ul>
+        </nav>
       </div>
-    </a>
-    <div>
-      <nav class="nav">
-        <ul>
-          <li><a href="index.html">ABOUT US</a></li>
-          <li>
-            <a href="program.html">OUR PROGRAM</a>
-            <ul class="dropdown">
-              <li><a href="program.html">HOW IT WORKS</a></li>
-              <li><a href="program.html#eligible">WHO IS ELIGIBLE</a></li>
-              <li><a href="program.html#apply">HOW TO APPLY</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="help.html">YOUR HELP</a>
-            <ul class="dropdown">
-              <li><a href="help.html">DONATION</a></li>
-              <li><a href="volunteer.html">VOLUNTEER</a></li>
-            </ul>
-          </li>
-          <li><a href="partnership.html">PARTNERSHIP</a></li>
-          <li><a href="events.html">EVENTS</a></li>
-          <li><a href="contact.html">CONTACT US</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <div class="donation-bar">
-    <div class="donation-text">
-      <p>Your help will give HOPE, DIGNITY and HAPPINESS to those in need.</p>
-    </div>
-    <div id="donate-button-container">
-      <div class="donate-btn" id="donate-btn"></div>
-      <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
-      <script>
-        PayPal.Donation.Button({
-          env: 'production',
-          hosted_button_id: '24NRC7PDKPWBC',
-          image: {
-            src: 'https://pics.paypal.com/00/s/YmIzYmNhYTktYzYwYi00MjI3LWEyNmUtZjU5NGViMzg0NmZm/file.PNG',
-            alt: 'Donate with PayPal button',
-            title: 'PayPal - The safer, easier way to pay online!',
-          }
-        }).render('#donate-btn');
-      </script>
-    </div>
-  </div>
-
-  <div id="donationBarSpace"></div>
-  <!-- Mobile Nav Bar: includes vertical menu and donate button -->
-  <div class="mobileTopBar">
-    <div class="mobile-icons">
-      <div class="hamburger-icon">&#9776; MENU</div>
-
+    </header>
+    <div class="donation-bar">
+      <div class="donation-text">
+        <p>Your help will give HOPE, DIGNITY and HAPPINESS to those in need.</p>
+      </div>
       <div id="donate-button-container">
-        <div class="donateBtnMobile" id="donateBtnMobile"></div>
-        <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+        <div class="donate-btn" id="donate-btn"></div>
+        <script
+          src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js"
+          charset="UTF-8"
+        ></script>
         <script>
           PayPal.Donation.Button({
-            env: 'production',
-            hosted_button_id: '24NRC7PDKPWBC',
+            env: "production",
+            hosted_button_id: "24NRC7PDKPWBC",
             image: {
-              src: 'https://pics.paypal.com/00/s/YmIzYmNhYTktYzYwYi00MjI3LWEyNmUtZjU5NGViMzg0NmZm/file.PNG',
-              alt: 'Donate with PayPal button',
-              title: 'PayPal - The safer, easier way to pay online!',
-            }
-          }).render('#donateBtnMobile');
+              src: "https://pics.paypal.com/00/s/YmIzYmNhYTktYzYwYi00MjI3LWEyNmUtZjU5NGViMzg0NmZm/file.PNG",
+              alt: "Donate with PayPal button",
+              title: "PayPal - The safer, easier way to pay online!",
+            },
+          }).render("#donate-btn");
         </script>
       </div>
     </div>
-  </div>
-  <div class="navMobile">
-    <ul>
-      <li><a href="index.html">ABOUT US</a></li>
-      <li class="horizontal-line"></li>
-      <li><a href="program.html">OUR PROGRAM</a></li>
-      <li><a href="program.html" class="smaller-link">HOW IT WORKS</a></li>
-      <li><a href="program.html#eligible" class="smaller-link">WHO IS ELIGIBLE</a></li>
-      <li><a href="program.html#apply" class="smaller-link">HOW TO APPLY</a></li>
-      <li class="horizontal-line"></li>
-      <li><a href="help.html">YOUR HELP</a></li>
-      <li><a href="help.html" class="smaller-link">DONATION</a></li>
-      <li><a href="volunteer.html" class="smaller-link">VOLUNTEER</a></li>
-      <li class="horizontal-line"></li>
-      <li><a href="partnership.html">PARTNERSHIP</a></li>
-      <li class="horizontal-line"></li>
-      <li><a href="events.html">EVENTS</a></li>
-      <li class="horizontal-line"></li>
-      <li><a href="contact.html">CONTACT US</a></li>
-    </ul>
-  </div>
 
-  <span id="aboutMobile"></span>
-  <section>
-    <!-- slideshow placeholder images-->
-    <div class="slideshow-container">
-      <div class="slide fade">
-        <img src="assets/images/washers1.jpg" alt="washing machines">
-      </div>
-      <div class="slide fade">
-        <img src="assets/images/laundry_cart_cropped.jpg" alt="woman loading laundry">
-      </div>
-      <div class="slide fade">
-        <img src="assets/images/washers2.jpg" alt="white washing machines">
-      </div>
-      <div class="slide fade">
-        <img src="assets/images/folding_laundry.jpg" alt="woman folding laundry">
-      </div>
-    </div>
-  </section>
+    <div id="donationBarSpace"></div>
+    <!-- Mobile Nav Bar: includes vertical menu and donate button -->
+    <div class="mobileTopBar">
+      <div class="mobile-icons">
+        <div class="hamburger-icon">&#9776; MENU</div>
 
-  <main>
-    <!-- about us section -->
-    <section id="about" class="about-section">
-      <div class="about-container">
-        <p>
-          Free Laundry Access charity provides individuals and famililies who are experiencing financial challenges
-          living in Canada with access to clean laundry in self-service laundromats.
-
-          Our charity’s origins began during the pandemic when Nancy Seto, owner of Yummi Café Laundromat, witnessed
-          the financial struggles her customers were experiencing, and their need to have access to clean laundry
-          services. As our world returns to normal, post-pandemic, the need for Free Laundry Access is greater than
-          ever. There are still great social and economic disparities, especially now with significant government
-          budget cuts, reduction in social services, and the soaring cost of living such as food, housing, and
-          medication.
-
-          <br /><br />
-          Free Laundry Access helps those who are experiencing financial challenges<sup>1</sup> by covering the full
-          cost of
-          laundering in a self-service laundromat with the:
-          <br />
-          &#9679; Cost of wash and dry
-          <br />
-          &#9679; Laundry detergent and dryer sheets
-
-          <br /><br />
-
-          We partner with laundromats in major cities across Canada to deliver the service on site and in person.
-
-          To spread the word about this much needed program we work with grass-root community groups, governments, and
-          charitable organizations.
-
-          Our staff will be on-site at each event to ensure the program runs smoothly and to provide support to those
-          in need with the use of the machines and having their clothes cleaned properly.
-
-          Your donation will help continue this program, allow us to expand our program offering, and continue to make
-          a positive impact on the lives of individuals and families in communities across Canada.
-
-          <br /><br />
-          <sup>
-
-            Canadian Government defines the threshold for a single-adult household with low-income is $27,514 or
-            $51,128 for a family of 4 (Statistics Canada determines the Low Income Cut-Off (LICO) threshold by
-            family size, per the Census Family definition. The Low Income Cut-Off thresholds were last updated June
-            30, 2023. <a
-              href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110024101&pickMembers%5B0%5D=2.2&cubeTimeFrame.startYear=2017&cubeTimeFrame.endYear=2021&referencePeriods=20170101%2C2021010"
-              target="_blank" rel="noopener noreferrer">
-              Statistics
-              Canada
-            </a> determines the Low Income Cut-Off (LICO) threshold by family size, per the Census Family
-            definition). The Low Income Cut-Off thresholds were last updated June 30, 2023.
-          </sup>
-        </p>
-
-      </div>
-    </section>
-
-    <!-- call to action buttons -->
-    <div class="callToActionImages">
-      <a href="partnership.html">
-        <div class="callToAction">
-          <img src="assets/images/partnership.png" alt="Partnership">
-        </div>
-      </a>
-
-      <a href="contact.html">
-        <div class="callToAction">
-          <img src="assets/images/volunteer.png" alt="Volunteer">
-        </div>
-      </a>
-
-      <div class="callToAction">
         <div id="donate-button-container">
-          <div class="donate-btn" id="donateButtonDesktop"></div>
-          <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+          <div class="donateBtnMobile" id="donateBtnMobile"></div>
+          <script
+            src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js"
+            charset="UTF-8"
+          ></script>
           <script>
             PayPal.Donation.Button({
-              env: 'production',
-              hosted_button_id: '24NRC7PDKPWBC',
+              env: "production",
+              hosted_button_id: "24NRC7PDKPWBC",
               image: {
-                src: 'https://pics.paypal.com/00/s/YmIzYmNhYTktYzYwYi00MjI3LWEyNmUtZjU5NGViMzg0NmZm/file.PNG',
-                alt: 'Donate with PayPal button',
-                title: 'PayPal - The safer, easier way to pay online!',
-              }
-            }).render('#donateButtonDesktop');
+                src: "https://pics.paypal.com/00/s/YmIzYmNhYTktYzYwYi00MjI3LWEyNmUtZjU5NGViMzg0NmZm/file.PNG",
+                alt: "Donate with PayPal button",
+                title: "PayPal - The safer, easier way to pay online!",
+              },
+            }).render("#donateBtnMobile");
           </script>
         </div>
       </div>
     </div>
-  </main>
+    <div class="navMobile">
+      <ul>
+        <li><a href="index.html">ABOUT US</a></li>
+        <li class="horizontal-line"></li>
+        <li><a href="program.html">OUR PROGRAM</a></li>
+        <li><a href="program.html" class="smaller-link">HOW IT WORKS</a></li>
+        <li>
+          <a href="program.html#eligible" class="smaller-link"
+            >WHO IS ELIGIBLE</a
+          >
+        </li>
+        <li>
+          <a href="program.html#apply" class="smaller-link">HOW TO APPLY</a>
+        </li>
+        <li class="horizontal-line"></li>
+        <li><a href="help.html">YOUR HELP</a></li>
+        <li><a href="help.html" class="smaller-link">DONATION</a></li>
+        <li><a href="volunteer.html" class="smaller-link">VOLUNTEER</a></li>
+        <li class="horizontal-line"></li>
+        <li><a href="partnership.html">PARTNERSHIP</a></li>
+        <li class="horizontal-line"></li>
+        <li><a href="events.html">EVENTS</a></li>
+        <li class="horizontal-line"></li>
+        <li><a href="contact.html">CONTACT US</a></li>
+      </ul>
+    </div>
 
-  <footer>
-    <a href="https://www.facebook.com/profile.php?id=100094694715809"><img class="socialMediaIcons" src="assets/images/icon_facebook.png" alt="Facebook Profile"></a>
-    <a href="https://www.instagram.com/freelaundryaccess/?hl=en"><img class="socialMediaIcons" src="assets/images/icon_instagram.png" alt="Instagram Profile"></a>    
-    <br/>
-    <p id="footerLinks"><a href="privacypolicy.html">Privacy Policy</a>
-    &#124; <a href="termsandconditions.html">Terms &amp; Conditions</a></p>
-    <p>&copy; 2023 Free Laundry Access </p>
-    <p> Charity Registration Number: 74952 8949 RR0001</p>
-  </footer>
-  <script src="app.js"></script>
-</body>
+    <span id="aboutMobile"></span>
+    <section>
+      <!-- slideshow placeholder images-->
+      <div class="slideshow-container">
+        <div class="slide fade">
+          <img src="assets/images/washers1.jpg" alt="washing machines" />
+        </div>
+        <div class="slide fade">
+          <img
+            src="assets/images/laundry_cart_cropped.jpg"
+            alt="woman loading laundry"
+          />
+        </div>
+        <div class="slide fade">
+          <img src="assets/images/washers2.jpg" alt="white washing machines" />
+        </div>
+        <div class="slide fade">
+          <img
+            src="assets/images/folding_laundry.jpg"
+            alt="woman folding laundry"
+          />
+        </div>
+      </div>
+    </section>
 
+    <main>
+      <!-- about us section -->
+      <section id="about" class="about-section">
+        <div class="about-container">
+          <p>
+            Free Laundry Access charity provides individuals and famililies who
+            are experiencing financial challenges living in Canada with access
+            to clean laundry in self-service laundromats. Our charity’s origins
+            began during the pandemic when Nancy Seto, owner of Yummi Café
+            Laundromat, witnessed the financial struggles her customers were
+            experiencing, and their need to have access to clean laundry
+            services. As our world returns to normal, post-pandemic, the need
+            for Free Laundry Access is greater than ever. There are still great
+            social and economic disparities, especially now with significant
+            government budget cuts, reduction in social services, and the
+            soaring cost of living such as food, housing, and medication.
+
+            <br /><br />
+            Free Laundry Access helps those who are experiencing financial
+            challenges<sup>1</sup> by covering the full cost of laundering in a
+            self-service laundromat with the:
+            <br />
+            &#9679; Cost of wash and dry
+            <br />
+            &#9679; Laundry detergent and dryer sheets
+
+            <br /><br />
+
+            We partner with laundromats in major cities across Canada to deliver
+            the service on site and in person. To spread the word about this
+            much needed program we work with grass-root community groups,
+            governments, and charitable organizations. Our staff will be on-site
+            at each event to ensure the program runs smoothly and to provide
+            support to those in need with the use of the machines and having
+            their clothes cleaned properly. Your donation will help continue
+            this program, allow us to expand our program offering, and continue
+            to make a positive impact on the lives of individuals and families
+            in communities across Canada.
+
+            <br /><br />
+            <sup>
+              Canadian Government defines the threshold for a single-adult
+              household with low-income is $27,514 or $51,128 for a family of 4
+              (Statistics Canada determines the Low Income Cut-Off (LICO)
+              threshold by family size, per the Census Family definition. The
+              Low Income Cut-Off thresholds were last updated June 30, 2023.
+              <a
+                href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110024101&pickMembers%5B0%5D=2.2&cubeTimeFrame.startYear=2017&cubeTimeFrame.endYear=2021&referencePeriods=20170101%2C2021010"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Statistics Canada
+              </a>
+              determines the Low Income Cut-Off (LICO) threshold by family size,
+              per the Census Family definition). The Low Income Cut-Off
+              thresholds were last updated June 30, 2023.
+            </sup>
+          </p>
+        </div>
+      </section>
+
+      <!-- call to action buttons -->
+      <div class="callToActionImages">
+        <a href="partnership.html">
+          <div class="callToAction">
+            <img src="assets/images/partnership.png" alt="Partnership" />
+          </div>
+        </a>
+
+        <a href="contact.html">
+          <div class="callToAction">
+            <img src="assets/images/volunteer.png" alt="Volunteer" />
+          </div>
+        </a>
+
+        <div class="callToAction">
+          <div id="donate-button-container">
+            <div class="donate-btn" id="donateButtonDesktop"></div>
+            <script
+              src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js"
+              charset="UTF-8"
+            ></script>
+            <script>
+              PayPal.Donation.Button({
+                env: "production",
+                hosted_button_id: "24NRC7PDKPWBC",
+                image: {
+                  src: "https://pics.paypal.com/00/s/YmIzYmNhYTktYzYwYi00MjI3LWEyNmUtZjU5NGViMzg0NmZm/file.PNG",
+                  alt: "Donate with PayPal button",
+                  title: "PayPal - The safer, easier way to pay online!",
+                },
+              }).render("#donateButtonDesktop");
+            </script>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <a href="https://www.facebook.com/profile.php?id=100094694715809"
+        ><img
+          class="socialMediaIcons"
+          src="assets/images/icon_facebook.png"
+          alt="Facebook Profile"
+      /></a>
+      <a href="https://www.instagram.com/freelaundryaccess/?hl=en"
+        ><img
+          class="socialMediaIcons"
+          src="assets/images/icon_instagram.png"
+          alt="Instagram Profile"
+      /></a>
+      <br />
+      <p id="footerLinks">
+        <a href="privacypolicy.html">Privacy Policy</a> &#124;
+        <a href="termsandconditions.html">Terms &amp; Conditions</a>
+      </p>
+      <p>&copy; 2023 Free Laundry Access</p>
+      <p>Charity Registration Number: 74952 8949 RR0001</p>
+    </footer>
+    <script src="app.js"></script>
+  </body>
 </html>
