@@ -1,0 +1,91 @@
+.newsSection {
+    background-color: rgb(240, 240, 240);
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.news-content {
+    text-align: center;
+}
+
+.button {
+    margin-top: 20px; /* Adjust the margin as needed */
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Adjust the column widths as needed */
+    gap: 20px; /* Adjust the gap between columns */
+}
+
+.title {
+    font-size: 24px;
+    margin-top: 0; /* Remove default margin for h1 element */
+}
+
+.subtitle {
+    font-size: 18px;
+    text-align: left;
+}
+
+.articleContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three images in a row */
+    gap: 20px;
+    justify-content: center;
+    text-align: center;
+}
+
+.articleImage {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center text and button vertically */
+    text-align: center;
+}
+
+.articleImage img {
+    max-width: 100%;
+    height: auto;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.title {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.button {
+    font-size: 14px;
+    padding: 15px 5px;
+    background-color: #84d0ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* On smaller screens, use a single column layout */
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .image {
+        flex: 0 0 100%; /* On smaller screens, make images full-width */
+    }
+    .image-container {
+        grid-template-columns: repeat(1, 1fr); /* One image per row on smaller screens */
+    }
+}
