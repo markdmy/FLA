@@ -1,6 +1,6 @@
 .newsSection {
-    margin: 220px;
-    background-color: #f3f3f3;
+    margin: 175px;
+    background-color: #f8f8f8;
 }
 
 .newsTitleSection {
@@ -60,6 +60,27 @@
     margin-top: 10px;
     font-size: 16px;
     padding: 10px;
+}
+
+.read-more-button {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.read-more-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #58a5f8;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.read-more-button a:hover {
+    background-color: #0059b9;
 }
 
 @media (max-width: 767px) {
