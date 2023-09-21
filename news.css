@@ -1,91 +1,94 @@
 .newsSection {
-    background-color: rgb(240, 240, 240);
+    margin: 220px;
+    background-color: #f3f3f3;
+}
+
+.newsTitleSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    align-items: center;
+}
+
+.newsTitle {
+    padding: 20px;
+    text-align: left;
+}
+
+.newsTitleImage {
+    max-width: 100%;
+    height: auto;
+}
+
+.newsTitle h2 {
+    padding: 20px;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.newsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 100%;
+    overflow-x: auto;
     padding: 50px;
+    box-sizing: border-box;
+}
+
+.newsCard img {
+    max-width: 55%;
+    height: auto;
+    display: block;
+    padding: 20px;
+}
+
+.newsCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 }
 
-.news-content {
-    text-align: center;
+.newsDescription {
+    margin-top: 10px;
+    font-size: 16px;
+    padding: 10px;
 }
 
-.button {
-    margin-top: 20px; /* Adjust the margin as needed */
-}
-
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Adjust the column widths as needed */
-    gap: 20px; /* Adjust the gap between columns */
-}
-
-.title {
-    font-size: 24px;
-    margin-top: 0; /* Remove default margin for h1 element */
-}
-
-.subtitle {
-    font-size: 18px;
-    text-align: left;
-}
-
-.articleContainer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three images in a row */
-    gap: 20px;
-    justify-content: center;
-    text-align: center;
-}
-
-.articleImage {
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center text and button vertically */
-    text-align: center;
-}
-
-.articleImage img {
-    max-width: 100%;
-    height: auto;
-}
-
-.image img {
-    max-width: 100%;
-    height: auto;
-}
-
-.title {
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-.button {
-    font-size: 14px;
-    padding: 15px 5px;
-    background-color: #84d0ff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-
-@media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr; /* On smaller screens, use a single column layout */
+@media (max-width: 767px) {
+    .newsSection {
+        margin: 20px;
     }
 
-    .header {
+    .newsTitleSection {
+        grid-template-columns: 1fr;
+    }
+
+    .newsTitle {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .newsGrid {
+        grid-template-columns: 1fr; 
         padding: 20px;
+        gap: 20px; 
     }
 
-    .image {
-        flex: 0 0 100%; /* On smaller screens, make images full-width */
+    .newsCard img {
+        width: 100%;
+        padding: 10px; 
     }
-    .image-container {
-        grid-template-columns: repeat(1, 1fr); /* One image per row on smaller screens */
+
+    .newsDescription {
+        font-size: 14px;
+        padding: 10px;
     }
 }
