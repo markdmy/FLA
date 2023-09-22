@@ -1,5 +1,5 @@
 <?php
-
+//the following credential needs to be altered.
 $dsn = 'mysql:host=localhost;dbname=freelaundryaccess';
 $dbname = 'freelaundryaccess';
 $host = 'localhost';
