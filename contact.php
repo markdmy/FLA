@@ -1,3 +1,4 @@
+<!--coded by Eunji--->
 <?php
 include('models/contact_model.php');
 ?>
@@ -21,20 +22,22 @@ include('models/contact_model.php');
         <div class="centerContactForm">
             <!--coded by eunji-->
             <form action="models/contact_model.php" method="POST" id="contactForm" class="">
-                <h2 class="h2ContactUs">Contact Us</h2>
+                <h1 class="h1ContactUs">Contact Us</h1>
                 <label for="name" class="form-label">Name:</label>
-                <input type="text" id="name" placeholder="Your Name" name="name" class="form-input" required>
+                <input type="text" id="contact-name" placeholder="Your Name" name="contact-name" class="form-input"
+                    required>
 
                 <label for="email" class="form-label">Email:</label>
-                <input type="text" id="email" placeholder="Your Email" name="email" class="form-input" required>
+                <input type="email" id="contact-email" placeholder="Your Email" name="contact-email" class="form-input"
+                    required>
 
                 <label for="phone" class="form-label">phone number(Optional)</label>
 
-                <input type="tel" id="phone" name="phoneNumber" placeholder="Format: 123-456-7890"
+                <input type="tel" id="contact-phone" name="contact-phone" placeholder="Format: 123-456-7890"
                     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-input">
 
                 <label for="message" class="form-label">Message:</label>
-                <textarea name="comments" rows="4" required class="form-textarea"></textarea>
+                <textarea name="contact-comments" rows="4" required class="form-textarea"></textarea>
                 <button type="submit" id="contactSubmit" class="btn-container" onclick="">
                     <div class="btn btn-submit">
                         <span>SUBMIT</span>

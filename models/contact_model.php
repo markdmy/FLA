@@ -4,16 +4,18 @@ but once we can figure out mail server works, we can just simple reponse to the 
 alert message ---->
 
 <?php
-include('db_conn.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $phoneNumber = $_POST["phoneNumber"];
-    $comments = $_POST["comments"];
+    $name = $_POST["contact-name"];
+    $email = $_POST["contact-email"];
+    $phoneNumber = $_POST["contact-phone"];
+    $comments = $_POST["contact-comments"];
+
+    //this try and catch block will execute and show what we need to change fopr mail server to connet
+    //eunji
 
     try {
-        $to = "Info@freelaundryaccess.com"; 
+        $to = "info@freelaundryaccess.com"; 
         $subject = "Contact Form Submission from $name";
 
         $headers = "From: $email\r\n";
@@ -27,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $mailSuccess = mail($to, $subject, $emailMessage, $headers);
 
+        //we could change this block of code to direct the page to contactSubmit.html or contactSubmit.php.
         if ($mailSuccess) {
             echo "Thank you for your message. We will get back to you shortly.";
         } else {
@@ -37,12 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "An error occurred: " . $e->getMessage();
     }
 
+
+    //temporary solution 
     echo ' <p>Redirecting to home page....</p>';
    
     echo '<script>
         setTimeout(function() {
             location.href = "../index.html"; 
-        }, 6000);
+        }, 10000);
     </script>';
 }
 ?>
