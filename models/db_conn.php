@@ -1,16 +1,22 @@
+<!--coded by Eunji--->
+
 <?php
-//the following credential needs to be altered.
+//local connection in eunji's phpmyadmin for testing purpose
 $dsn = 'mysql:host=localhost;dbname=freelaundryaccess';
-$dbname = 'freelaundryaccess';
-$host = 'localhost';
 $username = 'cookAdmin';
 $password = '12341234';
+
+//live connection ; once Nancy give eunji the credentails these can be updated and tested.
+//$dsn = 'mysql:host=connorjpierceflap.netfirmsmysql.com;dbname=freelaundryaccess';
+//$username = ''; 
+//$password = ''; 
+
+
 
 try {
     $db = new PDO($dsn, $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-  
+  //echo "database connected!!!!!"
 } catch (PDOException $e) {
     // Connection failed, display error message
     $error_message = $e->getMessage();

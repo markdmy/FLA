@@ -1,12 +1,14 @@
+<!--coded by Eunji--->
+
 <?php
 include('db_conn.php');
 
-function add_family_member($participantID, $firstName, $lastName, $dateOfBirth, $relationshipToParticipant, $gender)
+function add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender)
 {
     global $db;
     try {
         $query = "INSERT INTO familymembers (familyMemberID, participantID, firstName, lastName, dateOfBirth,  relationshipToParticipant, gender)
-        VALUES (NULL, '$participantID', '$firstName', '$lastName', '$dateOfBirth', '$relationshipToParticipant', '$gender')";
+        VALUES (NULL, '$participantID', '$familyFirstName', '$familyLastName', '$familyDateOfBirth', '$relationshipToParticipant', '$gender')";
         
         $result = $db->query($query);
 

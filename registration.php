@@ -2,8 +2,8 @@
 <?php
 
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 
 include('models/participant_model.php');
@@ -87,36 +87,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formCreated = date('Y-m-d H:i:s');
 
 
-    $participantID = add_participant($firstName, $lastName, $dateOfBirth,  $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12,
-    $NumberOfChildrenOver12, $email, $address,  $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $consent);
-
-    if($participantID){
-
-        //this is a code to see the posted data
-        // var_dump($_POST);
-
-        
-        if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) && isset($_POST['relationship']) && isset($_POST['gender'])) {
-            $firstNames = $_POST['first_name'];
-            $lastNames = $_POST['last_name'];
-            $birthDates = $_POST['birth_date'];
-            $relationships	 = $_POST['relationship'];
-            $genders = $_POST['gender'];
-
-            for ($i = 0; $i < count($firstNames); $i++) {
-                $firstName = $firstNames[$i];
-                $lastName = $lastNames[$i];
-                $dateOfBirth = $birthDates[$i];
-                $relationshipToParticipant = $relationships[$i];
-                $gender = $genders[$i];
-
-                add_family_member($participantID, $firstName, $lastName, $dateOfBirth, $relationshipToParticipant, $gender);
+    $participantInfo = add_participant($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $consent);
+    if ($participantInfo) {
+        $participantID = $participantInfo['participantID'];
+        $participantReference = $participantInfo['participantReference'];
+    
+        if($participantID){
+            //this is a code to see the posted data
+            // var_dump($_POST);
+            
+            if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) && isset($_POST['relationship']) && isset($_POST['gender']))
+            {
+                $firstNames = $_POST['first_name'];
+                $lastNames = $_POST['last_name'];
+                $birthDates = $_POST['birth_date'];
+                $relationships	 = $_POST['relationship'];
+                $genders = $_POST['gender'];
+    
+                for ($i = 0; $i < count($firstNames); $i++) {
+                    $familyFirstName = $firstNames[$i];
+                    $familyLastName = $lastNames[$i];
+                    $familyDateOfBirth = $birthDates[$i];
+                    $relationshipToParticipant = $relationships[$i];
+                    $gender = $genders[$i];
+    
+                    add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender);
+                }
             }
+
+            header("Location: registrationSuccess.php?participantReference=$participantReference&firstName=$firstName");
+            exit();
+    }
 
     }
 
+   
 }  
-}  
+
 ?>
 
 
@@ -127,8 +134,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="Register for Free Laundry Access - Sign up for free laundry access" />
+    <meta name="keywords" content="registration, sign up, Free Laundry Access">
     <link rel="stylesheet" href="css/registration.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <title>Registration</title>
 </head>
 
 <body>
@@ -153,14 +163,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="input-box">
                     <label>Email Address</label>
-                    <input type="text" placeholder="Enter email address" required name="p_email" />
+                    <input type="email" placeholder="Enter email address" required name="p_email" />
                 </div>
 
                 <div class="column">
                     <div class="input-box">
-                        <label>Phone Number</label>
+                        <label for="phone">Phone Number</label>
                         <input type="tel" id="phone" name="p_phoneNumber" placeholder="Format: 123-456-7890"
-                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-input">
+                            class="form-input">
                     </div>
                     <div class="input-box">
                         <label>Birth Date</label>
@@ -201,21 +211,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="input-box">
                     <label>Total number of individuals in your household using this program:</label>
-                    <input type="number" placeholder="Enter total number" name="numberOfHousehold" />
+                    <input type="number" placeholder="Enter total number" name="numberOfHousehold" min="0" />
                 </div>
 
                 <div class="column">
                     <div class="input-box">
                         <label>Number of Adults (18 yrs and older):</label>
-                        <input type="number" placeholder="Enter number" name="numberOfAdults" />
+                        <input type="number" placeholder="Enter number" name="numberOfAdults" min="0" />
                     </div>
                     <div class="input-box">
                         <label>Number of Children (Under 12 yrs old):</label>
-                        <input type="number" placeholder="Enter number" name="children_under12" />
+                        <input type="number" placeholder="Enter number" name="children_under12" min="0" />
                     </div>
                     <div class="input-box">
                         <label>Number of Children (Over 12 yrs old):</label>
-                        <input type="number" placeholder="Enter number" name="children_over12" />
+                        <input type="number" placeholder="Enter number" name="children_over12" min="0" />
                     </div>
                 </div>
 
@@ -348,15 +358,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             and sharing or disclosing your personal information. Tell us if you would like to receive a
                             copy
                             of our Privacy Policy.</p>
-                        </br>
-                        <ul>
+                        <br>
+                        <ul class="privacy-right">
                             <li>You have the right to receive a copy of the information about you that is stored in the
                                 Free
                                 Laundry Access Client Management System and/or the Free Laundry Access Intake software.
                             </li>
                             <li>You have the right to correct mistakes in information about you.</li>
                         </ul>
-                        </br>
+                        <br>
                         <p>Our resources and ability to serve your community depend in part on the information provided
                             by
                             our participants.</p>
