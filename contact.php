@@ -20,7 +20,7 @@ include('models/contact_model.php');
     <main>
         <div class="centerContactForm">
             <!--coded by eunji-->
-            <form action="models/contact_model.php" method="POST" id="contactForm" class="">
+            <form action="models/send-email.php" method="POST" id="contactForm" class="">
                 <h2 class="h2ContactUs">Contact Us</h2>
                 <label for="name" class="form-label">Name:</label>
                 <input type="text" id="name" placeholder="Your Name" name="name" class="form-input" required>
