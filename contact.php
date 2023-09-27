@@ -1,7 +1,5 @@
 <!--coded by Eunji--->
-<?php
-include('models/contact_model.php');
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,9 +17,7 @@ include('models/contact_model.php');
 <body>
     <?php include('components/header.php'); ?>
     <main>
-        <div class="centerContactForm">
-            <!--coded by eunji-->
-            <form action="models/send-email.php" method="POST" id="contactForm" class="">
+<form action="models/contact_model.php" method="POST" id="contactForm" class="">
                 <h2 class="h2ContactUs">Contact Us</h2>
                 <label for="name" class="form-label">Name:</label>
                 <input type="text" id="contact-name" placeholder="Your Name" name="contact-name" class="form-input"
@@ -44,8 +40,6 @@ include('models/contact_model.php');
                     </div>
                 </button>
             </form>
-            <!--coded by eunji-->
-        </div>
 
 
     </main>
