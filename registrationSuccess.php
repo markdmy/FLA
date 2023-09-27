@@ -55,3 +55,10 @@ if (isset($_GET['participantReference']) && isset($_GET['firstName'])) {
 
     <?php
 include('components/footer.php'); ?>
+
+
+    <script src="js/app.js"></script>
+    <script src="js/form.js"></script>
+</body>
+
+</html>

@@ -58,6 +58,29 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.style.overflow = "auto";
     }
   });
+
+  //by eunji. Adding automatic phoneinput formats in all forms
+  const phoneInputs = document.querySelectorAll("input[type=tel]");
+
+  phoneInputs.forEach((phoneInput) => {
+    phoneInput.addEventListener("input", function (e) {
+      const inputValue = e.target.value.replace(/\D/g, "");
+
+      if (inputValue.length >= 1) {
+        let formattedValue = "";
+        if (inputValue.length > 0) {
+          formattedValue += inputValue.substring(0, 3);
+        }
+        if (inputValue.length >= 4) {
+          formattedValue += "-" + inputValue.substring(3, 6);
+        }
+        if (inputValue.length >= 7) {
+          formattedValue += "-" + inputValue.substring(6, 10);
+        }
+        e.target.value = formattedValue;
+      }
+    });
+  });
 });
 
 // homepage image slideshow

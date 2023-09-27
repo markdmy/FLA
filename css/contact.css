@@ -34,7 +34,7 @@
 
 @media screen and (min-width: 768px) {
   .centerContactForm {
-      width: 35%;
+      width: 45%;
       margin: auto;
       padding: 9% 0 7%;
   } 
@@ -51,7 +51,9 @@
 
 @media screen and (max-width: 767px) {
   .centerContactForm {
+    min-height: 60vh;
     width: 80%;
+    padding-top:7%;
     margin: auto;
   }
 
