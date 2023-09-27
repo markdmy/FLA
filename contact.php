@@ -1,6 +1,4 @@
 <!--coded by Eunji--->
-
-
 <!DOCTYPE html>
 <html lang="en">
 

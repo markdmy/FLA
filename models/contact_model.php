@@ -29,7 +29,6 @@ $mail->addAddress("markdmy@hotmail.com", "Mark");
 
 $mail->Subject = "FLA Contact Us";
 
-// Create the email body with vertical lines
 $mail->Body = "Name: $name\nEmail: $email\nPhone Number: $phoneNumber\nComments: $comments";
 
 $mail->AltBody = "Name: $name\nEmail: $email\nPhone Number: $phoneNumber\nComments: $comments";
