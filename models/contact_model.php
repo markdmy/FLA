@@ -8,7 +8,7 @@ $comments = $_POST["contact-comments"];
 require "mail_library/vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\SMTP;
 
 $mail = new PHPMailer(true);
 
@@ -29,7 +29,6 @@ $mail->addAddress("markdmy@hotmail.com", "Mark");
 
 $mail->Subject = "FLA Contact Us";
 
-// Create the email body with vertical lines
 $mail->Body = "Name: $name | Email: $email | Phone Number: $phoneNumber | Comments: $comments";
 
 $mail->AltBody = "Name: $name | Email: $email | Phone Number: $phoneNumber | Comments: $comments";
@@ -38,4 +37,3 @@ if ($mail->send()) {
 } else {
     echo "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
 }
-?>
