@@ -1,9 +1,0 @@
-<?php
-include('models/db_conn.php');
-include('models/db_error.php');
-include('models/events_model.php');
-include('models/familyMembers_model.php');
-include('models/participant_model.php');
-include('models/partnership_model.php');
-include('models/staff_model.php');
-?>
