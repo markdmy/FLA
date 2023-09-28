@@ -1,7 +1,6 @@
 .attendant-check {
     display: flex;
     align-items: center;
-    justify-content: center; 
     margin-top: 12px;
     accent-color: #5b8da8;
   }

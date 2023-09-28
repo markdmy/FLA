@@ -1,6 +1,66 @@
 <!--coded by Eunji--->
 <?php
 include('models/partnership_model.php');
+$partnerReference = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if(isset($_POST['pt_first_name'])){
+        $partnerFirstName = $_POST['pt_first_name'];
+    }
+    
+    if(isset($_POST['pt_last_name'])){
+        $lastName = $_POST['pt_last_name'];
+    }
+    
+     if(isset($_POST['pt_email'])){
+        $email = $_POST['pt_email'];
+    }
+
+
+    if(isset($_POST['pt_phoneNumber'])){
+        $phone = $_POST['pt_phoneNumber'];
+    }
+
+
+    if(isset($_POST['pt_address'])){
+        $address = $_POST['pt_address'];
+    }
+
+    if(isset($_POST['pt_city'])){
+        $city = $_POST['pt_city'];
+    }
+    if(isset($_POST['pt_province'])){
+        $province = $_POST['pt_province'];
+    }
+    
+    if(isset($_POST['pt_postalCode'])){
+        $postalCode = $_POST['pt_postalCode'];
+    }
+
+    if(isset($_POST['numberOfWashers'])){
+        $numberOfWashers = $_POST['numberOfWashers'];
+    }
+    
+    if(isset($_POST['numberOfDryers'])){
+        $NumberOfDryers = $_POST['numberOfDryers'];
+    }
+
+
+    if (isset($_POST['hasAttendant'])) {
+        $hasAttendant = $_POST['hasAttendant']; 
+    }
+
+    $formCreated = date('Y-m-d H:i:s');
+    $partnerReference = add_partner($partnerFirstName, $lastName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
+    if($partnerReference){
+        header("Location: registrationSuccess.php?partnerReference=$partnerReference&partnerFirstName=$partnerFirstName");
+        exit();
+    }
+    
+    
+  }
+  
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +80,8 @@ include('models/partnership_model.php');
 <body>
     <?php include('components/header.php'); ?>
     <section class="container">
-        <!-- <header>Registration Form</header> -->
+
+
 
         <form action="partnership.php" method="POST" class="form" id="partnership-form">
             <h2>Partnership Signup Form</h2>
@@ -57,7 +118,7 @@ include('models/partnership_model.php');
 
                         <input type="text" placeholder="Enter your city" required name="pt_city" />
                         <div class="select-box">
-                            <select name="province">
+                            <select name="pt_province">
                                 <option hidden>Province</option>
                                 <option>Alberta</option>
                                 <option>British Columbia</option>
@@ -80,10 +141,6 @@ include('models/partnership_model.php');
 
                 </div>
 
-                <div class="input-box">
-                    <label>Total number of individuals in your household using this program:</label>
-                    <input type="number" placeholder="Enter total number" name="numberOfHousehold" min="0" />
-                </div>
 
                 <div class="column">
                     <div class="input-box">
@@ -94,23 +151,23 @@ include('models/partnership_model.php');
                         <label>Number of Dryers:</label>
                         <input type="number" placeholder="Enter number" name="numberOfDryers" min="0" />
                     </div>
-                    <div class="input-box">
-                        <label>Has a attendant(s)?</label>
-                        <div class="attendant-check">
-                            <div class="check-answer">
-                                <input type="radio" id="hasAttendant-yes" name="hasAttendant" value="yes"
-                                    class="radio-attendant" checked>
-                                <label for="hasAttendant-yes">Yes</label>
-                            </div>
-                            <div class="check-answer">
-                                <input type="radio" id="hasAttendant-no" name="hasAttendant" value="no"
-                                    class="radio-attendant">
-                                <label for="hasAttendant-no">No</label>
-                            </div>
+
+
+                </div>
+                <div class="input-box">
+                    <label>Has a attendant(s)?</label>
+                    <div class="attendant-check">
+                        <div class="check-answer">
+                            <input type="radio" id="hasAttendant-yes" name="hasAttendant" value="yes"
+                                class="radio-attendant" checked>
+                            <label for="hasAttendant-yes">Yes</label>
+                        </div>
+                        <div class="check-answer">
+                            <input type="radio" id="hasAttendant-no" name="hasAttendant" value="no"
+                                class="radio-attendant">
+                            <label for="hasAttendant-no">No</label>
                         </div>
                     </div>
-
-
                 </div>
 
 
@@ -118,7 +175,7 @@ include('models/partnership_model.php');
 
 
             </div>
-            <button type="submit" id="partnershipSubmit" class="btn-container" onclick="">
+            <button type="submit" id="partnershipSubmit" class="btn-container">
                 <div class="btn btn-submit">
                     <span>SUBMIT</span>
                 </div>

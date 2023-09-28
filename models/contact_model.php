@@ -1,53 +1,87 @@
-<!--coded by eunji : right now because I cant test the mail server, when the user filled out and submit the form 
-it will led to contact_model.php page showing the error message and it will redirect the page to the home page 
-but once we can figure out mail server works, we can just simple reponse to the user with a pop up window or 
-alert message ---->
+<!--coded by Mark and Eunji. DB by eunji, mail server by Mark-->
 
 <?php
+include('db_conn.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["contact-name"];
-    $email = $_POST["contact-email"];
-    $phoneNumber = $_POST["contact-phone"];
-    $comments = $_POST["contact-comments"];
+    
+    //had to change variable names because they are key words in SGL or php
+    $contactName = $_POST["contact-name"];
+    $contactEmail = $_POST["contact-email"];
+    $contactPhoneNumber = $_POST["contact-phone"];
+    $contactComments = $_POST["contact-comments"];
+    $contactFormCreated = date('Y-m-d H:i:s');
+    
 
-    //this try and catch block will execute and show what we need to change fopr mail server to connet
-    //eunji
+try {
+require "mail_library/vendor/autoload.php";
 
-    try {
-        $to = "info@freelaundryaccess.com"; 
-        $subject = "Contact Form Submission from $name";
+use PHPMailer\PHPMailer\PHPMailer;
+//use PHPMailer\PHPMailer\SMTP;
 
-        $headers = "From: $email\r\n";
-        $headers .= "Reply-To: $email\r\n";
-        $headers .= "X-Mailer: PHP/" . phpversion();
+$mail = new PHPMailer(true);
 
-        $emailMessage = "Name: $name\n";
-        $emailMessage .= "Email: $email\n";
-        $emailMessage .= "Phone: $phoneNumber\n";
-        $emailMessage .= "Message:\n$comments";
+//$mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
-        $mailSuccess = mail($to, $subject, $emailMessage, $headers);
+$mail->isSMTP();
+$mail->SMTPAuth = true;
 
-        //we could change this block of code to direct the page to contactSubmit.html or contactSubmit.php.
-        if ($mailSuccess) {
-            echo "Thank you for your message. We will get back to you shortly.";
-        } else {
-            echo "Sorry, there was an error sending your message. Please try again later.";
-        }
+$mail->Host = "smtp.netfirms.com";
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+$mail->Port = 465;
+
+$mail->Username = "contact@freelaundryaccess.com";
+$mail->Password = "Freelaundryaccess4168441484";
+
+$mail->setFrom("contact@freelaundryaccess.com", $contactName);
+$mail->addAddress("contact@freelaundryaccess.com", "Nancy");
+
+$mail->Subject = "FLA Contact Us";
+
+$mail->Body = "Name: $contactName\nEmail: $contactEmail\nPhone Number: $contactPhoneNumber\nComments: $contactComments";
+
+$mail->AltBody = "Name: $contactName\nEmail: $contactEmail\nPhone Number: $contactPhoneNumber\nComments: $contactComments";
+
+if ($mail->send()) {
+    $emailSent = true;
+    header("Location: contactsubmit.html");
+    exit();
+} else {
+    echo "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
+    $emailSent = false;
+}
+
+//pushing posted data to database even when the mail server is down.
+add_contactFormData($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated, $emailSent);
         
     } catch (Exception $e) {
         echo "An error occurred: " . $e->getMessage();
     }
 
-
-    //temporary solution 
-    echo ' <p>Redirecting to home page....</p>';
-   
-    echo '<script>
-        setTimeout(function() {
-            location.href = "../index.html"; 
-        }, 10000);
-    </script>';
 }
+
+
+
+function add_contactFormData($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated, $emailSent){
+
+    global $db;
+    try {
+        $query = "INSERT INTO contactform (contactID, contactName, contactEmail, contactPhone, comments, formCreated, emailSent) 
+        VALUES (NULL, '$contactName', '$contactEmail', '$contactPhoneNumber', '$contactComments', '$contactFormCreated', '$emailSent')";
+
+        $result = $db->query($query);
+
+        if ($result) {
+            return true; 
+        } else {
+            throw new Exception("Database query failed: " . $db->error);
+        }
+
+    } catch (Exception $e) {
+        echo "An error occurred: " . $e->getMessage();
+        return false; 
+    }
+    
+}
+
 ?>

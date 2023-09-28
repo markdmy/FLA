@@ -12,6 +12,10 @@ include('models/familyMembers_model.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+
+    echo "Received POST data:<br>";
+    echo "<pre>" . print_r($_POST, true) . "</pre>";
+
     if(isset($_POST['p_first_name'])){
         $firstName = $_POST['p_first_name'];
     }
