@@ -15,7 +15,7 @@
 <body>
     <?php include('components/header.php'); ?>
     <main>
-<form action="models/contact_model.php" method="POST" id="contactForm" class="">
+<form class="contactForm" action="models/contact_model.php" method="POST" id="contactForm" class="">
                 <h2 class="h2ContactUs">Contact Us</h2>
                 <label for="name" class="form-label">Name:</label>
                 <input type="text" id="contact-name" placeholder="Your Name" name="contact-name" class="form-input"
