@@ -11,9 +11,3 @@
     <p>© 2023 Free Laundry Access</p>
     <p>Charity Registration Number: 74952 8949 RR0001</p>
 </footer>
-
-<script src="js/app.js"></script>
-<script src="js/form.js"></script>
-</body>
-
-</html>

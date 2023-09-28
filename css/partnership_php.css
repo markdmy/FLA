@@ -1,0 +1,25 @@
+.attendant-check {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    accent-color: #5b8da8;
+  }
+  
+  .check-answer {
+    margin-right: 20px;
+  }
+  
+
+
+.form .radio-attendant {
+    width: 0.9rem; 
+    height: 0.9rem; 
+    margin-right: 5px; 
+}
+
+
+.attendant-check input[type="radio"]:focus {
+    box-shadow: none;
+}
+
+ 

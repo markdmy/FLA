@@ -12,6 +12,10 @@ include('models/familyMembers_model.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+
+    echo "Received POST data:<br>";
+    echo "<pre>" . print_r($_POST, true) . "</pre>";
+
     if(isset($_POST['p_first_name'])){
         $firstName = $_POST['p_first_name'];
     }
@@ -169,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="column">
                     <div class="input-box">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="p_phoneNumber" placeholder="Format: 123-456-7890"
+                        <input type="tel" id="p_phone" name="p_phoneNumber" placeholder="Format: 123-456-7890"
                             class="form-input">
                     </div>
                     <div class="input-box">
@@ -415,3 +419,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php
 include('components/footer.php'); ?>
+
+
+
+    <script src="js/app.js"></script>
+    <script src="js/form.js"></script>
+</body>
+
+</html>

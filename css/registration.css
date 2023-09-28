@@ -16,7 +16,6 @@
   background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(133,212,255,1) 65%, rgba(0,160,193,1) 100%);
 } */
 .container {
-  position: relative;
   max-width: 780px;
   width: 100%;
   background: #fff;
@@ -39,7 +38,7 @@
 
 
 .container .form {
-  margin-top: 30px;
+  margin-top: 50px;
 }
 .form .input-box {
   width: 100%;
@@ -367,9 +366,19 @@
 }
 
 
-.participant-reference {
+.reference-box {
   border: 1px solid #686868;
   padding: 5% 0 5%;
   margin: 7%;
 
+}
+
+.reference-phrase {
+  font-size: 1.2rem;
+  margin-top: 5%;;
+}
+
+.reference-reason{
+  font-size:0.8rem;
+  margin-top: 4%;
 }

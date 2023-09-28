@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 26, 2023 at 11:54 PM
+-- Generation Time: Sep 28, 2023 at 07:14 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `freelaundryaccess`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contactform`
+--
+
+CREATE TABLE `contactform` (
+  `contactID` int(11) NOT NULL,
+  `contactName` varchar(50) NOT NULL,
+  `contactEmail` varchar(100) NOT NULL,
+  `contactPhone` varchar(20) NOT NULL,
+  `comments` text NOT NULL,
+  `formCreated` datetime NOT NULL,
+  `emailSent` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -61,7 +77,7 @@ CREATE TABLE `participants` (
   `currentHousingSituation` varchar(50) NOT NULL,
   `howDidYouFindProgram` varchar(200) NOT NULL,
   `formCreated` datetime NOT NULL,
-  `consent` tinyint(4) NOT NULL,
+  `consent` tinyint(1) NOT NULL,
   `participantReference` varchar(10) NOT NULL,
   `letter` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -108,20 +124,53 @@ CREATE TABLE `partnership` (
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `address` varchar(100) NOT NULL,
   `phone` varchar(20) NOT NULL,
+  `streetAddress` varchar(100) NOT NULL,
   `city` varchar(50) NOT NULL,
   `province` varchar(50) NOT NULL,
   `postalcode` varchar(10) NOT NULL,
   `numberOfWashers` int(11) NOT NULL,
   `numberOfDryers` int(11) NOT NULL,
-  `hasAttendant` tinyint(4) NOT NULL,
+  `hasAttendant` varchar(3) NOT NULL,
+  `formCreated` datetime NOT NULL,
   `partnerReference` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Triggers `partnership`
+--
+DELIMITER $$
+CREATE TRIGGER `before_partnership_insert` BEFORE INSERT ON `partnership` FOR EACH ROW BEGIN
+    DECLARE unique_ref VARCHAR(10);
+    DECLARE ref_exists INT;
+
+    -- Generate a random number between 1 and 9999
+    SET unique_ref = CONCAT('PT', LPAD(FLOOR(1 + (RAND() * 9999)), 4, '0'));
+
+    -- Check if the generated reference already exists in the table
+    SELECT COUNT(*) INTO ref_exists FROM Partnership WHERE partnerReference = unique_ref;
+
+    -- If the reference already exists, generate a new one
+    WHILE ref_exists > 0 DO
+        SET unique_ref = CONCAT('PT', LPAD(FLOOR(1 + (RAND() * 9999)), 4, '0'));
+        SELECT COUNT(*) INTO ref_exists FROM Partnership WHERE partnerReference = unique_ref;
+    END WHILE;
+
+    -- Set the generated unique partnerReference for the new entry
+    SET NEW.partnerReference = unique_ref;
+END
+$$
+DELIMITER ;
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `contactform`
+--
+ALTER TABLE `contactform`
+  ADD PRIMARY KEY (`contactID`);
 
 --
 -- Indexes for table `familymembers`
@@ -144,6 +193,12 @@ ALTER TABLE `partnership`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `contactform`
+--
+ALTER TABLE `contactform`
+  MODIFY `contactID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `familymembers`
