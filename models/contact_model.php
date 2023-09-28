@@ -35,6 +35,7 @@ $mail->AltBody = "Name: $name\nEmail: $email\nPhone Number: $phoneNumber\nCommen
 
 if ($mail->send()) {
     echo "Email sent successfully";
+    header("Location: ../contactsubmit.html");
 } else {
     echo "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
 }
