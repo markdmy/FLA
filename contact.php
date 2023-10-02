@@ -22,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }   
 }    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <?php include('components/header.php'); ?>
-    <section class="container">
+    <<<<<<< HEAD <section class="container">
         <!--coded by eunji-->
         <form action="contact.php" method="POST" id="contactForm" class="form">
             <h2 class="h2ContactUs">Contact Us</h2>
@@ -55,9 +54,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="input-box">
                     <label for="phone" class="form-label">phone number(Optional)</label>
+                    =======
+                    <main>
+                        <form class="contactForm" action="models/contact_model.php" method="POST" id="contactForm"
+                            class="">
+                            <h2 class="h2ContactUs">Contact Us</h2>
+                            <label for="name" class="form-label">Name:</label>
+                            <input type="text" id="contact-name" placeholder="Your Name" name="contact-name"
+                                class="form-input" required>
+                            >>>>>>> 2f36f581736b14326975eb24007b59eb010aa56a
 
-                    <input type="tel" id="contact-phone" name="contact-phone" placeholder="Format: 123-456-7890"
-                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-input">
+                            <input type="tel" id="contact-phone" name="contact-phone" placeholder="Format: 123-456-7890"
+                                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-input">
                 </div>
                 <div class="input-box">
                     <label for="message" class="form-label">Message:</label>
@@ -67,11 +75,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </div>
 
-            <button type="submit" id="contactSubmit" class="btn-container" onclick="">
+            <<<<<<< HEAD <button type="submit" id="contactSubmit" class="btn-container" onclick="">
                 <div class="btn btn-submit">
                     <span>SUBMIT</span>
                 </div>
-            </button>
+                </button>
         </form>
 
         <!---showing error message if email didnt get sent --->
@@ -80,16 +88,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php echo $_SESSION['email_error']; ?>
         </div>
         <?php endif; ?>
+        =======
+        <label for="message" class="form-label">Message:</label>
+        <textarea name="contact-comments" rows="4" required class="form-textarea"></textarea>
+        <button type="submit" id="contactSubmit" class="btn-container" onclick="">
+            <div class="btn btn-submit">
+                <span>SUBMIT</span>
+            </div>
+        </button>
+        </form>
+        >>>>>>> 2f36f581736b14326975eb24007b59eb010aa56a
 
 
 
 
-    </section>
+        </section>
 
-    <?php
+        <?php
 include('components/footer.php'); ?>
 
-    <script src="js/app.js"></script>
+        <script src="js/app.js"></script>
 </body>
 
 </html>
