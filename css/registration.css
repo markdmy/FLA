@@ -36,6 +36,18 @@
     padding:0 3% 0 3%;
 }
 
+.form-textarea {
+  width: 100%;
+  position: relative;
+  outline: none;
+  font-size: 1rem;
+
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding:15px;
+}
 
 .container .form {
   margin-top: 50px;
@@ -151,6 +163,13 @@
     padding: 5% 0 5%;
   }
 
+
+  .submission-success-message{
+    padding:10% 15% 10%;
+    text-align: center;
+    margin: 5% 0 5%;
+  }
+
   }
  
 
@@ -161,7 +180,10 @@
   .form :where(.housing-option, .housing, .program) {
     row-gap: 15px;
   }
+  
+
 }
+
 
 
 .remove-member-button {
@@ -295,16 +317,14 @@
 
 
 
-/**registrationSuccess.php **********/
+/**submitSuccess.php **********/
 
 
-.container .registration-success-message{
+.submission-success-message{
   padding:10% 15% 10%;
   text-align: center;
   margin: 5% 0 5%;
 }
-
-
 
 .btn-gohome {
   content: '';
