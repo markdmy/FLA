@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
 
-            header("Location: registrationSuccess.php?participantReference=$participantReference&firstName=$firstName");
+            header("Location: submitSuccess.php?participantReference=$participantReference&firstName=$firstName");
             exit();
     }
 

@@ -23,4 +23,8 @@ $PHPMAILER_LANG['signing']              = 'Ondertekening Fout: ';
 $PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP-verbinding () misluk.';
 $PHPMAILER_LANG['smtp_error']           = 'SMTP-bediener fout: ';
 $PHPMAILER_LANG['variable_set']         = 'Kan nie veranderlike instel of herstel nie: ';
+<<<<<<< HEAD
 $PHPMAILER_LANG['extension_missing']    = 'Uitbreiding ontbreek: ';
+=======
+$PHPMAILER_LANG['extension_missing']    = 'Uitbreiding ontbreek: ';
+>>>>>>> 2f36f581736b14326975eb24007b59eb010aa56a

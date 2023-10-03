@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!confirmation) {
       e.preventDefault();
     } else {
-      window.location.href = "registrationSuccess.php";
+      window.location.href = "submitSuccess.php";
     }
   });
 });

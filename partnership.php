@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formCreated = date('Y-m-d H:i:s');
     $partnerReference = add_partner($partnerFirstName, $lastName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
     if($partnerReference){
-        header("Location: registrationSuccess.php?partnerReference=$partnerReference&partnerFirstName=$partnerFirstName");
+        header("Location: submitSuccess.php?partnerReference=$partnerReference&partnerFirstName=$partnerFirstName");
         exit();
     }
     

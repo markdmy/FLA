@@ -9,7 +9,11 @@ if (isset($_GET['participantReference']) && isset($_GET['firstName'])) {
     $reference = $_GET['partnerReference'];
     $firstName = $_GET['partnerFirstName'];
     $message = "You have successfully submitted the partnership form.";
-} else {
+} elseif (isset($_GET['contactName'])){
+    $firstName = $_GET['contactName'];
+    $message = "We'll be in touch shortly.";
+}
+else {
     $message = "Error: Form information not found.";
 }
 ?>
@@ -28,6 +32,19 @@ if (isset($_GET['participantReference']) && isset($_GET['firstName'])) {
     <link rel="stylesheet" href="css/registration.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Form Submitted</title>
+    <!--google tag manager script-->
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-JDKE8RQXYH");
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDKE8RQXYH"></script>
+
+</head>
 
 <body>
     <?php 
@@ -35,9 +52,11 @@ if (isset($_GET['participantReference']) && isset($_GET['firstName'])) {
 
 
     <section class="container">
-        <div class="registration-success-message">
+        <div class="submission-success-message">
             <h2 class="thankyou-name">Thank you, <?php echo $firstName; ?> !</h2>
             <p class="success-phrase"><?php echo $message; ?></p>
+
+            <?php if (isset($_GET['participantReference']) || isset($_GET['partnerReference'])) : ?>
             <div class="reference-box">
                 <p class="reference-phrase">Your
                     <?php echo isset($_GET['participantReference']) ? "participant" : "partnership"; ?> reference is
@@ -45,9 +64,9 @@ if (isset($_GET['participantReference']) && isset($_GET['firstName'])) {
                 </p>
                 <p class="reference-reason">*Please keep the reference for event signup.</p>
             </div>
+            <?php endif; ?>
 
 
-            <!---- please change the href-->
             <button class="btn-container" onclick="window.location.href='index.html' ">
                 <div class="btn btn-gohome">
                     <span>GO HOME</span>
@@ -68,7 +87,8 @@ include('components/footer.php'); ?>
 
 
     <script src="js/app.js"></script>
-    <script src="js/form.js"></script>
+
+    <!-- <script src="js/form.js"></script> -->
 </body>
 
 </html>
