@@ -9,11 +9,10 @@ if (isset($_GET['participantReference']) && isset($_GET['firstName'])) {
     $reference = $_GET['partnerReference'];
     $firstName = $_GET['partnerFirstName'];
     $message = "You have successfully submitted the partnership form.";
-} elseif (isset($_GET['contactName'])){
+} elseif (isset($_GET['contactName'])) {
     $firstName = $_GET['contactName'];
     $message = "We'll be in touch shortly.";
-}
-else {
+} else {
     $message = "Error: Form information not found.";
 }
 ?>
@@ -24,6 +23,15 @@ else {
 <html lang="en">
 
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDKE8RQXYH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-JDKE8RQXYH');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -32,23 +40,11 @@ else {
     <link rel="stylesheet" href="css/registration.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Form Submitted</title>
-    <!--google tag manager script-->
-    <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-    gtag("config", "G-JDKE8RQXYH");
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDKE8RQXYH"></script>
-
 </head>
 
 <body>
-    <?php 
-    include('components/header.php')?>
+    <?php
+    include('components/header.php') ?>
 
 
     <section class="container">
@@ -57,13 +53,13 @@ else {
             <p class="success-phrase"><?php echo $message; ?></p>
 
             <?php if (isset($_GET['participantReference']) || isset($_GET['partnerReference'])) : ?>
-            <div class="reference-box">
-                <p class="reference-phrase">Your
-                    <?php echo isset($_GET['participantReference']) ? "participant" : "partnership"; ?> reference is
-                    <b><?php echo $reference; ?>.</b>
-                </p>
-                <p class="reference-reason">*Please keep the reference for event signup.</p>
-            </div>
+                <div class="reference-box">
+                    <p class="reference-phrase">Your
+                        <?php echo isset($_GET['participantReference']) ? "participant" : "partnership"; ?> reference is
+                        <b><?php echo $reference; ?>.</b>
+                    </p>
+                    <p class="reference-reason">*Please keep the reference for event signup.</p>
+                </div>
             <?php endif; ?>
 
 
@@ -83,7 +79,7 @@ else {
 
 
     <?php
-include('components/footer.php'); ?>
+    include('components/footer.php'); ?>
 
 
     <script src="js/app.js"></script>
