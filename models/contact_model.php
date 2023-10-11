@@ -6,7 +6,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 //this function will be called when a user submit a contact from from contact.php
 function send_email($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated)
 {
-    $emailSent = false; 
 
     try {
         require "mail_library/vendor/autoload.php";
@@ -32,18 +31,18 @@ function send_email($contactName, $contactEmail, $contactPhoneNumber, $contactCo
         $mail->AltBody = "Name: $contactName\nEmail: $contactEmail\nPhone Number: $contactPhoneNumber\nComments: $contactComments";
 
         if ($mail->send()) {
-            $emailSent = true;
+            echo "<script>window.location.href='submitSuccess.php?contactName=$contactName';</script>";
+                exit();
+            }   
          
-        } else {
+        else {
             $_SESSION['email_error'] = "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
-            $emailSent = false;
+           
         }
-
+    
     } catch (Exception $e) {
         echo "An error occurred: " . $e->getMessage();
     }
-
-    return $emailSent; // Return the value of emailSent; if email sent successfully it returns true or false
 }
 
 

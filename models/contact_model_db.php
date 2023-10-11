@@ -8,8 +8,9 @@ function add_contactFormData($contactName, $contactEmail, $contactPhoneNumber, $
     global $db;
     
     try {
+        $contactID = '1';
         $query = "INSERT INTO contactform (contactID, contactName, contactEmail, contactPhone, comments, formCreated, emailSent) 
-        VALUES (NULL, '$contactName', '$contactEmail', '$contactPhoneNumber', '$contactComments', '$contactFormCreated', '$emailSent')";
+        VALUES ('$contactID', '$contactName', '$contactEmail', '$contactPhoneNumber', '$contactComments', '$contactFormCreated', '$emailSent')";
 
         $result = $db->query($query);
 
