@@ -12,6 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['pt_last_name'])){
         $lastName = $_POST['pt_last_name'];
     }
+
+    if(isset($_POST['laundromat_name'])){
+        $laundromatName = $_POST['laundromat_name'];
+    }
     
      if(isset($_POST['pt_email'])){
         $email = $_POST['pt_email'];
@@ -51,13 +55,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hasAttendant = $_POST['hasAttendant']; 
     }
 
+
+
+
     $formCreated = date('Y-m-d H:i:s');
-    $partnerReference = add_partner($partnerFirstName, $lastName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
-    if($partnerReference){
-        header("Location: submitSuccess.php?partnerReference=$partnerReference&partnerFirstName=$partnerFirstName");
+
+    //use this for using trigger
+    // $partnerReference = add_partner($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
+    // if($partnerReference){
+    //     // header("Location: submitSuccess.php?partnerReference=$partnerReference&partnerFirstName=$partnerFirstName");
+    //     echo "<script>window.location.href='submitSuccess.php?partnerReference=$partnerReference&partnerFirstName=$partnerFirstName';</script>";
+    //     exit();
+    // }
+
+    //using this for not using trigger
+    $partnerInfo = add_partner($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
+    if ($partnerInfo) {
+    $laundromatName = $partnerInfo['laundromatName'];
+    $email = $partnerInfo['email'];
+        echo "<script>window.location.href='submitSuccess.php?partnerEmail=$email&partnerFirstName=$partnerFirstName&laundromatName=$laundromatName';</script>";
         exit();
     }
-    
+
     
   }
   
@@ -104,6 +123,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" placeholder="Enter last name" required name="pt_last_name" />
                     </div>
                 </div>
+                <div class="input-box">
+                    <label>Name Of Laundromat</label>
+                    <input type="text" placeholder="Enter name of laundromat" required name="laundromat_name" />
+                </div>
+
                 <div class="input-box">
                     <label>Email Address</label>
                     <input type="email" placeholder="Enter email address" required name="pt_email" />

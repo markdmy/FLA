@@ -2,6 +2,7 @@
 <?php
 include('models/contact_model.php');
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactName = $_POST["contact-name"];
     $contactEmail = $_POST["contact-email"];
@@ -9,9 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactComments = $_POST["contact-comments"];
     $contactFormCreated = date('Y-m-d H:i:s');
     send_email($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
+   
 }    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <?php include('components/header.php'); ?>
     <section class="container">
-        <!--coded by eunji-->
         <form action="contact.php" method="POST" id="contactForm" class="form">
             <h2 class="h2ContactUs">Contact Us</h2>
             <div class="form-content">
@@ -64,10 +64,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
         </form>
 
+
+
+
+
     </section>
 
     <?php
-    include('components/footer.php'); ?>
+include('components/footer.php'); ?>
+
     <script src="js/app.js"></script>
 </body>
 

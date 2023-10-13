@@ -7,8 +7,8 @@ function add_family_member($participantID, $familyFirstName, $familyLastName, $f
 {
     global $db;
     try {
-        $query = "INSERT INTO familymembers (familyMemberID, participantID, firstName, lastName, dateOfBirth,  relationshipToParticipant, gender)
-        VALUES (NULL, '$participantID', '$familyFirstName', '$familyLastName', '$familyDateOfBirth', '$relationshipToParticipant', '$gender')";
+        $query = "INSERT INTO familymembers (participantID, firstName, lastName, dateOfBirth,  relationshipToParticipant, gender)
+        VALUES ('$participantID', '$familyFirstName', '$familyLastName', '$familyDateOfBirth', '$relationshipToParticipant', '$gender')";
         
         $result = $db->query($query);
 

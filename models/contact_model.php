@@ -31,18 +31,15 @@ function send_email($contactName, $contactEmail, $contactPhoneNumber, $contactCo
         $mail->AltBody = "Name: $contactName\nEmail: $contactEmail\nPhone Number: $contactPhoneNumber\nComments: $contactComments";
 
         if ($mail->send()) {
-            echo "<script>window.location.href='submitSuccess.php?contactName=$contactName';</script>";
-                exit();
-            }   
-         
-        else {
+            echo "<script>window.location.href='submitSuccess.php?contactName=$contactName';</script>"; 
+        } else {
             $_SESSION['email_error'] = "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
-           
         }
-    
+
     } catch (Exception $e) {
         echo "An error occurred: " . $e->getMessage();
     }
+
 }
 
 

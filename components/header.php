@@ -51,8 +51,6 @@
         </script>
     </div>
 </div>
-
-<!-- Mobile Nav Bar: includes vertical menu and donate button -->
 <div class="mobileTopBar">
     <div class="mobile-icons">
         <div class="hamburger-icon">&#9776; MENU</div>

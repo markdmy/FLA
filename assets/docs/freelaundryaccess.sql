@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2023 at 07:14 PM
+-- Generation Time: Oct 13, 2023 at 02:04 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -24,17 +24,63 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contactform`
+-- Table structure for table `auth_admin`
 --
 
-CREATE TABLE `contactform` (
-  `contactID` int(11) NOT NULL,
-  `contactName` varchar(50) NOT NULL,
-  `contactEmail` varchar(100) NOT NULL,
-  `contactPhone` varchar(20) NOT NULL,
-  `comments` text NOT NULL,
-  `formCreated` datetime NOT NULL,
-  `emailSent` tinyint(1) NOT NULL
+CREATE TABLE `auth_admin` (
+  `authID` int(10) UNSIGNED NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `auth_admin`
+--
+
+INSERT INTO `auth_admin` (`authID`, `username`, `password`) VALUES
+(1, 'admin-fla', '$2y$10$FoD/Bf.BOfP2N22Su/B//OPnqPEWAbE0An7YBDXnYsohodyFjMEO6');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `eventparticipants`
+--
+
+CREATE TABLE `eventparticipants` (
+  `eventParticipantID` int(11) NOT NULL,
+  `eventID` int(11) NOT NULL,
+  `participantID` int(11) NOT NULL,
+  `costOfWash` decimal(10,2) NOT NULL,
+  `costOfDry` decimal(10,2) NOT NULL,
+  `amountOfDetergent` varchar(100) NOT NULL,
+  `amountOfDryersheet` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events`
+--
+
+CREATE TABLE `events` (
+  `eventID` int(11) NOT NULL,
+  `eventDate` date NOT NULL,
+  `nameOfLaundromat` varchar(100) NOT NULL,
+  `partnerID` int(11) NOT NULL,
+  `partnerReference` varchar(20) NOT NULL,
+  `eventCreated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `eventvolunteers`
+--
+
+CREATE TABLE `eventvolunteers` (
+  `eventVolunteerID` int(11) NOT NULL,
+  `eventID` int(11) NOT NULL,
+  `volunteerID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -123,6 +169,7 @@ CREATE TABLE `partnership` (
   `partnerID` int(11) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
+  `nameOfLaundromat` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `streetAddress` varchar(100) NOT NULL,
@@ -162,21 +209,91 @@ END
 $$
 DELIMITER ;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `volunteers`
+--
+
+CREATE TABLE `volunteers` (
+  `volunteerID` int(11) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `streetAddress` varchar(100) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `province` varchar(50) NOT NULL,
+  `postalCode` varchar(10) NOT NULL,
+  `volunteerReference` varchar(10) NOT NULL,
+  `formCreated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Triggers `volunteers`
+--
+DELIMITER $$
+CREATE TRIGGER `before_volunteer_insert` BEFORE INSERT ON `volunteers` FOR EACH ROW BEGIN
+    DECLARE unique_ref VARCHAR(10);
+    DECLARE ref_exists INT;
+
+    -- Generate a random number between 1 and 9999
+    SET unique_ref = CONCAT('VT', LPAD(FLOOR(1 + (RAND() * 9999)), 4, '0'));
+
+    -- Check if the generated reference already exists in the table
+    SELECT COUNT(*) INTO ref_exists FROM volunteers WHERE volunteerReference = unique_ref;
+
+    -- If the reference already exists, generate a new one
+    WHILE ref_exists > 0 DO
+        SET unique_ref = CONCAT('VT', LPAD(FLOOR(1 + (RAND() * 9999)), 4, '0'));
+        SELECT COUNT(*) INTO ref_exists FROM Volunteers WHERE volunteerReference = unique_ref;
+    END WHILE;
+
+    -- Set the generated unique volunteerReference for the new entry
+    SET NEW.volunteerReference = unique_ref;
+END
+$$
+DELIMITER ;
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `contactform`
+-- Indexes for table `auth_admin`
 --
-ALTER TABLE `contactform`
-  ADD PRIMARY KEY (`contactID`);
+ALTER TABLE `auth_admin`
+  ADD PRIMARY KEY (`authID`),
+  ADD UNIQUE KEY `unique_username` (`username`);
+
+--
+-- Indexes for table `eventparticipants`
+--
+ALTER TABLE `eventparticipants`
+  ADD PRIMARY KEY (`eventParticipantID`),
+  ADD KEY `eventID` (`eventID`),
+  ADD KEY `participantID` (`participantID`);
+
+--
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`eventID`);
+
+--
+-- Indexes for table `eventvolunteers`
+--
+ALTER TABLE `eventvolunteers`
+  ADD PRIMARY KEY (`eventVolunteerID`),
+  ADD KEY `FK_eventID` (`eventID`),
+  ADD KEY `FK_volunteerID` (`volunteerID`);
 
 --
 -- Indexes for table `familymembers`
 --
 ALTER TABLE `familymembers`
-  ADD PRIMARY KEY (`familyMemberID`);
+  ADD PRIMARY KEY (`familyMemberID`),
+  ADD KEY `participantID` (`participantID`);
 
 --
 -- Indexes for table `participants`
@@ -191,14 +308,38 @@ ALTER TABLE `partnership`
   ADD PRIMARY KEY (`partnerID`);
 
 --
+-- Indexes for table `volunteers`
+--
+ALTER TABLE `volunteers`
+  ADD PRIMARY KEY (`volunteerID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `contactform`
+-- AUTO_INCREMENT for table `auth_admin`
 --
-ALTER TABLE `contactform`
-  MODIFY `contactID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `auth_admin`
+  MODIFY `authID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `eventparticipants`
+--
+ALTER TABLE `eventparticipants`
+  MODIFY `eventParticipantID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `eventvolunteers`
+--
+ALTER TABLE `eventvolunteers`
+  MODIFY `eventVolunteerID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `familymembers`
@@ -217,6 +358,36 @@ ALTER TABLE `participants`
 --
 ALTER TABLE `partnership`
   MODIFY `partnerID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `volunteers`
+--
+ALTER TABLE `volunteers`
+  MODIFY `volunteerID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `eventparticipants`
+--
+ALTER TABLE `eventparticipants`
+  ADD CONSTRAINT `eventparticipants_ibfk_1` FOREIGN KEY (`eventID`) REFERENCES `events` (`eventID`),
+  ADD CONSTRAINT `eventparticipants_ibfk_2` FOREIGN KEY (`participantID`) REFERENCES `participants` (`participantID`);
+
+--
+-- Constraints for table `eventvolunteers`
+--
+ALTER TABLE `eventvolunteers`
+  ADD CONSTRAINT `FK_eventID` FOREIGN KEY (`eventID`) REFERENCES `events` (`eventID`),
+  ADD CONSTRAINT `FK_volunteerID` FOREIGN KEY (`volunteerID`) REFERENCES `volunteers` (`volunteerID`);
+
+--
+-- Constraints for table `familymembers`
+--
+ALTER TABLE `familymembers`
+  ADD CONSTRAINT `familymembers_ibfk_1` FOREIGN KEY (`participantID`) REFERENCES `participants` (`participantID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
