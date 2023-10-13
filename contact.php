@@ -11,8 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactFormCreated = date('Y-m-d H:i:s');
     $emailSent = send_email($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
     
-    add_contactFormData($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated, $emailSent);
-
     if($emailSent){
         header("Location: submitSuccess.php?&contactName=$contactName"); 
         exit();
