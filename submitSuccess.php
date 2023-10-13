@@ -1,21 +1,63 @@
-<!--coded by Eunji--->
+<!--coded by Eunji--- volunteer pages done by Enobong -->
 <?php
 
-if (isset($_GET['participantReference']) && isset($_GET['firstName'])) {
-    $reference = $_GET['participantReference'];
+$message = "";
+$isEventPage = false;
+
+//this is valid code if we arent using trigger (so no reference )
+if (isset($_GET['participantEmail']) && isset($_GET['firstName'])) {
+    $email = $_GET['participantEmail'];
     $firstName = $_GET['firstName'];
-    $message = "You have successfully submitted the registration form.";
-} elseif (isset($_GET['partnerReference']) && isset($_GET['partnerFirstName'])) {
-    $reference = $_GET['partnerReference'];
+    $message = "You have successfully submitted the registration form";
+} elseif (isset($_GET['partnerEmail']) && isset($_GET['laundromatName']) && isset($_GET['partnerFirstName'])) {
+    $email = $_GET['partnerEmail'];
+    $laundromatName = $_GET['laundromatName'];
     $firstName = $_GET['partnerFirstName'];
-    $message = "You have successfully submitted the partnership form.";
+    $message = "You have successfully submitted the partnership form";
 } elseif (isset($_GET['contactName'])){
     $firstName = $_GET['contactName'];
     $message = "We'll be in touch shortly.";
+}//volunteer pages done by Enobong
+elseif (isset($_GET['volunteerEmail']) && isset($_GET['volunteerFirstName'])) {
+    $email = $_GET['volunteerEmail'];
+    $firstName = $_GET['volunteerFirstName'];
+    $message = "You have successfully submitted the volunteer form";
+} elseif(isset($_GET['eventDate']) && isset($_GET['nameOfLaundromat']) && isset($_GET['streetAddress'])) {
+    $isEventPage = true;
+    $eventDate = $_GET['eventDate'];
+    $nameOfLaundromat = $_GET['nameOfLaundromat'];
+    $streetAddress = $_GET['streetAddress'];
+    $message = "Event for <b>$nameOfLaundromat</b><br> Created at <b>$streetAddress</b><br> on <b>$eventDate</b>";
+}elseif(isset($_GET['eventParticipantName']) && isset($_GET['eventParticipantEmail']) && isset($_GET['partnerNameOfLaundromat']) && isset($_GET['partnerEventDate']) && isset($_GET['partnerStreetAddress']) &&isset($_GET['totalCost'])) {
+    $isEventPage = true;
+    $eventParticipantName = $_GET['eventParticipantName'];
+    $eventParticipantEmail = $_GET['eventParticipantEmail'];
+    $eventDate = $_GET['partnerEventDate'];
+    $nameOfLaundromat = $_GET['partnerNameOfLaundromat'];
+    $streetAddress = $_GET['partnerStreetAddress'];
+    $totalCost = $_GET['totalCost'];
+    $message = "Participant(<b>$eventParticipantName</b>)<br> with email <b>$eventParticipantEmail</b><br> added to the event at <b>$nameOfLaundromat</b><br>
+    at location($streetAddress)<br> on <b>$eventDate</b><br><br>
+    Cost of wash + dry = <b> $$totalCost</b>";
+} elseif(isset($_GET['eventVolunteerName']) && isset($_GET['eventVolunteerEmail']) && isset($_GET['volunteerNameOfLaundromat']) && isset($_GET['volunteerEventDate']) && isset($_GET['volunteerStreetAddress'])){
+    $isEventPage = true;
+    $eventVolunteerName = $_GET['eventVolunteerName'];
+    $eventVolunteerEmail = $_GET['eventVolunteerEmail'];
+    $eventDate = $_GET['volunteerEventDate'];
+    $nameOfLaundromat = $_GET['volunteerNameOfLaundromat'];
+    $streetAddress = $_GET['volunteerStreetAddress'];
+    $message = "Volunteer(<b>$eventVolunteerName</b>)<br> with email <b>$eventVolunteerEmail</b><br> added to the event at <b>$nameOfLaundromat</b><br>
+    at location($streetAddress)<br> on <b>$eventDate</b><br><br>";
 }
 else {
-    $message = "Error: Form information not found.";
+    $message = "Error: No form has been submitted. ";
 }
+
+$showThankYouMessage = !empty($firstName);
+$buttonText = $isEventPage ? "Go back to event.php" : "Go Home";
+$buttonLink = $isEventPage ? "event.php" : "index.html";
+
+
 ?>
 
 
@@ -53,33 +95,30 @@ else {
 
     <section class="container">
         <div class="submission-success-message">
+            <!-- Display the "Thank you" message and $firstName only when $showThankYouMessage is true -->
+            <?php if ($showThankYouMessage) : ?>
             <h2 class="thankyou-name">Thank you, <?php echo $firstName; ?> !</h2>
-            <p class="success-phrase"><?php echo $message; ?></p>
+            <?php endif ?>
 
-            <?php if (isset($_GET['participantReference']) || isset($_GET['partnerReference'])) : ?>
+            <!-- Display different messages based on the presence of firstName and email -->
             <div class="reference-box">
-                <p class="reference-phrase">Your
-                    <?php echo isset($_GET['participantReference']) ? "participant" : "partnership"; ?> reference is
-                    <b><?php echo $reference; ?>.</b>
-                </p>
-                <p class="reference-reason">*Please keep the reference for event signup.</p>
+                <?php if (!empty($firstName) && !empty($email)) : ?>
+                <p class="success-phrase"><?php echo $message; ?>
+                    with your email: <b><?php echo $email; ?></b></p>
+                <?php else : ?>
+                <p class="success-phrase"><?php echo $message; ?></p>
+                <?php endif ?>
             </div>
-            <?php endif; ?>
 
-
-            <button class="btn-container" onclick="window.location.href='index.html' ">
-                <div class="btn btn-gohome">
-                    <span>GO HOME</span>
+            <button class="btn-container" onclick="window.location.href='<?php echo $buttonLink; ?>'">
+                <div class="btn <?php echo $buttonText === "Go back to event.php" ? "btn-goevent" : "btn-gohome"; ?>">
+                    <span><?php echo $buttonText; ?></span>
                 </div>
             </button>
 
+
         </div>
-
-
-
     </section>
-
-
 
 
     <?php

@@ -2,19 +2,12 @@
 <?php
 
 
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
-
-
 include('models/participant_model.php');
 include('models/familyMembers_model.php');
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
-    echo "Received POST data:<br>";
-    echo "<pre>" . print_r($_POST, true) . "</pre>";
 
     if(isset($_POST['p_first_name'])){
         $firstName = $_POST['p_first_name'];
@@ -92,9 +85,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     $participantInfo = add_participant($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $consent);
+    
+    //use below code if trigger works in netfirm
+    // if ($participantInfo) {
+    //     $participantID = $participantInfo['participantID'];
+    //     $participantReference = $participantInfo['participantReference'];
+    
+    //     if($participantID){
+            //this is a code to see the posted data
+            // var_dump($_POST);
+            
+            // if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) && isset($_POST['relationship']) && isset($_POST['gender']))
+            // {
+            //     $firstNames = $_POST['first_name'];
+            //     $lastNames = $_POST['last_name'];
+            //     $birthDates = $_POST['birth_date'];
+            //     $relationships	 = $_POST['relationship'];
+            //     $genders = $_POST['gender'];
+    
+            //     for ($i = 0; $i < count($firstNames); $i++) {
+            //         $familyFirstName = $firstNames[$i];
+            //         $familyLastName = $lastNames[$i];
+            //         $familyDateOfBirth = $birthDates[$i];
+            //         $relationshipToParticipant = $relationships[$i];
+            //         $gender = $genders[$i];
+    
+            //         add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender);
+            //     }
+            // }
+
+            // header("Location: submitSuccess.php?participantReference=$participantReference&firstName=$firstName");
+    //         echo "<script>window.location.href='submitSuccess.php?participantReference=$participantReference&firstName=$firstName';</script>";
+    //         exit();
+    // }
+
+    // }
+
+
     if ($participantInfo) {
         $participantID = $participantInfo['participantID'];
-        $participantReference = $participantInfo['participantReference'];
+        $participantEmail = $participantInfo['email'];
     
         if($participantID){
             //this is a code to see the posted data
@@ -119,7 +149,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
 
-            header("Location: submitSuccess.php?participantReference=$participantReference&firstName=$firstName");
+            // header("Location: submitSuccess.php?participantEmail=$participantEmail&firstName=$firstName");
+            echo "<script>window.location.href='submitSuccess.php?participantEmail=$participantEmail&firstName=$firstName';</script>";
             exit();
     }
 
@@ -373,25 +404,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <br>
                         <p>Our resources and ability to serve your community depend in part on the information provided
                             by
-                            our participants.</p>
+                            our participants.</p> <br>
                         <p>I have read and understood the information above and by signing this document I agree that
                             Free
                             Laundry Access Inc. may collect, use and disclose my personal information for the purposes
                             mentioned above. I also agree that my personal information may be entered into the Free
                             Laundry
-                            Access Client Management System and/or the Free Laundry Access Intake software.</p>
+                            Access Client Management System and/or the Free Laundry Access Intake software.</p> <br>
                         <p>In applying for assistance from Free Laundry Access Inc. on behalf of myself and/or my
                             household, and sharing information about myself and/or my family members, I confirm that I
                             am
                             sharing this information with the knowledge and permission of all household members age 18
                             and
-                            over (AB, SK, MB, ON, PE, QC) or age 19 and over (BC, NT, NU, YT, NB, NL, NS).</p>
+                            over (AB, SK, MB, ON, PE, QC) or age 19 and over (BC, NT, NU, YT, NB, NL, NS).</p> <br>
                         <p>I attest all information provided in the registration form is true to the best of my
                             knowledge.
                             I understand the program services are only available to me on event dates, times and
                             locations
                             announced. Outside of these event dates the program services will not be available to me.
-                        </p>
+                        </p> <br>
                         <p>I understand I may be denied access to the program if the information provided herein is
                             false,
                             and/or if on the event date I am not sober/coherent or under the influence of any substance

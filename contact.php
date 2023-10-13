@@ -1,7 +1,6 @@
 <!--coded by Eunji--->
 <?php
 include('models/contact_model.php');
-include('models/contact_model_db.php');
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,16 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactPhoneNumber = $_POST["contact-phone"];
     $contactComments = $_POST["contact-comments"];
     $contactFormCreated = date('Y-m-d H:i:s');
-    $emailSent = send_email($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
-    
-    add_contactFormData($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated, $emailSent);
-
-    if($emailSent){
-        header("Location: submitSuccess.php?&contactName=$contactName"); 
-        exit();
-    } else{
-        $_SESSION['email_error'] = "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
-    }   
+    send_email($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
+   
 }    
 ?>
 <!DOCTYPE html>
@@ -38,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <?php include('components/header.php'); ?>
     <section class="container">
-        <!--coded by eunji-->
         <form action="contact.php" method="POST" id="contactForm" class="form">
             <h2 class="h2ContactUs">Contact Us</h2>
             <div class="form-content">

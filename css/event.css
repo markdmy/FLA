@@ -1,0 +1,170 @@
+/* coded by eunji */
+
+.event-container{
+    display: none;
+}
+
+#add-event{
+    display: block;
+}
+
+#popup-search-partner, #popup-search-participant, #popup-search-volunteer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#partnerSearch {
+  background: #fff; 
+  border-radius: 5px;
+  padding: 25px;
+  width: 320px;
+  height: 235px;
+}
+
+
+#participantSearch, #volunteerSearch {
+  background: #fff; 
+  border-radius: 5px;
+  padding: 25px;
+  width: 320px;
+  height: 320px;
+
+}
+
+.searchForm :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+
+
+.searchForm button[type="button"] {
+  height: 45px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #5b8da8;
+}
+
+#partnerReferenceResult {
+  margin-top:12px;
+  cursor: pointer;
+}
+
+.searchForm button[type="button"]:hover {
+  background: #89c7e8;
+}
+
+.event-navigation{
+    margin-top:14%;
+    display: flex;
+  justify-content: center;
+}
+
+.event-nav-button {
+    color: #000;
+    width: 150px; 
+    height: 40px; 
+    padding: 9px;
+    margin: 0 10px;
+    background-color: white;
+    border: 1px solid black; 
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+ #searchPartnerButton, #searchParticipantButton, #searchVolunteerButton{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left:0;
+    width: 175px;
+    height: 40px;
+    padding:7px;
+    background-color: black;
+    color:#fff; 
+    font-size:0.9rem;
+  }
+
+  .event-nav-button:hover {
+    background-color: rgb(232, 232, 232);
+    color: black;
+  }
+
+ 
+  a:visited {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  /* Add a class for clicked buttons */
+  .clicked {
+    background-color: black;
+    color: white;
+    border: none;
+  }
+  
+  /* Reset the hover effect for clicked buttons */
+  .clicked:hover {
+    background-color: black;
+    color: white;
+  }
+
+.form-container {
+    padding: 3% 0 3%;
+}
+
+.event-container .form{
+    margin-top:3%;
+}
+
+/* Media query for tablet-sized screens */
+@media (max-width: 1024px) {
+    .event-navigation {
+      padding-top: 10%;
+    }
+
+
+    .event-container .form{
+        min-height: 55vh;
+    }
+  }
+  
+  /* Media query for mobile-sized screens (adjust the max-width as needed) */
+  @media (max-width: 480px) {
+    .event-navigation {
+        margin-top:0;
+      padding-top: 18%;
+      flex-direction: column;
+    align-items: center;
+    }
+
+    .event-nav-button {
+        width: 100%; 
+        height: 50px; 
+      }
+
+
+
+  }
