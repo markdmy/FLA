@@ -9,8 +9,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactPhoneNumber = $_POST["contact-phone"];
     $contactComments = $_POST["contact-comments"];
     $contactFormCreated = date('Y-m-d H:i:s');
-    send_email($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
-   
+    $emailSent = send_email($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
+    
+    add_contactFormData($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated, $emailSent);
+
+    if($emailSent){
+        header("Location: submitSuccess.php?&contactName=$contactName"); 
+        exit();
+    } else{
+        $_SESSION['email_error'] = "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
+    }   
 }    
 ?>
 <!DOCTYPE html>
@@ -64,15 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
         </form>
 
-
-
-
-
     </section>
 
     <?php
-include('components/footer.php'); ?>
-
+    include('components/footer.php'); ?>
     <script src="js/app.js"></script>
 </body>
 
