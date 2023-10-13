@@ -227,7 +227,8 @@ sup {
 .callToAction {
   display: flex;
   align-items: center;
-  height: 120px;
+  height: 0px;
+  padding-top: 60px;
   padding-bottom: 0px;
 }
 
@@ -499,12 +500,11 @@ footer {
   #mainTitle {
     font-size: 18px;
     font-weight: 500;
-  }
-
-  
+  }  
 }
 
 .newsSection {
+  padding-top: 65px;
   margin: 175px;
   background-color: #f8f8f8;
 }
