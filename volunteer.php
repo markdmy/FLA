@@ -2,7 +2,8 @@
 
 <?php
 include('models/volunteer_model.php');
-$volunteerReference = '';
+include('models/email_model.php');
+// $volunteerReference = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -57,12 +58,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $volunteerInfo = add_volunteer($volunteerFirstName, $lastName, $email, $phone, $address, $city, $province, $postalCode, $formCreated);
     if ($volunteerInfo) {
     $email = $volunteerInfo['email'];
-    echo "<script>window.location.href='submitSuccess.php?volunteerEmail=$email&volunteerFirstName=$volunteerFirstName';</script>";
-    exit();
+    $redirectUrl = send_email_from_volunteer_form($volunteerFirstName, $lastName, $email, $phone, $address, $city, $province, $postalCode, $formCreated);
     
+    if ($redirectUrl) {
+        // Redirect to success page
+        echo "<script>window.location.href='$redirectUrl';</script>";
+        exit();
     }
-
     
+    }    
     
   }
   

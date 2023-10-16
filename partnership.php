@@ -1,6 +1,7 @@
 <!--coded by Eunji--->
 <?php
 include('models/partnership_model.php');
+include('models/email_model.php');
 $partnerReference = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -73,8 +74,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($partnerInfo) {
     $laundromatName = $partnerInfo['laundromatName'];
     $email = $partnerInfo['email'];
-        echo "<script>window.location.href='submitSuccess.php?partnerEmail=$email&partnerFirstName=$partnerFirstName&laundromatName=$laundromatName';</script>";
+    $redirectUrl = send_email_from_partnership_form($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
+
+    if ($redirectUrl) {
+        // Redirect to success page
+        echo "<script>window.location.href='$redirectUrl';</script>";
         exit();
+    }
     }
 
     

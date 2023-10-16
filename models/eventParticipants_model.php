@@ -60,8 +60,8 @@ function add_eventParticipants($eventID, $participantID, $costOfWash, $costOfDry
         $stmt = $db->prepare($query);
         $stmt->bindParam(':eventID', $eventID, PDO::PARAM_INT);
         $stmt->bindParam(':participantID', $participantID, PDO::PARAM_INT);
-        $stmt->bindParam(':costOfWash', $costOfWash, PDO::PARAM_INT);
-        $stmt->bindParam(':costOfDry', $costOfDry, PDO::PARAM_INT);
+        $stmt->bindParam(':costOfWash', $costOfWash, PDO::PARAM_STR);
+        $stmt->bindParam(':costOfDry', $costOfDry, PDO::PARAM_STR);
         $stmt->bindParam(':amountOfDetergent', $amountOfDetergent, PDO::PARAM_STR);
         $stmt->bindParam(':amountOfDryersheet', $amountOfDryersheet, PDO::PARAM_STR);
 

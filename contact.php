@@ -1,6 +1,6 @@
 <!--coded by Eunji--->
 <?php
-include('models/contact_model.php');
+include('models/email_model.php');
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,14 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactPhoneNumber = $_POST["contact-phone"];
     $contactComments = $_POST["contact-comments"];
     $contactFormCreated = date('Y-m-d H:i:s');
-    $emailSent = send_email($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
-    
-    if($emailSent){
-        header("Location: submitSuccess.php?&contactName=$contactName"); 
+    $redirectUrl = send_email_from_contact_form($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
+   
+    if($redirectUrl){
+        echo "<script>window.location.href='$redirectUrl';</script>";
         exit();
-    } else{
-        $_SESSION['email_error'] = "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
-    }   
+    }
 }    
 ?>
 <!DOCTYPE html>
@@ -70,10 +68,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
         </form>
 
+
+
+
+
     </section>
 
     <?php
-    include('components/footer.php'); ?>
+include('components/footer.php'); ?>
+
     <script src="js/app.js"></script>
 </body>
 
