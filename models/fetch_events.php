@@ -1,6 +1,6 @@
 <?php
 include('db_conn.php');
-
+//coded by eunji
 $query = "SELECT e.eventID, e.eventDate, e.nameOfLaundromat, p.streetAddress
           FROM events e
           JOIN partnership p ON e.partnerID = p.partnerID";

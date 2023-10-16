@@ -4,6 +4,7 @@
 
 include('models/participant_model.php');
 include('models/familyMembers_model.php');
+include('models/email_model.php');
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -137,6 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $birthDates = $_POST['birth_date'];
                 $relationships	 = $_POST['relationship'];
                 $genders = $_POST['gender'];
+                $familyMemberInfo = array();
     
                 for ($i = 0; $i < count($firstNames); $i++) {
                     $familyFirstName = $firstNames[$i];
@@ -144,19 +146,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $familyDateOfBirth = $birthDates[$i];
                     $relationshipToParticipant = $relationships[$i];
                     $gender = $genders[$i];
-    
+
+                    $familyMemberInfo[] = "First Name: $familyFirstName, Last Name: $familyLastName, Birth Date: $familyDateOfBirth, Relationship: $relationshipToParticipant, Gender: $gender";
                     add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender);
                 }
             }
+            //executing a function email contact@freelaundryaccess.com about registration form being submitted.
+            $redirectUrl = send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $familyMemberInfo);
 
             // header("Location: submitSuccess.php?participantEmail=$participantEmail&firstName=$firstName");
-            echo "<script>window.location.href='submitSuccess.php?participantEmail=$participantEmail&firstName=$firstName';</script>";
-            exit();
+            if ($redirectUrl) {
+                echo "<script>window.location.href='$redirectUrl';</script>";
+                exit();
+            }
     }
 
-    }
-
-   
+    }  
 }  
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 include("db_conn.php");
-
+//coded by eunji
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nameToBeSearched = $_POST["laundromat-name"];
     echo json_encode(search_partner($nameToBeSearched));

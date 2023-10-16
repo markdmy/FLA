@@ -1,6 +1,6 @@
 <!--coded by Eunji--->
 <?php
-include('models/contact_model.php');
+include('models/email_model.php');
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,8 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactPhoneNumber = $_POST["contact-phone"];
     $contactComments = $_POST["contact-comments"];
     $contactFormCreated = date('Y-m-d H:i:s');
-    send_email($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
+    $redirectUrl = send_email_from_contact_form($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
    
+    if($redirectUrl){
+        echo "<script>window.location.href='$redirectUrl';</script>";
+        exit();
+    }
 }    
 ?>
 <!DOCTYPE html>
