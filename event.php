@@ -1,7 +1,8 @@
 <?php 
 session_start();
+//if the user has NOT logged in successfully, it will show admin_login page. Typically when first goes to event.php
 if (!isset($_SESSION["admin_authenticated"]) || $_SESSION["admin_authenticated"] !== true) {
-    header("Location: admin_login.php");
+    echo "<script>window.location.href='admin_login.php';</script>";
     exit();
 }
 include("models/events_model.php");

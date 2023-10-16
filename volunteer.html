@@ -1,88 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore rewarding volunteer opportunities with Free Laundry Access. Join us in our mission to provide clean laundry access to those in financial need across Canada. Discover how you can make a difference, contribute to your community, and help combat poverty and homelessness through volunteering."
+    />
+    <meta
+      name="keywords"
+      content="volunteer opportunities, Free Laundry Access, clean laundry access, financial need, Canada, community involvement, make a difference, poverty, homelessness, charity volunteering"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/volunteer.css" />
+    <title>Free Laundry Access - Volunteer</title>
+  </head>
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-JDKE8RQXYH"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-JDKE8RQXYH");
+  </script>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Explore rewarding volunteer opportunities with Free Laundry Access. Join us in our mission to provide clean laundry access to those in financial need across Canada. Discover how you can make a difference, contribute to your community, and help combat poverty and homelessness through volunteering.">
-  <meta name="keywords"
-    content="volunteer opportunities, Free Laundry Access, clean laundry access, financial need, Canada, community involvement, make a difference, poverty, homelessness, charity volunteering">
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/volunteer.css" />
-  <title>Free Laundry Access - Volunteer</title>
-</head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JDKE8RQXYH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-JDKE8RQXYH');
-</script>
-
-<body>
-  <header>
-    <a href="index.html" class="logo-link">
-      <div class="logo">
-        <img src="assets/images/logo.png" alt="Logo" />
-        <h1 id="mainTitle">FREE LAUNDRY <strong>ACCESS</strong></h1>
+  <body>
+    <header>
+      <a href="index.html" class="logo-link">
+        <div class="logo">
+          <img src="assets/images/logo.png" alt="Logo" />
+          <h1 id="mainTitle">FREE LAUNDRY <strong>ACCESS</strong></h1>
+        </div>
+      </a>
+      <div>
+        <nav class="nav">
+          <ul>
+            <li><a href="index.html">ABOUT US</a></li>
+            <li>
+              <a href="program.html">OUR PROGRAM</a>
+              <ul class="dropdown">
+                <li><a href="program.html">HOW IT WORKS</a></li>
+                <li><a href="program.html#eligible">WHO IS ELIGIBLE</a></li>
+                <li><a href="program.html#apply">HOW TO APPLY</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="help.html">YOUR HELP</a>
+              <ul class="dropdown">
+                <li><a href="help.html">DONATION</a></li>
+                <li><a href="volunteer.html">VOLUNTEER</a></li>
+              </ul>
+            </li>
+            <li><a href="partnership.html">PARTNERSHIP</a></li>
+            <li><a href="events.html">EVENTS</a></li>
+            <li><a href="contact.php">CONTACT US</a></li>
+          </ul>
+        </nav>
       </div>
-    </a>
-    <div>
-      <nav class="nav">
-        <ul>
-          <li><a href="index.html">ABOUT US</a></li>
-          <li>
-            <a href="program.html">OUR PROGRAM</a>
-            <ul class="dropdown">
-              <li><a href="program.html">HOW IT WORKS</a></li>
-              <li><a href="program.html#eligible">WHO IS ELIGIBLE</a></li>
-              <li><a href="program.html#apply">HOW TO APPLY</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="help.html">YOUR HELP</a>
-            <ul class="dropdown">
-              <li><a href="help.html">DONATION</a></li>
-              <li><a href="volunteer.html">VOLUNTEER</a></li>
-            </ul>
-          </li>
-          <li><a href="partnership.html">PARTNERSHIP</a></li>
-          <li><a href="events.html">EVENTS</a></li>
-          <li><a href="contact.php">CONTACT US</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <div class="donation-bar">
-    <div class="donation-text">
-      <p>Your help will give HOPE, DIGNITY and HAPPINESS to those in need.</p>
-    </div>
-    <div id="donate-button-container">
-      <div class="donate-btn" id="donate-btn"></div>
-      <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
-      <script>
-        PayPal.Donation.Button({
-          env: "production",
-          hosted_button_id: "24NRC7PDKPWBC",
-          image: {
-            src: "https://pics.paypal.com/00/s/YmIzYmNhYTktYzYwYi00MjI3LWEyNmUtZjU5NGViMzg0NmZm/file.PNG",
-            alt: "Donate with PayPal button",
-            title: "PayPal - The safer, easier way to pay online!",
-          },
-        }).render("#donate-btn");
-      </script>
-    </div>
-  </div>
-
-  <div id="donationBarSpace"></div>
-  <!-- Mobile Nav Bar: includes vertical menu and donate button -->
-  <div class="mobileTopBar">
-    <div class="mobile-icons">
-      <div class="hamburger-icon">&#9776; MENU</div>
+    </header>
+    <div class="donation-bar">
+      <div class="donation-text">
+        <p>Your help will give HOPE, DIGNITY and HAPPINESS to those in need.</p>
+      </div>
       <div id="donate-button-container">
-        <div class="donateBtnMobile" id="donateBtnMobile"></div>
-        <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+        <div class="donate-btn" id="donate-btn"></div>
+        <script
+          src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js"
+          charset="UTF-8"
+        ></script>
         <script>
           PayPal.Donation.Button({
             env: "production",
@@ -92,83 +81,117 @@
               alt: "Donate with PayPal button",
               title: "PayPal - The safer, easier way to pay online!",
             },
-          }).render("#donateBtnMobile");
+          }).render("#donate-btn");
         </script>
       </div>
     </div>
-  </div>
-  <div class="navMobile">
-    <ul>
-      <li><a href="index.html">ABOUT US</a></li>
-      <li class="horizontal-line"></li>
-      <li><a href="program.html">OUR PROGRAM</a></li>
-      <li><a href="program.html" class="smaller-link">HOW IT WORKS</a></li>
-      <li>
-        <a href="program.html#eligible" class="smaller-link">WHO IS ELIGIBLE</a>
-      </li>
-      <li>
-        <a href="program.html#apply" class="smaller-link">HOW TO APPLY</a>
-      </li>
-      <li class="horizontal-line"></li>
-      <li><a href="help.html">YOUR HELP</a></li>
-      <li><a href="help.html" class="smaller-link">DONATION</a></li>
-      <li><a href="volunteer.html" class="smaller-link">VOLUNTEER</a></li>
-      <li class="horizontal-line"></li>
-      <li><a href="partnership.html">PARTNERSHIP</a></li>
-      <li class="horizontal-line"></li>
-      <li><a href="events.html">EVENTS</a></li>
-      <li class="horizontal-line"></li>
-      <li><a href="contact.php">CONTACT US</a></li>
-    </ul>
-  </div>
 
-  <main>
-    <div class="volunteerNow-grid-container">
-      <div class="volunteerNow-grid-item image">
-        <img src="assets/images/volunteer_circle.png" alt="washing machines" />
+    <div id="donationBarSpace"></div>
+    <!-- Mobile Nav Bar: includes vertical menu and donate button -->
+    <div class="mobileTopBar">
+      <div class="mobile-icons">
+        <div class="hamburger-icon">&#9776; MENU</div>
+        <div id="donate-button-container">
+          <div class="donateBtnMobile" id="donateBtnMobile"></div>
+          <script
+            src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js"
+            charset="UTF-8"
+          ></script>
+          <script>
+            PayPal.Donation.Button({
+              env: "production",
+              hosted_button_id: "24NRC7PDKPWBC",
+              image: {
+                src: "https://pics.paypal.com/00/s/YmIzYmNhYTktYzYwYi00MjI3LWEyNmUtZjU5NGViMzg0NmZm/file.PNG",
+                alt: "Donate with PayPal button",
+                title: "PayPal - The safer, easier way to pay online!",
+              },
+            }).render("#donateBtnMobile");
+          </script>
+        </div>
       </div>
+    </div>
+    <div class="navMobile">
+      <ul>
+        <li><a href="index.html">ABOUT US</a></li>
+        <li class="horizontal-line"></li>
+        <li><a href="program.html">OUR PROGRAM</a></li>
+        <li><a href="program.html" class="smaller-link">HOW IT WORKS</a></li>
+        <li>
+          <a href="program.html#eligible" class="smaller-link"
+            >WHO IS ELIGIBLE</a
+          >
+        </li>
+        <li>
+          <a href="program.html#apply" class="smaller-link">HOW TO APPLY</a>
+        </li>
+        <li class="horizontal-line"></li>
+        <li><a href="help.html">YOUR HELP</a></li>
+        <li><a href="help.html" class="smaller-link">DONATION</a></li>
+        <li><a href="volunteer.html" class="smaller-link">VOLUNTEER</a></li>
+        <li class="horizontal-line"></li>
+        <li><a href="partnership.html">PARTNERSHIP</a></li>
+        <li class="horizontal-line"></li>
+        <li><a href="events.html">EVENTS</a></li>
+        <li class="horizontal-line"></li>
+        <li><a href="contact.php">CONTACT US</a></li>
+      </ul>
+    </div>
 
-      <div class="volunteerNow-grid-item text">
-        <h1 id="volunteerTitle">VOLUNTEER</h1>
-        <div><br /></div>
-        <p>
-          Give back to your amazing community by volunteering at Free Laundry
-          Access!
-          <br />
-          <br />
-          Each Free Laundry Access events requires many hands to make it
-          successful. It involves the contributions of Free Laundry Access
-          Inc., our volunteers, sponsors, partners, and our host laundromats
-          all working together. Volunteering to help others is not only a
-          rewarding experience which words cannot describe but it makes such a
-          tremendous difference in the lives of individuals and families you
-          are helping, as well as making your community a better place to
-          live.
-          <br />
-          <br />
-          As a volunteer you not only give your time, effort and talents but
-          also a part of your heart, your generosity, your compassion, and
-          your empathy to those who are less privileged. You are helping so
-          many people in need of this necessary service of gaining access to
-          clean laundry across Canada.
-          <br />
-          <br />
-          It is you, the volunteers, who make the world a better place, create
-          a community with warmth and belonging for all, a place to call home.
-          Help Free Laundry Access continue serving the communities across
-          Canada gain access to clean laundry. Come volunteer with us and make
-          a positive difference in your community.
-        </p>
+    <main>
+      <div class="volunteerNow-grid-container">
+        <div class="volunteerNow-grid-item image">
+          <img
+            src="assets/images/volunteer_circle.png"
+            alt="washing machines"
+          />
+        </div>
+
+        <div class="volunteerNow-grid-item text">
+          <h1 id="volunteerTitle">VOLUNTEER</h1>
+          <div><br /></div>
+          <p>
+            Give back to your amazing community by volunteering at Free Laundry
+            Access!
+            <br />
+            <br />
+            Each Free Laundry Access events requires many hands to make it
+            successful. It involves the contributions of Free Laundry Access
+            Inc., our volunteers, sponsors, partners, and our host laundromats
+            all working together. Volunteering to help others is not only a
+            rewarding experience which words cannot describe but it makes such a
+            tremendous difference in the lives of individuals and families you
+            are helping, as well as making your community a better place to
+            live.
+            <br />
+            <br />
+            As a volunteer you not only give your time, effort and talents but
+            also a part of your heart, your generosity, your compassion, and
+            your empathy to those who are less privileged. You are helping so
+            many people in need of this necessary service of gaining access to
+            clean laundry across Canada.
+            <br />
+            <br />
+            It is you, the volunteers, who make the world a better place, create
+            a community with warmth and belonging for all, a place to call home.
+            Help Free Laundry Access continue serving the communities across
+            Canada gain access to clean laundry. Come volunteer with us and make
+            a positive difference in your community.
+          </p>
+        </div>
+
+        <div id="volunteer" class="volunteer-grid-container"></div>
       </div>
-
-      <div id="volunteer" class="volunteer-grid-container"></div>
-    </div>
-    <div class="volunteerLinkDiv">
-      <a href="contact.php">
-        <img class="volunteerLink" src="assets/images/volunteer_v3.png" alt="washing machines" />
-      </a>
-    </div>
-  </main>
+      <div class="volunteerLinkDiv">
+        <a href="volunteer.php">
+          <img
+            class="volunteerLink"
+            src="assets/images/volunteer_v3.png"
+            alt="washing machines"
+          />
+        </a>
+      </div>
+    </main>
 
     <footer>
       <a href="https://www.facebook.com/profile.php?id=100094694715809"
