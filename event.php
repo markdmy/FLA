@@ -1,8 +1,8 @@
 <?php 
 session_start();
 if (!isset($_SESSION["admin_authenticated"]) || $_SESSION["admin_authenticated"] !== true) {
-    header("Location: admin_login.php");
-    exit();
+    //echo "<script>window.location.href='admin_login.php';</script>";
+    //exit();
 }
 include("models/events_model.php");
 include("models/search_partner.php");

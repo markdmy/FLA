@@ -3,24 +3,22 @@
 <?php
 include("models/authAdmin_model.php");
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($_POST["password"])) {
     $entered_username = $_POST["username"];
     $entered_password = $_POST["password"];
     
     if (authenticate_admin($entered_username, $entered_password)) {
         $_SESSION["admin_authenticated"] = true;
-        // header("Location: event.php");
-        
         echo "<script>window.location.href='event.php';</script>";
         exit();
-       
     } else {
         $error_message = "Invalid username or password.";
     }
 }
 
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+session_start();
 }
 
 ?>
