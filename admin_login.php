@@ -11,7 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
 
     if (authenticate_admin($entered_username, $entered_password)) {
         $_SESSION["admin_authenticated"] = true;
-        echo "<script>window.location.href='event.php';</script>";
+        // echo "<script>window.location.href='event.php';</script>";
+        header("Location: event.php");
         exit();
     } else {
         $error_message = "Invalid username or password.";

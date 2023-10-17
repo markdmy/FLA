@@ -6,7 +6,8 @@ var_dump($_SESSION);
 
 //if the user has NOT logged in successfully, it will show admin_login page. Typically when first goes to event.php
 if (!isset($_SESSION["admin_authenticated"]) || $_SESSION["admin_authenticated"] !== true) {
-    echo "<script>window.location.href='admin_login.php';</script>";
+    // echo "<script>window.location.href='admin_login.php';</script>";
+    header("Location: admin_login.php");
     exit();
 }
 include("models/events_model.php");
