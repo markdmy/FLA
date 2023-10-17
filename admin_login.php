@@ -1,4 +1,3 @@
-<!--coded by eunji-->
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -11,15 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
 
     if (authenticate_admin($entered_username, $entered_password)) {
         $_SESSION["admin_authenticated"] = true;
-        // echo "<script>window.location.href='event.php';</script>";
-        header("Location: event.php");
+        echo "<script>window.location.href='event.php';</script>";
+        // header("Location: event.php");
         exit();
     } else {
         $error_message = "Invalid username or password.";
     }
 }
 
-// Add this line to inspect the session data
 var_dump($_SESSION);
 ?>
 
