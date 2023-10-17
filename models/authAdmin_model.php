@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("db_conn.php");
 
 function authenticate_admin($username, $password) {
@@ -15,8 +14,6 @@ function authenticate_admin($username, $password) {
         if (!$row) {
             return false; // Username not found in the database
         }
-        //var_dump(password_verify($password, $row['password']));
-        //var_dump($row['password']);
         
         if (password_verify($password, $row['password'])) {
             return true; 

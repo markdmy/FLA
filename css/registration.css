@@ -163,6 +163,10 @@
     padding: 5% 3% 5%;
   }
 
+  .log-in-container {
+    padding: 11% 3% 7%;
+  }
+
 
   .submission-success-message{
     padding:10% 15% 10%;
@@ -179,6 +183,10 @@
   }
   .form :where(.housing-option, .housing, .program) {
     row-gap: 15px;
+  }
+
+  .log-in-container {
+    padding: 35% 5% 35%;
   }
   
 
@@ -461,3 +469,9 @@
   font-size:0.8rem;
   margin-top: 4%;
 }
+
+
+.error-message {
+  margin-top:15px;
+}
+

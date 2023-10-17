@@ -50,7 +50,7 @@ function add_eventVolunteers($eventID, $volunteerID)
     global $db;
 
     try {
-        $query = "INSERT INTO eventVolunteers (eventID, volunteerID) 
+        $query = "INSERT INTO eventvolunteers (eventID, volunteerID) 
                   VALUES (:eventID, :volunteerID)";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':eventID', $eventID, PDO::PARAM_INT);
