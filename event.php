@@ -25,6 +25,7 @@ include("models/search_partner.php");
     <link rel="stylesheet" href="css/event.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Events Process form</title>
+    <link rel="icon" href="assets/images/apple-touch-icon-120x120.png" />
 </head>
 
 <body>
