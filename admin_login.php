@@ -1,32 +1,30 @@
 <!--coded by eunji-->
-
 <?php
-
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
 include("models/authAdmin_model.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($_POST["password"])) {
     $entered_username = $_POST["username"];
     $entered_password = $_POST["password"];
- 
 
- //if the username and pw are correct, the page goes to event.php   
     if (authenticate_admin($entered_username, $entered_password)) {
         $_SESSION["admin_authenticated"] = true;
-        echo "<script>window.location.href='event.php';</script>";
+        // echo "<script>window.location.href='event.php';</script>";
+        header("Location: event.php");
         exit();
-       
     } else {
         $error_message = "Invalid username or password.";
     }
 }
 
-
+// Add this line to inspect the session data
+var_dump($_SESSION);
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
