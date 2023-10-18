@@ -89,7 +89,7 @@ function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOf
         
 
         if ($mail->send()) {
-            $redirectUrl = "submitSuccess.php?participantEmail=$participantEmail&firstName=$firstName";
+            $redirectUrl = "submitSuccess.php?participantEmail=$email&firstName=$firstName";
             return $redirectUrl; 
         } else {
             $_SESSION['email_error'] = "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
