@@ -89,7 +89,7 @@ function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOf
         Housing Situation: $housing_situation<br>
         Found Program: $combinedFoundProgram<br>
         Form Created: $formCreated<br>
-        identification file info: $$id_file_path<br>
+        identification file info: $id_file_path<br>
         income proof file info: $income_proof_file_path<br>
         Family Member Details:<br>" . implode("<br>", $familyMemberInfo);
         

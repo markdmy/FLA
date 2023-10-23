@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pIdentificationFilePath = $subfolder . $pIdentificationFileName;
     
         if (move_uploaded_file($pIdentificationFile['tmp_name'], $pIdentificationFilePath)) {
-            $id_file_path = '/uploads/' . $firstName . '_' . $lastName . '/' . $pIdentificationFileName;
+            $id_file_path = $pIdentificationFilePath;
         } else {
             echo "Identification file upload failed.";
         }
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pIncomeProofFilePath = $subfolder . $pIncomeProofFileName;
     
         if (move_uploaded_file($pIncomeProofFile['tmp_name'], $pIncomeProofFilePath)) {
-            $income_proof_file_path = '/uploads/' . $firstName . '_' . $lastName . '/' . $pIncomeProofFileName;
+            $income_proof_file_path = $pIncomeProofFilePath;
         } else {
             echo "Income proof file upload failed.";
         }
@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($participantID){
             //this is a code to see the posted data
             // var_dump($_POST);
-            
+
             if (
                 isset($_POST['first_name'], $_POST['last_name'], $_POST['birth_date'], $_POST['relationship'], $_POST['gender']) &&
                 isset($_FILES['family_member_id_file']) &&
@@ -155,18 +155,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $birthDates = $_POST['birth_date'];
                 $relationships = $_POST['relationship'];
                 $genders = $_POST['gender'];
+                $familyMemberInfo = array();
                 $idFiles = $_FILES['family_member_id_file'];
                 $familyIncomeProofs = isset($_FILES['family_income_proof']) ? $_FILES['family_income_proof'] : null;
                 $noIncomeExplanations = isset($_POST['reason_for_no_income']) ? $_POST['reason_for_no_income'] : null;
-                $familyMemberInfo = array();
-                $familySubfolder = $subfolder . 'family_members';
-
                 
+                $familySubfolder = $subfolder . 'family_members';
                 
                 if (!file_exists($familySubfolder)) {
                     mkdir($familySubfolder, 0755, true);
                 }
                 
+                    
                 for ($i = 0; $i < count($firstNames); $i++) {
                     $familyFirstName = $firstNames[$i];
                     $familyLastName = $lastNames[$i];
@@ -174,21 +174,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $relationshipToParticipant = $relationships[$i];
                     $gender = $genders[$i];
                     $idFile = $idFiles['name'][$i];
-                
-                    $familyMemberInfo[] = "First Name: $familyFirstName, Last Name: $familyLastName, Birth Date: $familyDateOfBirth, Relationship: $relationshipToParticipant, Gender: $gender";
-                
+
                     // Move the ID file for this family member
                     $idFileName = $familyFirstName . '_' . $familyLastName . '_id_doc_' . $idFile;
                     $idFilePath = $familySubfolder . '/' . $idFileName;
                     move_uploaded_file($idFiles['tmp_name'][$i], $idFilePath);
-                   
-                    $incomeInfo = ""; 
+                    
+                    $incomeInfo = "";
                     // Handle the incomeProof file for this family member
                     if (isset($familyIncomeProofs) && !empty($familyIncomeProofs['name'][$i])) {
                         $incomeProofs = $familyIncomeProofs;
-                        $incomeProofName = $familyFirstName . '_' . $familyLastName . '_income_proof_' . $incomeProofs['name'][$i];
+                        $incomeProofName = $familyFirstName . '_' . $familyLastName . '_income_doc_' . $incomeProofs['name'][$i];
                         $incomeProofPath = $familySubfolder . '/' . $incomeProofName;
-                
+                        
                         if (move_uploaded_file($incomeProofs['tmp_name'][$i], $incomeProofPath)) {
                             $incomeInfo = $incomeProofPath;
                         } else {
@@ -199,20 +197,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $noIncomeExplanation = $noIncomeExplanations[$i];
                         $incomeInfo = $noIncomeExplanation;
                     } else {
-                        
                         $incomeInfo = "UNDER 18 YEARS OLD";
                     }
-
                     $familyMemberInfo[] = "First Name: $familyFirstName, Last Name: $familyLastName, Birth Date: $familyDateOfBirth, Relationship: $relationshipToParticipant, Gender: $gender, identification file path: $idFilePath, income information: $incomeInfo";
-                    
+                  
                     // Add this family member to the database
                     add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender, $idFilePath, $incomeInfo);
                 }
             }
+            
             //executing a function email contact@freelaundryaccess.com about registration form being submitted.
             $redirectUrl = send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $id_file_path, $income_proof_file_path, $familyMemberInfo);
 
-            // header("Location: submitSuccess.php?participantEmail=$participantEmail&firstName=$firstName");
             if ($redirectUrl) {
                 echo "<script>window.location.href='$redirectUrl';</script>";
                 exit();
