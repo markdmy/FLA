@@ -1,185 +1,7 @@
-<!--coded by eunji-->
-<?php
-
-
-include('models/participant_model.php');
-include('models/familyMembers_model.php');
-include('models/email_model.php');
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    if(isset($_POST['p_first_name'])){
-        $firstName = $_POST['p_first_name'];
-    }
-    
-    if(isset($_POST['p_last_name'])){
-        $lastName = $_POST['p_last_name'];
-    }
-    
-    if(isset($_POST['p_birthDate'])){
-        $dateOfBirth = $_POST['p_birthDate'];
-    }
-    
-    if(isset($_POST['numberOfHousehold'])){
-        $numberOfHousehold = $_POST['numberOfHousehold'];
-    }
-    
-    if(isset($_POST['numberOfAdults'])){
-        $numberOfAdults = $_POST['numberOfAdults'];
-    }
-    
-    if(isset($_POST['children_under12'])){
-        $NumberOfChildrenUnder12 = $_POST['children_under12'];
-    }
-    
-    if(isset($_POST['children_over12'])){
-        $NumberOfChildrenOver12 = $_POST['children_over12'];
-    }
-    
-    if(isset($_POST['p_email'])){
-        $email = $_POST['p_email'];
-    }
-    
-    if(isset($_POST['p_address'])){
-        $address = $_POST['p_address'];
-    }
-    
-    if(isset($_POST['p_phoneNumber'])){
-        $phone = $_POST['p_phoneNumber'];
-    }
-    
-    if(isset($_POST['p_city'])){
-        $city = $_POST['p_city'];
-    }
-    if(isset($_POST['province'])){
-        $province = $_POST['province'];
-    }
-    
-    if(isset($_POST['p_postalCode'])){
-        $postalCode = $_POST['p_postalCode'];
-    }
-
-    
-    //use $housing_situation variable
-    if (isset($_POST['housing_situation'])) {
-        $currentHousingSituation = $_POST['housing_situation'];
-    }
-
-    if ($_POST["housing_situation"] == "Other") {
-        $housing_situation = $_POST["housing_situation_other"];
-    } else {
-        $housing_situation = $_POST["housing_situation"];
-    }
-
-    //use $combinedFoundProgram
-    $foundProgram = isset($_POST["found_program"]) ? $_POST["found_program"] : array();
-    $foundProgramOther = isset($_POST["found_program_other"]) ? $_POST["found_program_other"] : "";
-    $combinedFoundProgram = implode(", ", $foundProgram);
-    if (!empty($foundProgramOther)) {
-        $combinedFoundProgram .= ", " . $foundProgramOther;
-    }
-
-    $consent = isset($_POST["consent_box"]) ? 1 : 0;
-    $formCreated = date('Y-m-d H:i:s');
-
-
-    $participantInfo = add_participant($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $consent);
-    
-    //use below code if trigger works in netfirm
-    // if ($participantInfo) {
-    //     $participantID = $participantInfo['participantID'];
-    //     $participantReference = $participantInfo['participantReference'];
-    
-    //     if($participantID){
-            //this is a code to see the posted data
-            // var_dump($_POST);
-            
-            // if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) && isset($_POST['relationship']) && isset($_POST['gender']))
-            // {
-            //     $firstNames = $_POST['first_name'];
-            //     $lastNames = $_POST['last_name'];
-            //     $birthDates = $_POST['birth_date'];
-            //     $relationships	 = $_POST['relationship'];
-            //     $genders = $_POST['gender'];
-    
-            //     for ($i = 0; $i < count($firstNames); $i++) {
-            //         $familyFirstName = $firstNames[$i];
-            //         $familyLastName = $lastNames[$i];
-            //         $familyDateOfBirth = $birthDates[$i];
-            //         $relationshipToParticipant = $relationships[$i];
-            //         $gender = $genders[$i];
-    
-            //         add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender);
-            //     }
-            // }
-
-            // header("Location: submitSuccess.php?participantReference=$participantReference&firstName=$firstName");
-    //         echo "<script>window.location.href='submitSuccess.php?participantReference=$participantReference&firstName=$firstName';</script>";
-    //         exit();
-    // }
-
-    // }
-
-
-    if ($participantInfo) {
-        $participantID = $participantInfo['participantID'];
-        $participantEmail = $participantInfo['email'];
-    
-        if($participantID){
-            //this is a code to see the posted data
-            // var_dump($_POST);
-            
-            if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) && isset($_POST['relationship']) && isset($_POST['gender']))
-            {
-                $firstNames = $_POST['first_name'];
-                $lastNames = $_POST['last_name'];
-                $birthDates = $_POST['birth_date'];
-                $relationships	 = $_POST['relationship'];
-                $genders = $_POST['gender'];
-                $familyMemberInfo = array();
-    
-                for ($i = 0; $i < count($firstNames); $i++) {
-                    $familyFirstName = $firstNames[$i];
-                    $familyLastName = $lastNames[$i];
-                    $familyDateOfBirth = $birthDates[$i];
-                    $relationshipToParticipant = $relationships[$i];
-                    $gender = $genders[$i];
-
-                    $familyMemberInfo[] = "First Name: $familyFirstName, Last Name: $familyLastName, Birth Date: $familyDateOfBirth, Relationship: $relationshipToParticipant, Gender: $gender";
-                    add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender);
-                }
-            }
-            //executing a function email contact@freelaundryaccess.com about registration form being submitted.
-            $redirectUrl = send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $familyMemberInfo);
-
-            // header("Location: submitSuccess.php?participantEmail=$participantEmail&firstName=$firstName");
-            if ($redirectUrl) {
-                echo "<script>window.location.href='$redirectUrl';</script>";
-                exit();
-            }
-    }
-
-    }  
-}  
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDKE8RQXYH"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'G-JDKE8RQXYH');
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -187,7 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="keywords" content="registration, sign up, Free Laundry Access">
     <link rel="stylesheet" href="css/registration.css" />
     <link rel="stylesheet" href="css/styles.css" />
-    <title>Registration</title>
+    <title>Registration Form</title>
+    <link rel="icon" href="assets/images/apple-touch-icon-120x120.png" />
 </head>
 
 <body>
@@ -195,9 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include('components/header.php')?>
 
     <section class="container">
-        <!-- <header>Registration Form</header> -->
-
-        <form action="registration.php" method="POST" class="form" id="registration-form">
+        <form action="models/participant_model.php" method="POST" class="form" id="registration-form"
+            enctype="multipart/form-data">
             <h2>Registration Form</h2>
             <div class="form-content">
                 <div class="column">
@@ -210,11 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" placeholder="Enter last name" required name="p_last_name" />
                     </div>
                 </div>
+
                 <div class="input-box">
                     <label>Email Address</label>
                     <input type="email" placeholder="Enter email address" required name="p_email" />
                 </div>
-
                 <div class="column">
                     <div class="input-box">
                         <label for="phone">Phone Number</label>
@@ -223,9 +45,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="input-box">
                         <label>Birth Date</label>
-                        <input type="date" name="p_birthDate" placeholder="Enter birth date" required />
+                        <input type="date" name="p_birthDate" placeholder="Enter birth date" id="p_birthDate"
+                            required />
                     </div>
                 </div>
+                <div class="column">
+                    <div class="file-upload" id="id_upload">
+                        <label>Upload Your ID</label>
+                        <br>
+                        <p class="file-upload-phrase">(A form of ID issued by the government such as driver's license,
+                            PR
+                            card, passport.) </p>
+                        <input type="file" required name="p_identification" id="p_identification" />
+                    </div>
+                    <!-- <div class="file-upload" id="p_income_upload" style="display: none;"> -->
+                    <div class="file-upload" id="p_income_upload">
+                        <label>Upload Proof of Income</label>
+                        <br>
+                        <p class="file-upload-phrase">(Proof of income needed for age 18 and over.) </p>
+                        <input type="file" required name="p_income_proof" id="p_income_proof" />
+                    </div>
+                </div>
+
+
 
                 <div class="input-box address">
                     <label>Address</label>
@@ -260,43 +102,92 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="input-box">
                     <label>Total number of individuals in your household using this program:</label>
-                    <input type="number" placeholder="Enter total number" name="numberOfHousehold" min="0" />
+                    <input type="number" placeholder="Enter total number" name="numberOfHousehold" min="1"
+                        id="numberOfHousehold" />
                 </div>
 
                 <div class="column">
-                    <div class="input-box">
+                    <div class="input-box number-of-adults">
                         <label>Number of Adults (18 yrs and older):</label>
-                        <input type="number" placeholder="Enter number" name="numberOfAdults" min="0" />
+                        <input type="number" placeholder="Enter number" name="numberOfAdults" id="numberOfAdults"
+                            min="0" />
                     </div>
-                    <div class="input-box">
+                    <div class="input-box children-under12">
                         <label>Number of Children (Under 12 yrs old):</label>
-                        <input type="number" placeholder="Enter number" name="children_under12" min="0" />
+                        <input type="number" placeholder="Enter number" name="children_under12" min="0"
+                            id="numberUnder12" />
                     </div>
-                    <div class="input-box">
+                    <div class="input-box children-over12">
                         <label>Number of Children (Over 12 yrs old):</label>
-                        <input type="number" placeholder="Enter number" name="children_over12" min="0" />
+                        <input type="number" placeholder="Enter number" name="children_over12" min="0"
+                            id="numberOver12" />
                     </div>
                 </div>
 
                 <div class="input-box" id="additional-members-container">
-                    <label>ADDITIONAL HOUSEHOLD MEMBERS</label>
+                    <label>ADDITIONAL HOUSEHOLD MEMBER</label>
                     <div class="additional-member-template" data-original="true">
                         <div class="column">
-                            <input type="text" placeholder="First Name" name="first_name[]" />
-                            <input type="text" placeholder="Last Name" name="last_name[]" />
-                        </div>
-                        <div class="input-box">
-                            <label>Birth Date</label>
-                            <input type="date" placeholder="Date of Birth" name="birth_date[]" />
+                            <input type="text" placeholder="First Name" required name="first_name[]" />
+                            <input type="text" placeholder="Last Name" required name="last_name[]" />
                         </div>
                         <div class="column">
-                            <input type="text" placeholder="Relationship To Applicant" name="relationship[]" />
+                            <div class="input-box">
+                                <label>Birth Date</label>
+                                <input type="date" placeholder="Date of Birth" name="birth_date[]" required />
+                            </div>
+                            <div class="file-upload">
+                                <label>Upload ID</label>
+                                <p class="file-upload-phrase">(Over 18 years old: A form of ID issued by the government
+                                    such
+                                    as
+                                    driver's license, PR card, passport. <br>Under 18 years old: A birth certificate.)
+                                </p>
+                                <input type="file" name="family_member_id_file[]" required>
+
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div class="income-indication" id="is_income_proof" style="display: none;">
+                            <div class="column">
+                                <div class="file-upload" id="income_true">
+                                    <div class="income-phrase">
+                                        <input type="radio" name="income_proof_option[]" id="income_proof_yes"
+                                            value="yes" required />
+                                        <label for="income_proof_yes" class="radio-label">I have a proof of
+                                            income</label>
+                                    </div>
+                                    <div class="income-upload" id="family_income_upload" style="display: none;">
+                                        <label>Please Upload Proof of Income</label>
+                                        <br>
+                                        <input type="file" name="family_income_proof[]" required />
+                                    </div>
+                                </div>
+                                <div class="file-upload" id="income_false">
+                                    <div class="income-phrase">
+                                        <input type="radio" name="income_proof_option[]" id="income_proof_no" value="no"
+                                            required />
+                                        <label for="income_proof_no" class="radio-label">I don't have a source of
+                                            income</label>
+                                    </div>
+                                    <div class="reason-box" id="no_income_why" style="display: none;">
+                                        <label for="message" class="form-label">Please explain the reason for no
+                                            income.</label>
+                                        <textarea name="reason_for_no_income[]" rows="2" required
+                                            class="form-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <input type="text" placeholder="Relationship To Applicant" name="relationship[]" required />
                             <input type="text" placeholder="Gender (Optional)" name="gender[]" />
                         </div>
-                        <div class="button-row column">
-                            <button type="button" class="add-member-button">Add More +</button>
-                            <button type="button" class="remove-member-button">Remove -</button>
-                        </div>
+
                     </div>
                 </div>
 

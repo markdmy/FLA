@@ -56,6 +56,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function performSearchPartner() {
     const nameOfLaundromat = document.getElementById("laundromat-name").value;
 
+    if (nameOfLaundromat.trim() === "") {
+      alert("Please enter the name of laundromat registered.");
+      return;
+    }
     // Make an AJAX request to fetch the reference
     fetch("models/search_partner.php", {
       method: "POST",
@@ -73,22 +77,39 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.text();
       })
       .then((data) => {
-        data = data.replace(/"/g, "");
-        document.getElementById("partnerIDResult").innerHTML = data;
-        if (data !== "Partner Number not found") {
-          document.getElementById("partnerIDResult").innerHTML +=
-            "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
+        data = JSON.parse(data);
+        console.log(data);
 
-          document
-            .getElementById("partnerIDResult")
-            .addEventListener("click", function () {
-              const partnerReferenceInput =
-                document.getElementsByName("partner_id")[0];
-              partnerReferenceInput.value = data;
+        if (data !== "Partner information not found") {
+          const confirmation = confirm(
+            "Is this partner's street address? \n" + data.streetAddress
+          );
 
-              document.getElementById("popup-search-partner").style.display =
-                "none";
-            });
+          if (confirmation) {
+            document.getElementById("partnerIDResult").innerHTML =
+              data.partnerID;
+
+            document.getElementById("partnerIDResult").innerHTML +=
+              "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
+
+            document
+              .getElementById("partnerIDResult")
+              .addEventListener("click", function () {
+                // Get the input element and populate it with the clicked value
+                const partnerReferenceInput =
+                  document.getElementsByName("partner_id")[0];
+                partnerReferenceInput.value = data.partnerID;
+
+                // Close the popup
+                document.getElementById("popup-search-partner").style.display =
+                  "none";
+              });
+          } else {
+            const laundromatName = document.getElementById("laundromat-name");
+            laundromatName.value = "";
+          }
+        } else {
+          document.getElementById("partnerIDResult").innerHTML = data;
         }
       })
       .catch((error) => {
@@ -107,6 +128,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("popup-search-partner")
     .addEventListener("click", function (event) {
       if (event.target === this) {
+        document.getElementById("laundromat-name").value = "";
+        document.getElementById("partnerIDResult").innerHTML = "";
         this.style.display = "none";
       }
     });
@@ -158,7 +181,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("searchParticipantButton")
     .addEventListener("click", function () {
       const participantSearchDiv = document.getElementById("participantSearch");
-
       participantSearchDiv.style.display = "block";
     });
 
@@ -186,6 +208,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+  document
+    .getElementById("dob-eventParticipant")
+    .addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        performSearchParticipant();
+      }
+    });
+
   function performSearchParticipant() {
     const fnameEventParticipant = document.getElementById(
       "fname-eventParticipant"
@@ -193,14 +224,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const lnameEventParticipant = document.getElementById(
       "lname-eventParticipant"
     ).value;
+    const dobEventParticipant = document.getElementById(
+      "dob-eventParticipant"
+    ).value;
 
     // Check if both first name and last name are provided before making the request
     if (
       fnameEventParticipant.trim() === "" ||
-      lnameEventParticipant.trim() === ""
+      lnameEventParticipant.trim() === "" ||
+      dobEventParticipant.trim() === ""
     ) {
-      alert("Please enter both the first and last name.");
-      return; // Do not proceed with the search if either name is empty.
+      alert("Please enter first, last name and date of birth.");
+      return; // Do not proceed with the search if the inputs are empty.
     }
 
     // Make an AJAX request to fetch the reference
@@ -209,6 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
       body: new URLSearchParams({
         "fname-eventParticipant": fnameEventParticipant,
         "lname-eventParticipant": lnameEventParticipant,
+        "dob-eventParticipant": dobEventParticipant,
       }),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -221,25 +257,55 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.text();
       })
       .then((data) => {
-        data = data.replace(/"/g, "");
-        document.getElementById("participantIDResult").innerHTML = data;
-        if (data !== "Participant Number not found") {
-          document.getElementById("participantIDResult").innerHTML +=
-            "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
+        // data = data.replace(/"/g, "");
+        data = JSON.parse(data);
+        console.log(data);
 
-          document
-            .getElementById("participantIDResult")
-            .addEventListener("click", function () {
-              // Get the input element and populate it with the clicked value
-              const participantReferenceInput =
-                document.getElementsByName("participant_id")[0];
-              participantReferenceInput.value = data;
+        if (data !== "Participant information not found") {
+          const confirmation = confirm(
+            "Is this your street address? \n" + data.streetAddress
+          );
 
-              // Close the popup
-              document.getElementById(
-                "popup-search-participant"
-              ).style.display = "none";
-            });
+          if (confirmation) {
+            // Get the input element and populate it with the participantID
+
+            document.getElementById("participantIDResult").innerHTML =
+              data.participantID;
+
+            document.getElementById("participantIDResult").innerHTML +=
+              "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
+
+            document
+              .getElementById("participantIDResult")
+              .addEventListener("click", function () {
+                // Get the input element and populate it with the clicked value
+                const participantReferenceInput =
+                  document.getElementsByName("participant_id")[0];
+                participantReferenceInput.value = data.participantID;
+
+                // Close the popup
+                document.getElementById(
+                  "popup-search-participant"
+                ).style.display = "none";
+              });
+          } else {
+            // Reset the input field values to empty or default values
+            const fnameEventParticipant = document.getElementById(
+              "fname-eventParticipant"
+            );
+            const lnameEventParticipant = document.getElementById(
+              "lname-eventParticipant"
+            );
+            const dobEventParticipant = document.getElementById(
+              "dob-eventParticipant"
+            );
+
+            fnameEventParticipant.value = "";
+            lnameEventParticipant.value = "";
+            dobEventParticipant.value = "";
+          }
+        } else {
+          document.getElementById("participantIDResult").innerHTML = data;
         }
       })
       .catch((error) => {
@@ -260,6 +326,10 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("popup-search-participant")
     .addEventListener("click", function (event) {
       if (event.target === this) {
+        // Clear the form inputs
+        document.getElementById("fname-eventParticipant").value = "";
+        document.getElementById("lname-eventParticipant").value = "";
+        document.getElementById("dob-eventParticipant").value = "";
         this.style.display = "none";
       }
     });
@@ -307,12 +377,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Search volunteer button functionality
-  document
-    .getElementById("searchVolunteerButton")
-    .addEventListener("click", function () {
-      const volunteerSearchDiv = document.getElementById("VolunteerSearch");
-      volunteerSearchDiv.style.display = "block";
-    });
+  // document
+  //   .getElementById("searchVolunteerButton")
+  //   .addEventListener("click", function () {
+  //     const volunteerSearchDiv = document.getElementById("VolunteerSearch");
+  //     volunteerSearchDiv.style.display = "block";
+  //   });
 
   document
     .getElementById("searchVolunteerIDButton")
@@ -338,6 +408,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+  document
+    .getElementById("dob-eventVolunteer")
+    .addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        performSearchVolunteer();
+      }
+    });
+
   function performSearchVolunteer() {
     const fnameEventVolunteer = document.getElementById(
       "fname-eventVolunteer"
@@ -345,12 +424,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const lnameEventVolunteer = document.getElementById(
       "lname-eventVolunteer"
     ).value;
+    const dobEventVolunteer =
+      document.getElementById("dob-eventVolunteer").value;
 
     if (
       fnameEventVolunteer.trim() === "" ||
-      lnameEventVolunteer.trim() === ""
+      lnameEventVolunteer.trim() === "" ||
+      dobEventVolunteer.trim() === ""
     ) {
-      alert("Please enter both the first and last name.");
+      alert("Please enter first, last name and date of birth.");
       return;
     }
 
@@ -360,6 +442,7 @@ document.addEventListener("DOMContentLoaded", function () {
       body: new URLSearchParams({
         "fname-eventVolunteer": fnameEventVolunteer,
         "lname-eventVolunteer": lnameEventVolunteer,
+        "dob-eventVolunteer": dobEventVolunteer,
       }),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -372,22 +455,50 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.text();
       })
       .then((data) => {
-        data = data.replace(/"/g, "");
-        document.getElementById("volunteerIDResult").innerHTML = data;
-        if (data !== "Volunteer Number not found") {
-          document.getElementById("volunteerIDResult").innerHTML +=
-            "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
+        data = JSON.parse(data);
+        console.log(data);
 
-          document
-            .getElementById("volunteerIDResult")
-            .addEventListener("click", function () {
-              const volunteerReferenceInput =
-                document.getElementsByName("volunteer_id")[0];
-              volunteerReferenceInput.value = data;
+        if (data !== "Volunteer information not found") {
+          const confirmation = confirm(
+            "Is this your street address? \n" + data.streetAddress
+          );
 
-              document.getElementById("popup-search-volunteer").style.display =
-                "none";
-            });
+          if (confirmation) {
+            // Get the input element and populate it with the participantID
+
+            document.getElementById("volunteerIDResult").innerHTML =
+              data.volunteerID;
+
+            document.getElementById("volunteerIDResult").innerHTML +=
+              "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
+
+            document
+              .getElementById("volunteerIDResult")
+              .addEventListener("click", function () {
+                const volunteerReferenceInput =
+                  document.getElementsByName("volunteer_id")[0];
+                volunteerReferenceInput.value = data.volunteerID;
+
+                document.getElementById(
+                  "popup-search-volunteer"
+                ).style.display = "none";
+              });
+          } else {
+            const fnameEventVolunteer = document.getElementById(
+              "fname-eventVolunteer"
+            );
+            const lnameEventVolunteer = document.getElementById(
+              "lname-eventVolunteer"
+            );
+            const dobEventVolunteer =
+              document.getElementById("dob-eventVolunteer");
+
+            fnameEventVolunteer.value = "";
+            lnameEventVolunteer.value = "";
+            dobEventVolunteer.value = "";
+          }
+        } else {
+          document.getElementById("volunteerIDResult").innerHTML = data;
         }
       })
       .catch((error) => {
@@ -408,6 +519,10 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("popup-search-volunteer")
     .addEventListener("click", function (event) {
       if (event.target === this) {
+        document.getElementById("fname-eventVolunteer").value = "";
+        document.getElementById("lname-eventVolunteer").value = "";
+        document.getElementById("dob-eventVolunteer").value = "";
+        document.getElementById("volunteerIDResult").innerHTML = "";
         this.style.display = "none";
       }
     });

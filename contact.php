@@ -56,9 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="input-box">
                     <label for="message" class="form-label">Message:</label>
+                    <textarea name="contact-comments" rows="5" required class="form-textarea"></textarea>
                 </div>
 
-                <textarea name="contact-comments" rows="5" required class="form-textarea"></textarea>
+
 
             </div>
 

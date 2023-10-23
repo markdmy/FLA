@@ -52,11 +52,11 @@
 .container .form {
   margin-top: 50px;
 }
-.form .input-box {
+.form .input-box, .file-upload {
   width: 100%;
   margin-top: 20px;
 }
-.input-box label, .housing-box label {
+.input-box label, .housing-box label, .file-upload label {
   color: #333;
 }
 .form :where(.input-box input, .select-box) {
@@ -74,6 +74,70 @@
 .input-box input:focus {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
+
+/* Style the file input label (the "Choose File" text) */
+.file-upload input[type="file"] {
+ 
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 0.8rem;
+  color: #707070;
+  margin-top: 8px;
+  border: none;
+  border-radius: 6px;
+  padding: 15px 15px;
+}
+
+.file-upload {
+  border: 1px solid #e6e5e5ee;
+  padding: 20px;
+  
+}
+
+.income-upload, .reason-box {
+  font-size:0.8rem;
+  margin-top: 8px;
+  border-top:1px solid rgb(216, 215, 215);
+  padding-top:5px;
+
+}
+
+.income-upload label, .reason-box label{
+
+  color: #02383B;
+
+}
+
+.income-phrase {
+  accent-color: #5b8da8;
+}
+
+
+.income-phrase input[type="radio"] {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+/* Style the radio label */
+.income-phrase .radio-label {
+  font-size: 0.8rem; 
+  color: #333; 
+}
+
+
+
+
+
+
+.file-upload-phrase {
+  margin-top: 6px;
+  font-size: 0.7rem;
+}
+
+
+
 .form .column {
   display: flex;
   column-gap: 15px;
@@ -154,8 +218,15 @@
 #additional-members-container {
 
   border: 1px solid #686868;
-    padding: 20px;
+  display: none;
+  padding: 0 20px 10px 20px;
   
+  }
+
+
+  .additional-member-template{
+
+    padding-top:20px;
   }
   @media screen and (min-width: 768px){
     
@@ -455,7 +526,7 @@
 
 .reference-box {
   border: 1px solid #686868;
-  padding: 5% 0 5%;
+  padding: 5% 2% 5%;
   margin: 7%;
 
 }
@@ -474,3 +545,5 @@
 .error-message {
   margin-top:15px;
 }
+
+

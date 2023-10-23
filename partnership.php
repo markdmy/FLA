@@ -1,92 +1,4 @@
 <!--coded by Eunji--->
-<?php
-include('models/partnership_model.php');
-include('models/email_model.php');
-$partnerReference = '';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    if(isset($_POST['pt_first_name'])){
-        $partnerFirstName = $_POST['pt_first_name'];
-    }
-    
-    if(isset($_POST['pt_last_name'])){
-        $lastName = $_POST['pt_last_name'];
-    }
-
-    if(isset($_POST['laundromat_name'])){
-        $laundromatName = $_POST['laundromat_name'];
-    }
-    
-     if(isset($_POST['pt_email'])){
-        $email = $_POST['pt_email'];
-    }
-
-
-    if(isset($_POST['pt_phoneNumber'])){
-        $phone = $_POST['pt_phoneNumber'];
-    }
-
-
-    if(isset($_POST['pt_address'])){
-        $address = $_POST['pt_address'];
-    }
-
-    if(isset($_POST['pt_city'])){
-        $city = $_POST['pt_city'];
-    }
-    if(isset($_POST['pt_province'])){
-        $province = $_POST['pt_province'];
-    }
-    
-    if(isset($_POST['pt_postalCode'])){
-        $postalCode = $_POST['pt_postalCode'];
-    }
-
-    if(isset($_POST['numberOfWashers'])){
-        $numberOfWashers = $_POST['numberOfWashers'];
-    }
-    
-    if(isset($_POST['numberOfDryers'])){
-        $NumberOfDryers = $_POST['numberOfDryers'];
-    }
-
-
-    if (isset($_POST['hasAttendant'])) {
-        $hasAttendant = $_POST['hasAttendant']; 
-    }
-
-
-
-
-    $formCreated = date('Y-m-d H:i:s');
-
-    //use this for using trigger
-    // $partnerReference = add_partner($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
-    // if($partnerReference){
-    //     // header("Location: submitSuccess.php?partnerReference=$partnerReference&partnerFirstName=$partnerFirstName");
-    //     echo "<script>window.location.href='submitSuccess.php?partnerReference=$partnerReference&partnerFirstName=$partnerFirstName';</script>";
-    //     exit();
-    // }
-
-    //using this for not using trigger
-    $partnerInfo = add_partner($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
-    if ($partnerInfo) {
-    $laundromatName = $partnerInfo['laundromatName'];
-    $email = $partnerInfo['email'];
-    $redirectUrl = send_email_from_partnership_form($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
-
-    if ($redirectUrl) {
-        // Redirect to success page
-        echo "<script>window.location.href='$redirectUrl';</script>";
-        exit();
-    }
-    }
-
-    
-  }
-  
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-        <form action="partnership.php" method="POST" class="form" id="partnership-form">
+        <form action="models/partnership_model.php" method="POST" class="form" id="partnership-form">
             <h2>Partnership Signup Form</h2>
             <div class="form-content">
                 <div class="column">

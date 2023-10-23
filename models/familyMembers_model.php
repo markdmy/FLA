@@ -3,12 +3,12 @@
 <?php
 include('db_conn.php');
 
-function add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender)
+function add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender, $idFilePath, $incomeInfo)
 {
     global $db;
     try {
-        $query = "INSERT INTO familymembers (participantID, firstName, lastName, dateOfBirth,  relationshipToParticipant, gender)
-        VALUES ('$participantID', '$familyFirstName', '$familyLastName', '$familyDateOfBirth', '$relationshipToParticipant', '$gender')";
+        $query = "INSERT INTO familymembers (participantID, firstName, lastName, dateOfBirth,  relationshipToParticipant, gender, id_file_path, income_info)
+        VALUES ('$participantID', '$familyFirstName', '$familyLastName', '$familyDateOfBirth', '$relationshipToParticipant', '$gender', '$idFilePath', '$incomeInfo')";
         
         $result = $db->query($query);
 
@@ -23,6 +23,7 @@ function add_family_member($participantID, $familyFirstName, $familyLastName, $f
 
     
 }
+
 
 
 ?>
