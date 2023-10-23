@@ -1,69 +1,166 @@
-//coded by Eunji
-
 document.addEventListener("DOMContentLoaded", function () {
-  const container = document.getElementById("additional-members-container");
-  let templateAdded = false;
+  // Get references to the input elements
+  const numberOfHouseholdInput = document.getElementById("numberOfHousehold");
+  const additionalMembersContainer = document.getElementById(
+    "additional-members-container"
+  );
+  const templateContainer = document.querySelector(
+    ".additional-member-template"
+  );
 
-  function addMember() {
-    const memberTemplate = document.querySelector(
-      ".additional-member-template"
-    );
-    const clone = memberTemplate.cloneNode(true);
+  // Add an event listener to the numberOfHousehold input to react to changes
+  numberOfHouseholdInput.addEventListener(
+    "input",
+    handleNumberOfHouseholdChange
+  );
 
-    const originalRemoveButton = clone.querySelector(".remove-member-button");
-    if (templateAdded) {
-      originalRemoveButton.style.display = "inline-block";
+  // Initially, call the function to set the initial state
+  //handleNumberOfHouseholdChange();
+
+  // Function to handle the change in numberOfHouseholdInput
+  function handleNumberOfHouseholdChange() {
+    const numberOfHouseholdValue = parseInt(numberOfHouseholdInput.value);
+
+    // Clear any previously cloned containers
+    additionalMembersContainer.innerHTML = "";
+
+    if (numberOfHouseholdValue > 1) {
+      // Show the additional members container
+      additionalMembersContainer.style.display = "block";
+
+      // Append additional cloned containers
+      for (let i = 0; i < numberOfHouseholdValue - 1; i++) {
+        const clonedTemplate = templateContainer.cloneNode(true);
+        const label = document.createElement("label");
+        label.textContent = `ADDITIONAL HOUSEHOLD MEMBER #${i + 1}`;
+        clonedTemplate.prepend(label);
+
+        // Add a unique identifier to the cloned template
+        const uniqueId = generateUniqueId();
+        const templateId = `clonedTemplate_${uniqueId}`;
+        clonedTemplate.id = templateId;
+
+        // Update IDs and names for input elements within the cloned template
+        clonedTemplate
+          .querySelectorAll('input[type="file"], textarea')
+          .forEach((element) => {
+            if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+              const elementName = element.name;
+              const uniqueElementId = `${elementName}_${uniqueId}`;
+              element.id = uniqueElementId;
+            }
+          });
+
+        clonedTemplate
+          .querySelectorAll('input[type="file"]')
+          .forEach((fileInput) => {
+            validateFileInput(fileInput);
+          });
+
+        const radioInputs = clonedTemplate.querySelectorAll(
+          'input[type="radio"]'
+        );
+        radioInputs.forEach((radioInput) => {
+          const radioId = `${radioInput.id}${uniqueId}`;
+          radioInput.id = radioId;
+
+          const parentDiv = radioInput.closest(".income-phrase");
+          if (parentDiv) {
+            const parentDivId = `income_phrase${uniqueId}`;
+            parentDiv.id = parentDivId;
+          }
+        });
+
+        additionalMembersContainer.appendChild(clonedTemplate);
+
+        // Check if the age input in this template should show the "family_income_proof" div
+        const ageInput = clonedTemplate.querySelector('input[type="date"]');
+        ageInput.addEventListener("change", function () {
+          // Calculate age and show/hide "family_income_proof" based on the date value
+          let birthDateValue = new Date(this.value);
+          let currentDate = new Date();
+          let age = currentDate.getFullYear() - birthDateValue.getFullYear();
+          if (
+            currentDate.getMonth() < birthDateValue.getMonth() ||
+            (currentDate.getMonth() === birthDateValue.getMonth() &&
+              currentDate.getDate() < birthDateValue.getDate())
+          ) {
+            age--;
+          }
+
+          const radioOptionYes = clonedTemplate.querySelector(
+            `#${templateId} #income_proof_yes${uniqueId}`
+          );
+          const radioOptionNo = clonedTemplate.querySelector(
+            `#${templateId} #income_proof_no${uniqueId}`
+          );
+
+          const proofFileInput = clonedTemplate.querySelector(
+            `#${templateId} input[name="family_income_proof[]"]`
+          );
+
+          console.log("prooffileinput", proofFileInput);
+
+          const textArea = clonedTemplate.querySelector(
+            `#${templateId} textarea`
+          );
+
+          const familyIncomeProofDiv = clonedTemplate.querySelector(
+            `#${templateId} .income-indication#is_income_proof`
+          );
+
+          const uniqueIncomeProofdId = `is_income_proof${uniqueId}`;
+          familyIncomeProofDiv.id = uniqueIncomeProofdId;
+          if (familyIncomeProofDiv) {
+            const uniqueIncomeProofdId = `is_income_proof${uniqueId}`;
+            familyIncomeProofDiv.id = uniqueIncomeProofdId;
+          }
+
+          const familyIncomeUploadDiv =
+            clonedTemplate.querySelector(".income-upload");
+
+          const uniqueIncomeUploadId = `family_income_upload${uniqueId}`;
+          familyIncomeUploadDiv.id = uniqueIncomeUploadId;
+
+          const noIncomeExplanationDiv =
+            clonedTemplate.querySelector(".reason-box");
+          const uniqueNoIncomeId = `no_income_why${uniqueId}`;
+          noIncomeExplanationDiv.id = uniqueNoIncomeId;
+
+          if (age >= 18) {
+            familyIncomeProofDiv.style.display = "block";
+
+            // Handle required attributes based on the user's choice
+            radioOptionYes.addEventListener("change", function () {
+              if (this.checked) {
+                familyIncomeUploadDiv.style.display = "block";
+                noIncomeExplanationDiv.style.display = "none";
+                textArea.removeAttribute("required");
+                proofFileInput.setAttribute("required", "required");
+              }
+            });
+
+            radioOptionNo.addEventListener("change", function () {
+              if (this.checked) {
+                noIncomeExplanationDiv.style.display = "block";
+                familyIncomeUploadDiv.style.display = "none";
+                proofFileInput.removeAttribute("required");
+                textArea.setAttribute("required", "required");
+              }
+            });
+          } else {
+            familyIncomeProofDiv.style.display = "none";
+
+            radioOptionYes.removeAttribute("required");
+            radioOptionNo.removeAttribute("required");
+            proofFileInput.removeAttribute("required");
+            textArea.removeAttribute("required");
+          }
+        });
+      }
     } else {
-      originalRemoveButton.style.display = "none";
-    }
-
-    clone.querySelectorAll("input").forEach(function (input) {
-      input.value = "";
-      const uniqueId = generateUniqueId();
-      input.name += uniqueId;
-      input.id += uniqueId;
-    });
-
-    const removeButton = clone.querySelector(".remove-member-button");
-    removeButton.style.display = "inline-block";
-
-    removeButton.addEventListener("click", function () {
-      container.removeChild(clone);
-      checkRemoveButtonVisibility();
-    });
-
-    container.appendChild(clone);
-    checkRemoveButtonVisibility();
-    templateAdded = true;
-  }
-  if (window.location.pathname.endsWith("registration.php")) {
-    const addButton = document.querySelector(".add-member-button");
-
-    if (addButton) {
-      let firstClick = true;
-      addButton.addEventListener("click", function () {
-        if (!templateAdded && !firstClick) {
-          addMember();
-        }
-        firstClick = false;
-      });
-    }
-  }
-
-  container.addEventListener("click", function (event) {
-    if (event.target && event.target.classList.contains("add-member-button")) {
-      addMember();
-    }
-  });
-
-  function checkRemoveButtonVisibility() {
-    const removeButtons = container.querySelectorAll(".remove-member-button");
-    if (removeButtons.length === 1) {
-      removeButtons[0].style.display = "none";
-    } else {
-      removeButtons.forEach(function (button) {
-        button.style.display = "inline-block";
-      });
+      // Hide the additional members container
+      additionalMembersContainer.style.display = "none";
     }
   }
 
@@ -81,4 +178,82 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "submitSuccess.php";
     }
   });
+
+  function handleIncomeProofOptionChange(uniqueId) {
+    const familyIncomeUploadDiv = document.getElementById(
+      `family_income_upload_${uniqueId}`
+    );
+
+    const noIncomeExplanationDiv = document.getElementById(
+      `no_income_why_${uniqueId}`
+    );
+
+    // Check the value of the selected radio button
+    const incomeProofOption = document.querySelector(
+      `input[name="income_proof_option"]:checked`
+    );
+
+    if (familyIncomeUploadDiv && noIncomeExplanationDiv && incomeProofOption) {
+      if (incomeProofOption.value === "yes") {
+        // Show the "I have a proof of income" div and hide the "I do NOT have a proof of income" div
+        familyIncomeUploadDiv.style.display = "block";
+        noIncomeExplanationDiv.style.display = "none";
+      } else if (incomeProofOption.value === "no") {
+        // Show the "I do NOT have a proof of income" div and hide the "I have a proof of income" div
+        familyIncomeUploadDiv.style.display = "none";
+        noIncomeExplanationDiv.style.display = "block";
+      }
+    }
+  }
+
+  // Use event delegation to handle changes for dynamically created elements
+  document.addEventListener("change", function (event) {
+    if (event.target.matches('input[name^="income_proof_option"]')) {
+      // Handle the change based on which radio button was clicked
+      const uniqueId = event.target.id.split("_").pop();
+      handleIncomeProofOptionChange(uniqueId);
+    }
+  });
+
+  const pIdentificationInput = document.getElementById("p_identification");
+  const pIncomeProofInput = document.getElementById("p_income_proof");
+
+  // Validate p_identification input
+  validateFileInput(pIdentificationInput);
+
+  // Validate p_income_proof input
+  validateFileInput(pIncomeProofInput);
+
+  function validateFileInput(fileInput) {
+    let allowedExtensions = [
+      "jpg",
+      "jpeg",
+      "png",
+      "pdf",
+      "tiff",
+      "doc",
+      "docx",
+    ];
+    let maxFileSize = 10 * 1024 * 1024; // 10MB
+
+    fileInput.addEventListener("change", function () {
+      let fileName = fileInput.value;
+      let fileExtension = fileName.split(".").pop().toLowerCase();
+
+      if (allowedExtensions.indexOf(fileExtension) === -1) {
+        alert(
+          "Invalid file extension. Allowed extensions: " +
+            allowedExtensions.join(", ")
+        );
+        fileInput.value = ""; // Clear the input field
+        return;
+      }
+
+      if (fileInput.files[0].size > maxFileSize) {
+        alert("File size exceeds the maximum limit.");
+        fileInput.value = ""; // Clear the input field
+        return;
+      }
+    });
+  }
 });

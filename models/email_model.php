@@ -49,7 +49,7 @@ function send_email_from_contact_form($contactName, $contactEmail, $contactPhone
 
 
 //this function will be called when a user submit a registration from from registration.php
-function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, array $familyMemberInfo)
+function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $id_file_path, $income_proof_file_path, array $familyMemberInfo)
 {
    
     try {
@@ -73,11 +73,24 @@ function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOf
         $mail->Subject = "(test)FLA Registration(participant)Form Submitted";
         
         $mail->IsHTML(true);
-        $mail->Body = "Name: $firstName $lastName<br>Email: $email<br>Phone Number: $phone<br>Registration details:<br>
-        Date of Birth: $dateOfBirth<br>Number of Household: $numberOfHousehold<br>Number of Adults: $numberOfAdults<br>
-        Number of Children Under 12: $NumberOfChildrenUnder12<br>Number of Children Over 12: $NumberOfChildrenOver12<br>
-        Address: $address<br>City: $city<br>Province: $province<br>Postal Code: $postalCode<br>
-        Housing Situation: $housing_situation<br>Found Program: $combinedFoundProgram<br>Form Created: $formCreated<br>
+        $mail->Body = "
+        Name: $firstName $lastName<br>
+        Email: $email<br>Phone Number: $phone<br>
+        Registration details:<br>
+        Date of Birth: $dateOfBirth<br>
+        Number of Household: $numberOfHousehold<br>
+        Number of Adults: $numberOfAdults<br>
+        Number of Children Under 12: $NumberOfChildrenUnder12<br>
+        Number of Children Over 12: $NumberOfChildrenOver12<br>
+        Address: $address<br>
+        City: $city<br>
+        Province: $province<br>
+        Postal Code: $postalCode<br>
+        Housing Situation: $housing_situation<br>
+        Found Program: $combinedFoundProgram<br>
+        Form Created: $formCreated<br>
+        identification file info: $$id_file_path<br>
+        income proof file info: $income_proof_file_path<br>
         Family Member Details:<br>" . implode("<br>", $familyMemberInfo);
         
         $mail->AltBody = "Name: $firstName $lastName\nEmail: $email\nPhone Number: $phone\nRegistration details:\n
@@ -89,7 +102,7 @@ function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOf
         
 
         if ($mail->send()) {
-            $redirectUrl = "submitSuccess.php?participantEmail=$participantEmail&firstName=$firstName";
+            $redirectUrl = "../submitSuccess.php?participantEmail=$email&firstName=$firstName";
             return $redirectUrl; 
         } else {
             $_SESSION['email_error'] = "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
@@ -132,7 +145,7 @@ function send_email_from_partnership_form($partnerFirstName, $lastName, $laundro
 
 
         if ($mail->send()) {
-            $redirectUrl = "submitSuccess.php?partnerEmail=$email&partnerFirstName=$partnerFirstName&laundromatName=$laundromatName";
+            $redirectUrl = "../submitSuccess.php?partnerEmail=$email&partnerFirstName=$partnerFirstName&laundromatName=$laundromatName";
             return $redirectUrl; 
         } else {
             $_SESSION['email_error'] = "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
@@ -147,8 +160,7 @@ function send_email_from_partnership_form($partnerFirstName, $lastName, $laundro
 
 
 //this function will be called when a user submit a volunteer from from volunteer.php
-function send_email_from_volunteer_form($volunteerFirstName, $lastName, $email, $phone, $address, $city, $province, $postalCode, $formCreated)
-    
+function send_email_from_volunteer_form($volunteerFirstName, $lastName, $dateOfBirth, $isAge18AndOver, $email, $phone, $address, $city, $province, $postalCode, $formCreated) 
 {
    
     try {
@@ -172,12 +184,26 @@ function send_email_from_volunteer_form($volunteerFirstName, $lastName, $email, 
         $mail->Subject = "(test)FLA Volunteer Form Submitted";
 
         $mail->IsHTML(true);
-        $mail->Body = "Name: $volunteerFirstName $lastName<br>Email Address: $email<br>Phone Number: $phone<br>Street Address: $address<br>City: $city<br>Province: $province<br>Postal Code: $postalCode<br>Form Created: $formCreated";
-        $mail->AltBody = "Name: $volunteerFirstName $lastName\nEmail Address: $email\nPhone Number: $phone\nStreet Address: $address\ncity: $city\nProvince: $province\nPostal Code: $postalCode\nForm Created: $formCreated";
+        $mail->Body = "Name: $volunteerFirstName $lastName<br>
+        Birth Date: $dateOfBirth<br>
+        isAge18AndOver?: $isAge18AndOver<br>
+        Email Address: $email<br>
+        Phone Number: $phone<br>
+        Street Address: $address<br>
+        City: $city<br>
+        Province: $province<br>
+        Postal Code: $postalCode<br>
+        Form Created: $formCreated";
+        $mail->AltBody = "Name: $volunteerFirstName $lastName\n
+        Birth Date: $dateOfBirth\n
+        isAge18AndOver?: $isAge18AndOver\n
+        Email Address: $email\n
+        Phone Number: $phone\n
+        Street Address: $address\ncity: $city\nProvince: $province\nPostal Code: $postalCode\nForm Created: $formCreated";
 
 
         if ($mail->send()) {
-            $redirectUrl = "submitSuccess.php?volunteerEmail=$email&volunteerFirstName=$volunteerFirstName";
+            $redirectUrl = "../submitSuccess.php?volunteerEmail=$email&volunteerFirstName=$volunteerFirstName";
             return $redirectUrl; 
         } else {
             $_SESSION['email_error'] = "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;

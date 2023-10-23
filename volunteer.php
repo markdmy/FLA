@@ -1,77 +1,4 @@
 <!-- coded by Enobong -->
-
-<?php
-include('models/volunteer_model.php');
-include('models/email_model.php');
-// $volunteerReference = '';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    if(isset($_POST['vl_first_name'])){
-        $volunteerFirstName = $_POST['vl_first_name'];
-    }
-    
-    if(isset($_POST['vl_last_name'])){
-        $lastName = $_POST['vl_last_name'];
-    }
-    
-    if(isset($_POST['vl_email'])){
-        $email = $_POST['vl_email'];
-    }
-
-    if(isset($_POST['vl_phoneNumber'])){
-        $phone = $_POST['vl_phoneNumber'];
-    }
-
-    if(isset($_POST['vl_address'])){
-        $address = $_POST['vl_address'];
-    }
-
-    if(isset($_POST['vl_city'])){
-        $city = $_POST['vl_city'];
-    }
-
-    if(isset($_POST['vl_province'])){
-        $province = $_POST['vl_province'];
-    }
-    
-    if(isset($_POST['vl_postalCode'])){
-        $postalCode = $_POST['vl_postalCode'];
-    }
-    
-    $formCreated = date('Y-m-d H:i:s');
-
-
-
-
-    //below is for using reference
-    // $volunteerReference = add_volunteer($volunteerFirstName, $lastName, $email, $phone, $address, $city, $province, $postalCode, $formCreated);
-    // if($volunteerReference){
-        //header function not working in live site
-        // header("Location: submitSuccess.php?volunteerReference=$volunteerReference&volunteerFirstName=$volunteerFirstName");
-        // echo "<script>window.location.href='submitSuccess.php?volunteerReference=$volunteerReference&volunteerFirstName=$volunteerFirstName';</script>";
-        // exit();
-    // }
-
-
-    //this code below is not using reference. 
-    $volunteerInfo = add_volunteer($volunteerFirstName, $lastName, $email, $phone, $address, $city, $province, $postalCode, $formCreated);
-    if ($volunteerInfo) {
-    $email = $volunteerInfo['email'];
-    $redirectUrl = send_email_from_volunteer_form($volunteerFirstName, $lastName, $email, $phone, $address, $city, $province, $postalCode, $formCreated);
-    
-    if ($redirectUrl) {
-        // Redirect to success page
-        echo "<script>window.location.href='$redirectUrl';</script>";
-        exit();
-    }
-    
-    }    
-    
-  }
-  
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,13 +11,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/partnership_php.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Join Volunteers Team</title>
+    <link rel="icon" href="assets/images/apple-touch-icon-120x120.png" />
 </head>
 
 <body>
     <?php include('components/header.php'); ?>
     <section class="container">
 
-        <form action="volunteer.php" method="POST" class="form" id="volunteer-form">
+        <form action="models/volunteer_model.php" method="POST" class="form" id="volunteer-form">
             <h2>Volunteer Signup Form</h2>
             <div class="form-content">
                 <div class="column">
@@ -113,6 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="phone">Phone Number</label>
                         <input type="tel" id="vl_phone" name="vl_phoneNumber" placeholder="Format: 123-456-7890"
                             class="form-input">
+                    </div>
+                    <div class="input-box">
+                        <label>Birth Date</label>
+                        <input type="date" placeholder="Date of Birth" name="vl_birth_date" required />
                     </div>
                 </div>
 

@@ -36,18 +36,18 @@
 #participantSearch, #volunteerSearch {
   background: #fff; 
   border-radius: 5px;
-  padding: 25px;
+  padding: 16px 25px;
   width: 320px;
-  height: 320px;
+  height: 360px;
 
 }
 
 .searchForm :where(.input-box input, .select-box) {
   position: relative;
-  height: 50px;
+  height: 30px;
   width: 100%;
   outline: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #707070;
   margin-top: 8px;
   border: 1px solid #ddd;
@@ -55,6 +55,9 @@
   padding: 0 15px;
 }
 
+#participantIDResult, #volunteerIDResult, #partnerIDResult {
+  margin-top:5px;
+}
 
 .searchForm button[type="button"] {
   height: 45px;
@@ -62,7 +65,7 @@
   color: #fff;
   font-size: 1rem;
   font-weight: 400;
-  margin-top: 12px;
+  margin-top: 18px;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;

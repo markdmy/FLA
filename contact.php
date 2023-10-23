@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/registration.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Contact Us</title>
+    <link rel="icon" href="assets/images/apple-touch-icon-120x120.png" />
 </head>
 
 <body>
@@ -55,9 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="input-box">
                     <label for="message" class="form-label">Message:</label>
+                    <textarea name="contact-comments" rows="5" required class="form-textarea"></textarea>
                 </div>
 
-                <textarea name="contact-comments" rows="5" required class="form-textarea"></textarea>
+
 
             </div>
 

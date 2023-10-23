@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
     }
 }
 
-var_dump($_SESSION);
 ?>
 
 
@@ -34,6 +33,7 @@ var_dump($_SESSION);
     <link rel="stylesheet" href="css/registration.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Admin Login</title>
+    <link rel="icon" href="assets/images/apple-touch-icon-120x120.png" />
 </head>
 
 <body>

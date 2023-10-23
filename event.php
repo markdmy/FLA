@@ -7,7 +7,6 @@ if (!isset($_SESSION["admin_authenticated"]) || $_SESSION["admin_authenticated"]
     exit();
 }
 
-var_dump($_SESSION);
 include("models/events_model.php");
 include("models/search_partner.php");
 
@@ -25,6 +24,7 @@ include("models/search_partner.php");
     <link rel="stylesheet" href="css/event.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Events Process form</title>
+    <link rel="icon" href="assets/images/apple-touch-icon-120x120.png" />
 </head>
 
 <body>
@@ -231,6 +231,11 @@ include("models/search_partner.php");
                             <label for="lname-eventParticipant">Last Name:</label>
                             <input type="text" id="lname-eventParticipant" name="lname-eventParticipant" required><br>
                         </div>
+                        <br>
+                        <div class="input-box">
+                            <label for="dob-eventParticipant">Date Of Birth:</label>
+                            <input type="date" id="dob-eventParticipant" name="dob-eventParticipant" required><br>
+                        </div>
                     </div>
                     <button type="button" id="searchParticipantIDButton">Search</button>
                 </form>
@@ -283,6 +288,11 @@ include("models/search_partner.php");
                         <div class="input-box">
                             <label for="lname-eventVolunteer">Last Name:</label>
                             <input type="text" id="lname-eventVolunteer" name="lname-eventVolunteer" required><br>
+                        </div>
+                        <br>
+                        <div class="input-box">
+                            <label for="dob-eventVolunteer">Date Of Birth:</label>
+                            <input type="date" id="dob-eventVolunteer" name="dob-eventVolunteer" required><br>
                         </div>
                     </div>
                     <button type="button" id="searchVolunteerIDButton">Search</button>

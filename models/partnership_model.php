@@ -2,39 +2,80 @@
 
 <?php
 include('db_conn.php');
+include('email_model.php');
 
-//this is to use the trigger 
-// function add_partner($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-// {
-//     global $db;
-//     try {
-//         $query = "INSERT INTO partnership (partnerID, firstName, lastName, nameOfLaundromat, email, phone, streetAddress, city, province, postalCode, numberOfWashers, numberOfDryers, hasAttendant, formCreated) 
-//         VALUES (NULL, '$partnerFirstName', '$lastName', '$laundromatName', '$email', '$phone', '$address', '$city', '$province', '$postalCode', '$numberOfWashers', '$NumberOfDryers', '$hasAttendant', '$formCreated')";
+    if(isset($_POST['pt_first_name'])){
+        $partnerFirstName = $_POST['pt_first_name'];
+    }
+    
+    if(isset($_POST['pt_last_name'])){
+        $lastName = $_POST['pt_last_name'];
+    }
 
-//         $result = $db->query($query);
+    if(isset($_POST['laundromat_name'])){
+        $laundromatName = $_POST['laundromat_name'];
+    }
+    
+     if(isset($_POST['pt_email'])){
+        $email = $_POST['pt_email'];
+    }
 
-//         if ($result) {
-//             $partnerID = $db->lastInsertId();
 
-//             $referenceQuery = "SELECT partnerReference FROM partnership WHERE partnerID = $partnerID";
-//             $referenceResult = $db->query($referenceQuery);
+    if(isset($_POST['pt_phoneNumber'])){
+        $phone = $_POST['pt_phoneNumber'];
+    }
 
-//             if ($referenceResult) {
-//                 $referenceData = $referenceResult->fetch(PDO::FETCH_ASSOC);
-//                 $partnerReference = $referenceData['partnerReference'];
-//                 return $partnerReference;
-//             } else {
-//                 throw new Exception("Error fetching partnerReference: " . $db->errorInfo()[2]);
-//             }
-//         } else {
-//             throw new Exception("Error inserting partner: " . $db->errorInfo()[2]);
-//         }
-//     } catch (Exception $e) {
-//         echo "An error occurred: " . $e->getMessage();
-//         return false;
-//     }
-// }
+
+    if(isset($_POST['pt_address'])){
+        $address = $_POST['pt_address'];
+    }
+
+    if(isset($_POST['pt_city'])){
+        $city = $_POST['pt_city'];
+    }
+    if(isset($_POST['pt_province'])){
+        $province = $_POST['pt_province'];
+    }
+    
+    if(isset($_POST['pt_postalCode'])){
+        $postalCode = $_POST['pt_postalCode'];
+    }
+
+    if(isset($_POST['numberOfWashers'])){
+        $numberOfWashers = $_POST['numberOfWashers'];
+    }
+    
+    if(isset($_POST['numberOfDryers'])){
+        $NumberOfDryers = $_POST['numberOfDryers'];
+    }
+
+
+    if (isset($_POST['hasAttendant'])) {
+        $hasAttendant = $_POST['hasAttendant']; 
+    }
+
+
+
+
+    $formCreated = date('Y-m-d H:i:s');
+
+    $partnerInfo = add_partner($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
+    if ($partnerInfo) {
+    $laundromatName = $partnerInfo['laundromatName'];
+    $email = $partnerInfo['email'];
+    $redirectUrl = send_email_from_partnership_form($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
+
+    if ($redirectUrl) {
+        // Redirect to success page
+        echo "<script>window.location.href='$redirectUrl';</script>";
+        exit();
+    }
+    }
+
+    
+  }
 
 //this below is for retrieving name of laundromat and email address 
 function add_partner($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated)
