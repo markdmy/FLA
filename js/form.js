@@ -14,9 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
     handleNumberOfHouseholdChange
   );
 
-  // Initially, call the function to set the initial state
-  //handleNumberOfHouseholdChange();
-
   // Function to handle the change in numberOfHouseholdInput
   function handleNumberOfHouseholdChange() {
     const numberOfHouseholdValue = parseInt(numberOfHouseholdInput.value);
@@ -88,6 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
             age--;
           }
 
+          console.log(age);
+
           const radioOptionYes = clonedTemplate.querySelector(
             `#${templateId} #income_proof_yes${uniqueId}`
           );
@@ -99,22 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
             `#${templateId} input[name="family_income_proof[]"]`
           );
 
-          console.log("prooffileinput", proofFileInput);
-
           const textArea = clonedTemplate.querySelector(
             `#${templateId} textarea`
           );
-
-          const familyIncomeProofDiv = clonedTemplate.querySelector(
-            `#${templateId} .income-indication#is_income_proof`
-          );
-
-          const uniqueIncomeProofdId = `is_income_proof${uniqueId}`;
-          familyIncomeProofDiv.id = uniqueIncomeProofdId;
-          if (familyIncomeProofDiv) {
-            const uniqueIncomeProofdId = `is_income_proof${uniqueId}`;
-            familyIncomeProofDiv.id = uniqueIncomeProofdId;
-          }
 
           const familyIncomeUploadDiv =
             clonedTemplate.querySelector(".income-upload");
@@ -126,6 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
             clonedTemplate.querySelector(".reason-box");
           const uniqueNoIncomeId = `no_income_why${uniqueId}`;
           noIncomeExplanationDiv.id = uniqueNoIncomeId;
+
+          const familyIncomeProofDiv = clonedTemplate.querySelector(
+            `#${templateId} .income-indication#is_income_proof`
+          );
 
           if (age >= 18) {
             familyIncomeProofDiv.style.display = "block";
