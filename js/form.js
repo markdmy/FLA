@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "input",
     handleNumberOfHouseholdChange
   );
-
+  const clonedTemplates = [];
   // Function to handle the change in numberOfHouseholdInput
   function handleNumberOfHouseholdChange() {
     const numberOfHouseholdValue = parseInt(numberOfHouseholdInput.value);
