@@ -64,6 +64,7 @@
                             PR
                             card, passport.) </p>
                         <input type="file" required name="p_identification" id="p_identification" />
+                        <p class="file-upload-phrase">File format: jpg, jpeg, png, pdf, tiff, doc, docx</p>
                     </div>
                     <!-- <div class="file-upload" id="p_income_upload" style="display: none;"> -->
                     <div class="file-upload" id="p_income_upload">
@@ -71,6 +72,7 @@
                         <br>
                         <p class="file-upload-phrase">(Proof of income needed for age 18 and over.) </p>
                         <input type="file" required name="p_income_proof" id="p_income_proof" />
+                        <p class="file-upload-phrase">File format: jpg, jpeg, png, pdf, tiff, doc, docx</p>
                     </div>
                 </div>
 
@@ -151,6 +153,7 @@
                                     driver's license, PR card, passport. <br>Under 18 years old: A birth certificate.)
                                 </p>
                                 <input type="file" name="family_member_id_file[]" required>
+                                <p class="file-upload-phrase">File format: jpg, jpeg, png, pdf, tiff, doc, docx</p>
 
                             </div>
 
@@ -172,6 +175,8 @@
                                         <label>Please Upload Proof of Income</label>
                                         <br>
                                         <input type="file" name="family_income_proof[]" required />
+                                        <p class="file-upload-phrase">File format: jpg, jpeg, png, pdf, tiff, doc, docx
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="file-upload" id="income_false">
