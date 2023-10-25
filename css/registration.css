@@ -515,10 +515,6 @@
   transform: scale(0.1, 1);
 }
 
-
-
-
-
 .thankyou-name, .success-phrase {
   margin-bottom:5%;
 }
@@ -546,4 +542,34 @@
   margin-top:15px;
 }
 
+/* mark collapsable menu */
 
+.menu {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.menu-title {
+  background-color: #f2f2f2;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.menu-content {
+  padding: 10px;
+  display: none;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.icon {
+  float: right;
+}
+
+/* Style for the expanded menu */
+.menu.active .menu-content {
+  display: block;
+}
