@@ -1,159 +1,12 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap');
-
-body,
-h1,
-h2,
-h3,
-p,
-ul,
-li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: 'Montserrat', sans-serif;
-  margin-top: 0px;
-  color: #02383B;
-}
-
-body {
-  background: #fff;
-  margin-top: 72px;
-}
-
-header {
-  background: #85D4FF;
-  text-align: center;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-a.logo-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-.logo img {
-  width: 30px;
-  height: auto;
-  margin-right: 20px;
-}
-
-#mainTitle {
-  font-size: 23px;
-  font-weight: 300;
-}
-
-#mainTitle strong {
-  font-weight: 900;
-}
-
-.nav ul {
-  display: flex;
-  list-style: none;
-  margin-right: 22px;
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.nav ul li {
-  position: relative;
-  margin-right: 30px;
-}
-
-.nav ul li a {
-  color: #02383B;
-  text-decoration: none;
-}
-
-.nav ul li a:hover {
-  color: #ffffff;
-}
-
-.dropdown li a:hover {
-  color: rgb(3, 3, 116);
-}
-
-
-.nav ul li {
-  position: relative;
-}
-
-.nav ul li:hover .dropdown {
-  display: block;
-  position: absolute;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #85D4FF;
-  padding-top: 25px;
-}
-
-.nav ul li:hover .dropdown li {
-  display: block;
-  margin: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  text-align: center;
-}
-
-.dropdown li {
-  display: none;
-}
-
-.donation-bar {
-  margin-top: 60px;
-  display: flex;
-  align-items: center;
-}
-
-.donation-text {
-  font-size: 20px;
-  color: #02383B;
-  flex: 1;
-  padding-left: 15px;
-}
-
-.donate-btn {
-  padding-top: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.donate-btn img {
-  width: 160px;
-  height: 50px;
-}
-
-/* homepage body */
-
+﻿
 .partnership-grid-container {
   display: grid;
   width: 100%;
   margin: auto;
   align-items: center;
   grid-template-columns: 1fr 2.5fr;
-  /* Two equally spaced columns */
   gap: 10px;
-  /* Adjust the gap between columns */
   background-color: #f2f2f2;
-  /* Add background color for visualization */
   padding-bottom: 20px;
   padding-top: 20px;
 }
@@ -184,13 +37,8 @@ a.logo-link {
   line-height: 1.5;
 }
 
-h2 {
-  color: #02383B;
-  font-family: 'Montserrat', sans-serif;
-}
 
 .callToActionImages {
-  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -203,11 +51,16 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0px;
+  margin: 0px;
+  padding-bottom: 50px;
 }
 
 .callToAction img {
   height: auto;
   width: 250px;
+  padding: 0px;
+  margin: 0px;
 }
 
 footer {
