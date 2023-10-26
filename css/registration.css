@@ -277,9 +277,12 @@
     padding: 4px; 
   }
 
+.additional-note {
+  margin-bottom:20px;
+}
+
 .privacy {
     margin-top: 5%;
-    border: 1px solid #686868;
     padding: 20px;
 }
 .privacy h3{
@@ -515,6 +518,10 @@
   transform: scale(0.1, 1);
 }
 
+
+
+
+
 .thankyou-name, .success-phrase {
   margin-bottom:5%;
 }
@@ -542,10 +549,15 @@
   margin-top:15px;
 }
 
+.consent-box {
+  border: 1px solid rgb(179, 179, 179);
+    padding: 10px;
+}
+
+
 /* mark collapsable menu */
 
 .menu {
-  border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
   overflow: hidden;

@@ -208,15 +208,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-  document
-    .getElementById("dob-eventParticipant")
-    .addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        performSearchParticipant();
-      }
-    });
-
   function performSearchParticipant() {
     const fnameEventParticipant = document.getElementById(
       "fname-eventParticipant"
@@ -224,18 +215,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const lnameEventParticipant = document.getElementById(
       "lname-eventParticipant"
     ).value;
-    const dobEventParticipant = document.getElementById(
-      "dob-eventParticipant"
-    ).value;
 
     // Check if both first name and last name are provided before making the request
     if (
       fnameEventParticipant.trim() === "" ||
-      lnameEventParticipant.trim() === "" ||
-      dobEventParticipant.trim() === ""
+      lnameEventParticipant.trim() === ""
     ) {
-      alert("Please enter first, last name and date of birth.");
-      return; // Do not proceed with the search if the inputs are empty.
+      alert("Please enter first, last name.");
+      return;
     }
 
     // Make an AJAX request to fetch the reference
@@ -244,7 +231,6 @@ document.addEventListener("DOMContentLoaded", function () {
       body: new URLSearchParams({
         "fname-eventParticipant": fnameEventParticipant,
         "lname-eventParticipant": lnameEventParticipant,
-        "dob-eventParticipant": dobEventParticipant,
       }),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -259,51 +245,57 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         // data = data.replace(/"/g, "");
         data = JSON.parse(data);
-        console.log(data);
+        const popupResultParticipant = document.getElementById(
+          "popup_participant_search_result"
+        );
 
-        if (data !== "Participant information not found") {
-          const confirmation = confirm(
-            "Is this your street address? \n" + data.streetAddress
+        if (data !== "No participants found with the given names.") {
+          // Clear the previous results
+          const tbody = document.querySelector(
+            "#participantSearchResult tbody"
           );
+          tbody.innerHTML = "";
 
-          if (confirmation) {
-            // Get the input element and populate it with the participantID
+          data.forEach((participant) => {
+            const row = document.createElement("tr");
+            row.classList.add("clickable-row");
+            row.innerHTML = `
+              <td>${participant.firstName}</td>
+              <td>${participant.lastName}</td>
+              <td>${participant.dateOfBirth}</td>
+              <td>${participant.streetAddress}</td>
+            `;
+            tbody.appendChild(row);
 
-            document.getElementById("participantIDResult").innerHTML =
-              data.participantID;
+            // Add a click event to each row to handle the selection
+            row.addEventListener("click", () => {
+              // Get the input element and populate it with the participantID
+              const participantID = participant.participantID;
+              // Close the popup
+              popupResultParticipant.style.display = "none";
 
-            document.getElementById("participantIDResult").innerHTML +=
-              "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
+              document.getElementById("participantIDResult").innerHTML =
+                participantID;
+              document.getElementById("participantIDResult").innerHTML +=
+                "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
+              document
+                .getElementById("participantIDResult")
+                .addEventListener("click", function () {
+                  // Get the input element and populate it with the clicked value
+                  const participantReferenceInput =
+                    document.getElementsByName("participant_id")[0];
+                  participantReferenceInput.value = participantID;
 
-            document
-              .getElementById("participantIDResult")
-              .addEventListener("click", function () {
-                // Get the input element and populate it with the clicked value
-                const participantReferenceInput =
-                  document.getElementsByName("participant_id")[0];
-                participantReferenceInput.value = data.participantID;
+                  // Close the popup
+                  document.getElementById(
+                    "popup-search-participant"
+                  ).style.display = "none";
+                });
+            });
+          });
 
-                // Close the popup
-                document.getElementById(
-                  "popup-search-participant"
-                ).style.display = "none";
-              });
-          } else {
-            // Reset the input field values to empty or default values
-            const fnameEventParticipant = document.getElementById(
-              "fname-eventParticipant"
-            );
-            const lnameEventParticipant = document.getElementById(
-              "lname-eventParticipant"
-            );
-            const dobEventParticipant = document.getElementById(
-              "dob-eventParticipant"
-            );
-
-            fnameEventParticipant.value = "";
-            lnameEventParticipant.value = "";
-            dobEventParticipant.value = "";
-          }
+          //Show the popup with display: flex
+          popupResultParticipant.style.display = "flex";
         } else {
           document.getElementById("participantIDResult").innerHTML = data;
         }
@@ -329,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Clear the form inputs
         document.getElementById("fname-eventParticipant").value = "";
         document.getElementById("lname-eventParticipant").value = "";
-        document.getElementById("dob-eventParticipant").value = "";
+        document.getElementById("participantIDResult").innerHTML = "";
         this.style.display = "none";
       }
     });
@@ -376,13 +368,13 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(eventID);
   });
 
-  // Search volunteer button functionality
-  // document
-  //   .getElementById("searchVolunteerButton")
-  //   .addEventListener("click", function () {
-  //     const volunteerSearchDiv = document.getElementById("VolunteerSearch");
-  //     volunteerSearchDiv.style.display = "block";
-  //   });
+  //Search volunteer button functionality
+  document
+    .getElementById("searchVolunteerButton")
+    .addEventListener("click", function () {
+      const volunteerSearchDiv = document.getElementById("volunteerSearch");
+      volunteerSearchDiv.style.display = "block";
+    });
 
   document
     .getElementById("searchVolunteerIDButton")
@@ -408,15 +400,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-  document
-    .getElementById("dob-eventVolunteer")
-    .addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        performSearchVolunteer();
-      }
-    });
-
   function performSearchVolunteer() {
     const fnameEventVolunteer = document.getElementById(
       "fname-eventVolunteer"
@@ -424,15 +407,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const lnameEventVolunteer = document.getElementById(
       "lname-eventVolunteer"
     ).value;
-    const dobEventVolunteer =
-      document.getElementById("dob-eventVolunteer").value;
 
     if (
       fnameEventVolunteer.trim() === "" ||
-      lnameEventVolunteer.trim() === "" ||
-      dobEventVolunteer.trim() === ""
+      lnameEventVolunteer.trim() === ""
     ) {
-      alert("Please enter first, last name and date of birth.");
+      alert("Please enter first, last name.");
       return;
     }
 
@@ -442,7 +422,6 @@ document.addEventListener("DOMContentLoaded", function () {
       body: new URLSearchParams({
         "fname-eventVolunteer": fnameEventVolunteer,
         "lname-eventVolunteer": lnameEventVolunteer,
-        "dob-eventVolunteer": dobEventVolunteer,
       }),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -456,47 +435,52 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((data) => {
         data = JSON.parse(data);
-        console.log(data);
+        const popupResultVolunteer = document.getElementById(
+          "popup_volunteer_search_result"
+        );
+        if (data !== "No volunteers found with the given names.") {
+          // Clear the previous results
+          const tbody = document.querySelector("#volunteerSearchResult tbody");
+          tbody.innerHTML = "";
 
-        if (data !== "Volunteer information not found") {
-          const confirmation = confirm(
-            "Is this your street address? \n" + data.streetAddress
-          );
+          data.forEach((volunteer) => {
+            const row = document.createElement("tr");
+            row.classList.add("clickable-row");
+            row.innerHTML = `
+              <td>${volunteer.firstName}</td>
+              <td>${volunteer.lastName}</td>
+              <td>${volunteer.dateOfBirth}</td>
+              <td>${volunteer.streetAddress}</td>
+            `;
+            tbody.appendChild(row);
 
-          if (confirmation) {
-            // Get the input element and populate it with the participantID
+            // Add a click event to each row to handle the selection
+            row.addEventListener("click", () => {
+              // Get the input element and populate it with the participantID
+              const volunteerID = volunteer.volunteerID;
+              // Close the popup
+              popupResultVolunteer.style.display = "none";
 
-            document.getElementById("volunteerIDResult").innerHTML =
-              data.volunteerID;
+              document.getElementById("volunteerIDResult").innerHTML =
+                volunteerID;
+              document.getElementById("volunteerIDResult").innerHTML +=
+                "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
+              document
+                .getElementById("volunteerIDResult")
+                .addEventListener("click", function () {
+                  // Get the input element and populate it with the clicked value
+                  const volunteerReferenceInput =
+                    document.getElementsByName("volunteer_id")[0];
+                  volunteerReferenceInput.value = volunteerID;
 
-            document.getElementById("volunteerIDResult").innerHTML +=
-              "<br><span style='text-decoration: underline; cursor: pointer;'>Click to insert</span>";
-
-            document
-              .getElementById("volunteerIDResult")
-              .addEventListener("click", function () {
-                const volunteerReferenceInput =
-                  document.getElementsByName("volunteer_id")[0];
-                volunteerReferenceInput.value = data.volunteerID;
-
-                document.getElementById(
-                  "popup-search-volunteer"
-                ).style.display = "none";
-              });
-          } else {
-            const fnameEventVolunteer = document.getElementById(
-              "fname-eventVolunteer"
-            );
-            const lnameEventVolunteer = document.getElementById(
-              "lname-eventVolunteer"
-            );
-            const dobEventVolunteer =
-              document.getElementById("dob-eventVolunteer");
-
-            fnameEventVolunteer.value = "";
-            lnameEventVolunteer.value = "";
-            dobEventVolunteer.value = "";
-          }
+                  // Close the popup
+                  document.getElementById(
+                    "popup-search-volunteer"
+                  ).style.display = "none";
+                });
+            });
+          });
+          popupResultVolunteer.style.display = "flex";
         } else {
           document.getElementById("volunteerIDResult").innerHTML = data;
         }
@@ -521,7 +505,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (event.target === this) {
         document.getElementById("fname-eventVolunteer").value = "";
         document.getElementById("lname-eventVolunteer").value = "";
-        document.getElementById("dob-eventVolunteer").value = "";
         document.getElementById("volunteerIDResult").innerHTML = "";
         this.style.display = "none";
       }
@@ -547,9 +530,53 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Get the target div
   let targetButton = document.querySelector(
-    '.event-navigation button[data-form="add-volunteer"]'
+    '.event-navigation button[data-form="event_record_retrieval"]'
   );
 
   // Insert the form to the left of the target div
   targetButton.insertAdjacentElement("afterend", logoutForm);
+
+  //Select element for Event Records
+
+  //select element for adding volunteer
+
+  const eventSelectForRecord = document.getElementById("event-for-record");
+  let selectedOptionEventRecord = null;
+
+  // Event listener for when the select element is clicked for volunteers
+  eventSelectForRecord.addEventListener("click", function () {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "models/fetch_events.php", true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const data = JSON.parse(xhr.responseText);
+        const defaultOption = document.createElement("option");
+        defaultOption.text = "Choose Laundromat/Event Date/Address";
+        defaultOption.disabled = true;
+        defaultOption.hidden = true;
+        eventSelectForRecord.innerHTML = "";
+        eventSelectForRecord.appendChild(defaultOption);
+
+        data.forEach(function (event) {
+          const option = document.createElement("option");
+          option.text = `${event.nameOfLaundromat} / ${event.eventDate} / ${event.streetAddress}`;
+          option.value = event.eventID;
+          eventSelectForRecord.appendChild(option);
+        });
+
+        if (selectedOptionEventRecord) {
+          eventSelectForRecord.value = selectedOptionEventRecord.value;
+        }
+      }
+    };
+    xhr.send();
+  });
+
+  // Add an event listener to update the select element's value when an option is selected for volunteers
+  eventSelectForRecord.addEventListener("change", function () {
+    selectedOptionEventRecord = this.options[this.selectedIndex];
+    this.value = selectedOptionEventRecord.value;
+    const eventID = selectedOptionEventRecord.value;
+    console.log(eventID);
+  });
 });

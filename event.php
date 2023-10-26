@@ -34,53 +34,9 @@ include("models/search_partner.php");
         <button class="event-nav-button clicked" data-form="add-event">Add Events</button>
         <button class="event-nav-button" data-form="add-participant">Add Participants</button>
         <button class="event-nav-button" data-form="add-volunteer">Add Volunteers</button>
+        <button class="event-nav-button" data-form="event_record_retrieval">Event Records</button>
     </div>
 
-
-    <!-- <section id="add-event" class="container event-container">
-        <form action="models/events_model.php" method="post" id="eventForm" class="form">
-            <h2>Add Events</h2>
-            <div class="form-container">
-                <div class="input-box">
-                    <label for="event_date">Event Date:</label>
-                    <input type="date" name="event_date" required><br>
-                </div>
-                <div class="input-box">
-                    <label for="partner_reference">Partnership(Laundromat) Reference:</label>
-                    <input type="text" name="partner_reference" required>
-                </div>
-                <button type="button" id="searchButton">Search Laudromat</button>
-
-            </div>
-
-            <button type="submit" id="eventSubmit" class="btn-container" onclick="">
-                <div class="btn btn-submit">
-                    <span>SUBMIT</span>
-                </div>
-            </button>
-        </form>
-
-
-        <div id="popup-search-partner" class="popup" style="display: none;">
-            <div id="partnerSearch">
-                <form action="models/search_partner.php" method="post" class="searchForm">
-                    <div class="input-box">
-                        <label for="name-of-laundromat">Enter Name of Laundromat:</label><br>
-                        <input type="text" id="laundromat-name" name="laundromat-name" required>
-                    </div>
-                    <button type="button" id="searchPartnerButton">Search</button>
-                </form>
-                <div id="partnerReferenceResult"></div>
-            </div>
-        </div>
-
-
-
-
-    </section> -->
-
-
-    <!---this is to use partner ID  to add avents --->
     <section id="add-event" class="container event-container">
         <form action="models/events_model.php" method="post" id="eventForm" class="form">
             <h2>Add Events</h2>
@@ -117,55 +73,7 @@ include("models/search_partner.php");
                 <div id="partnerIDResult"></div>
             </div>
         </div>
-
-
-
-
     </section>
-
-
-    <!---this is to use reference -->
-    <!-- <section id="add-event" class="container event-container">
-        <form action="models/events_model.php" method="post" id="eventForm" class="form">
-            <h2>Add Events</h2>
-            <div class="form-container">
-                <div class="input-box">
-                    <label for="event_date">Event Date:</label>
-                    <input type="date" name="event_date" required><br>
-                </div>
-                <div class="input-box">
-                    <label for="partner_reference">Partnership(Laundromat) Reference:</label>
-                    <input type="text" name="partner_reference" required>
-                </div>
-                <button type="button" id="searchPartnerButton">Search Laundromat</button>
-
-            </div>
-
-            <button type="submit" id="eventSubmit" class="btn-container" onclick="">
-                <div class="btn btn-submit">
-                    <span>SUBMIT</span>
-                </div>
-            </button>
-        </form>
-
-
-        <div id="popup-search-partner" class="popup" style="display: none;">
-            <div id="partnerSearch">
-                <form action="models/search_partner.php" method="post" class="searchForm">
-                    <div class="input-box">
-                        <label for="name-of-laundromat">Enter Name of Laundromat:</label><br>
-                        <input type="text" id="laundromat-name" name="laundromat-name" required>
-                    </div>
-                    <button type="button" id="searchPartnerButton">Search</button>
-                </form>
-                <div id="partnerReferenceResult"></div>
-            </div>
-        </div>
-
-
-
-
-    </section> -->
 
     <section id="add-participant" class="container event-container">
         <form action="models/eventParticipants_model.php" method="post" id="add-participant-form" class="form">
@@ -232,16 +140,39 @@ include("models/search_partner.php");
                             <input type="text" id="lname-eventParticipant" name="lname-eventParticipant" required><br>
                         </div>
                         <br>
-                        <div class="input-box">
-                            <label for="dob-eventParticipant">Date Of Birth:</label>
-                            <input type="date" id="dob-eventParticipant" name="dob-eventParticipant" required><br>
-                        </div>
+
                     </div>
                     <button type="button" id="searchParticipantIDButton">Search</button>
                 </form>
                 <div id="participantIDResult"></div>
             </div>
-        </div>
+
+
+
+            <div id="popup_participant_search_result" class="popup" style="display: none;">
+                <div id="participantSearchResult">
+                    <p class="search-result-phrase">Click on the row that matches your query.</p>
+                    <table>
+                        <thead class="table-heading">
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Date Of Birth</th>
+                                <th>Street Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="clickable-row">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
     </section>
 
 
@@ -290,10 +221,7 @@ include("models/search_partner.php");
                             <input type="text" id="lname-eventVolunteer" name="lname-eventVolunteer" required><br>
                         </div>
                         <br>
-                        <div class="input-box">
-                            <label for="dob-eventVolunteer">Date Of Birth:</label>
-                            <input type="date" id="dob-eventVolunteer" name="dob-eventVolunteer" required><br>
-                        </div>
+
                     </div>
                     <button type="button" id="searchVolunteerIDButton">Search</button>
                 </form>
@@ -301,9 +229,59 @@ include("models/search_partner.php");
             </div>
         </div>
 
+        <div id="popup_volunteer_search_result" class="popup" style="display: none;">
+            <div id="volunteerSearchResult">
+                <p class="search-result-phrase">Click on the row that matches your query.</p>
+                <table>
+                    <thead class="table-heading">
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Date Of Birth</th>
+                            <th>Street Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clickable-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!---adding volunteer--->
+    <section id="event_record_retrieval" class="container event-container">
+        <form action="models/eventRecords_model.php" method="post" id="event_record_form" class="form">
+            <h2>Event Records</h2>
+            <div class="form-container">
+                <div class="select-box">
+
+                    <select id="event-for-record" name="event-for-record" required>
+                        <option hidden>Choose Laundromat/Event Date/Address</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+        </form>
+
+
 
 
     </section>
+
+
+
+
     <?php include('components/footer.php'); ?>
     <script src="js/event.js"></script>
     <script src="js/app.js"></script>
