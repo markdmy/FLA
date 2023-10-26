@@ -122,6 +122,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $housing_situation = $_POST["housing_situation"];
     }
 
+    if(isset($_POST["additional_note"]){
+        $additionalNote = $_POST["additional_note"];
+    })
+
     //use $combinedFoundProgram
     $foundProgram = isset($_POST["found_program"]) ? $_POST["found_program"] : array();
     $foundProgramOther = isset($_POST["found_program_other"]) ? $_POST["found_program_other"] : "";
@@ -134,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formCreated = date('Y-m-d H:i:s');
 
 
-    $participantInfo = add_participant($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $consent, $id_file_path, $income_proof_file_path);
+    $participantInfo = add_participant($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $additionalNote, $formCreated, $consent, $id_file_path, $income_proof_file_path);
 
    
 
@@ -199,11 +203,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     } else {
                         $incomeInfo = "UNDER 18 YEARS OLD";
                     }
-                    $familyMemberInfo[] = "First Name: $familyFirstName, Last Name: $familyLastName, Birth Date: $familyDateOfBirth, Relationship: $relationshipToParticipant, Gender: $gender, identification file path: $idFilePath, income information: $incomeInfo";
-                  
-                    // Add this family member to the database
+                     // Add this family member to the database
                     add_family_member($participantID, $familyFirstName, $familyLastName, $familyDateOfBirth, $relationshipToParticipant, $gender, $idFilePath, $incomeInfo);
+                    $familyMemberInfo[] = "First Name: $familyFirstName, Last Name: $familyLastName, Birth Date: $familyDateOfBirth, Relationship: $relationshipToParticipant, Gender: $gender, identification file path: $idFilePath, income information: $incomeInfo";
+                    
                 }
+                
             }
             
             //executing a function email contact@freelaundryaccess.com about registration form being submitted.
@@ -219,14 +224,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 function add_participant($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12,
-    $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $consent, $id_file_path, $income_proof_file_path)
+    $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $additionalNote, $formCreated, $consent, $id_file_path, $income_proof_file_path)
 {
     global $db;
     try {
         $query = "INSERT INTO participants (firstName, lastName, dateOfBirth, numberOfHousehold, numberOfAdults, NumberOfChildrenUnder12,
-        NumberOfChildrenOver12, email, streetAddress, phone, city, province, postalCode, currentHousingSituation, howDidYouFindProgram, formCreated, consent, id_file_path, income_proof_file_path) 
+        NumberOfChildrenOver12, email, streetAddress, phone, city, province, postalCode, currentHousingSituation, howDidYouFindProgram, additionalNote, formCreated, consent, id_file_path, income_proof_file_path) 
         VALUES ('$firstName', '$lastName', '$dateOfBirth',  '$numberOfHousehold', '$numberOfAdults', '$NumberOfChildrenUnder12',
-        '$NumberOfChildrenOver12', '$email', '$address',  '$phone', '$city', '$province', '$postalCode', '$housing_situation', '$combinedFoundProgram', '$formCreated', '$consent', '$id_file_path', '$income_proof_file_path')";
+        '$NumberOfChildrenOver12', '$email', '$address',  '$phone', '$city', '$province', '$postalCode', '$housing_situation', '$combinedFoundProgram', '$additionalNote', '$formCreated', '$consent', '$id_file_path', '$income_proof_file_path')";
 
         $result = $db->query($query);
 

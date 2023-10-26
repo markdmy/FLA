@@ -85,8 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
             age--;
           }
 
-          console.log(age);
-
           const radioOptionYes = clonedTemplate.querySelector(
             `#${templateId} #income_proof_yes${uniqueId}`
           );
@@ -221,8 +219,9 @@ document.addEventListener("DOMContentLoaded", function () {
       "png",
       "pdf",
       "tiff",
-      "doc",
-      "docx",
+      "heic",
+      "bmp",
+      "heif",
     ];
     let maxFileSize = 10 * 1024 * 1024; // 10MB
 
