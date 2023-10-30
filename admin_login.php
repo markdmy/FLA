@@ -63,12 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
                 <?php echo $error_message; ?>
             </div>
             <?php endif; ?>
-            <div class="signup-box">
-                <p><span id="signup_link" class="underline-text"><a href="event_admin_signup.php" target="_blank">Create
-                            an
-                            account</a></span>(for
-                    volunteers/staff)</p>
-            </div>
+
 
             <button type="submit" id="adminSubmit" class="btn-container" onclick="">
                 <div class="btn btn-login">
