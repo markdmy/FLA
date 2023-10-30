@@ -213,7 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             
             //executing a function email contact@freelaundryaccess.com about registration form being submitted.
-            $redirectUrl = send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $id_file_path, $income_proof_file_path, $familyMemberInfo);
+            $redirectUrl = send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram,  $additionalNote, $formCreated, $id_file_path, $income_proof_file_path, $familyMemberInfo);
 
             if ($redirectUrl) {
                 echo "<script>window.location.href='$redirectUrl';</script>";
