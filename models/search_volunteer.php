@@ -6,13 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $lnameEventVolunteer = $_POST["lname-eventVolunteer"];
    
     echo json_encode(search_volunteer($fnameEventVolunteer, $lnameEventVolunteer));
-}
+} 
 
 function search_volunteer($fnameEventVolunteer, $lnameEventVolunteer) {
     global $db;
 
     try {
-        $query = "SELECT volunteerID, firstName, lastName, dateOfBirth, streetAddress FROM volunteers WHERE firstName = :fname AND lastName = :lname";
+        $query = "SELECT volunteerID, firstName, lastName, dateOfBirth, streetAddress, email FROM volunteers WHERE firstName = :fname AND lastName = :lname";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':fname', $fnameEventVolunteer);
         $stmt->bindParam(':lname', $lnameEventVolunteer);
@@ -25,7 +25,8 @@ function search_volunteer($fnameEventVolunteer, $lnameEventVolunteer) {
                     "firstName" => $row["firstName"],
                     "lastName" => $row["lastName"],
                     "dateOfBirth" => $row["dateOfBirth"],
-                    "streetAddress" => $row["streetAddress"]
+                    "streetAddress" => $row["streetAddress"],
+                    "email" => $row["email"]
                 );
                 $volunteers[] = $volunteer;
             }
@@ -40,5 +41,12 @@ function search_volunteer($fnameEventVolunteer, $lnameEventVolunteer) {
 
     return $response;
 }
+
+
+
+
+
+
+
 
 ?>

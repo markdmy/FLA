@@ -38,7 +38,7 @@ elseif (isset($_GET['volunteerEmail']) && isset($_GET['volunteerFirstName'])) {
     $totalCost = $_GET['totalCost'];
     $message = "Participant(<b>$eventParticipantName</b>)<br> with email <b>$eventParticipantEmail</b><br> added to the event at <b>$nameOfLaundromat</b><br>
     at location($streetAddress)<br> on <b>$eventDate</b><br><br>
-    Cost of wash + dry = <b> $$totalCost</b>";
+    Cost of wash + dry + products = <b> $$totalCost</b>";
 } elseif(isset($_GET['eventVolunteerName']) && isset($_GET['eventVolunteerEmail']) && isset($_GET['volunteerNameOfLaundromat']) && isset($_GET['volunteerEventDate']) && isset($_GET['volunteerStreetAddress'])){
     $isEventPage = true;
     $eventVolunteerName = $_GET['eventVolunteerName'];
@@ -48,13 +48,18 @@ elseif (isset($_GET['volunteerEmail']) && isset($_GET['volunteerFirstName'])) {
     $streetAddress = $_GET['volunteerStreetAddress'];
     $message = "Volunteer(<b>$eventVolunteerName</b>)<br> with email <b>$eventVolunteerEmail</b><br> added to the event at <b>$nameOfLaundromat</b><br>
     at location($streetAddress)<br> on <b>$eventDate</b><br><br>";
+}elseif(isset($_GET['signup_email']) && isset($_GET['signup_firstname'])){
+    $isEventPage = true;
+    $admin_signup_email = $_GET['signup_email'];
+    $admin_signup_name = $_GET['signup_firstname'];
+    $message = "Volunteer/staff name(<b>$admin_signup_name</b>)<br> Sign-up Email: <b>$admin_signup_email</b><br><br> Please login with your email address and password when you access event.php<br>";
 }
 else {
     $message = "Error: No form has been submitted. ";
 }
 
 $showThankYouMessage = !empty($firstName);
-$buttonText = $isEventPage ? "Go back to event.php" : "Go Home";
+$buttonText = $isEventPage ? "Go to event.php" : "Go Home";
 $buttonLink = $isEventPage ? "event.php" : "index.html";
 
 
@@ -111,7 +116,7 @@ $buttonLink = $isEventPage ? "event.php" : "index.html";
             </div>
 
             <button class="btn-container" onclick="window.location.href='<?php echo $buttonLink; ?>'">
-                <div class="btn <?php echo $buttonText === "Go back to event.php" ? "btn-goevent" : "btn-gohome"; ?>">
+                <div class="btn <?php echo $buttonText === "Go to event.php" ? "btn-goevent" : "btn-gohome"; ?>">
                     <span><?php echo $buttonText; ?></span>
                 </div>
             </button>

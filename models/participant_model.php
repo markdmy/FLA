@@ -135,6 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $consent = isset($_POST["consent_box"]) ? 1 : 0;
+    date_default_timezone_set('America/Toronto');
     $formCreated = date('Y-m-d H:i:s');
 
 

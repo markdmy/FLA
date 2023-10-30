@@ -30,11 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
       toggleMenu(content, title);
     }
   }
-});
 
-// navigation bar mobile
-
-document.addEventListener("DOMContentLoaded", function () {
   const hamburgerIcon = document.querySelector(".hamburger-icon");
   const navMobile = document.querySelector(".navMobile");
 
@@ -80,6 +76,34 @@ document.addEventListener("DOMContentLoaded", function () {
         e.target.value = formattedValue;
       }
     });
+  });
+
+  const passwordInput = document.getElementById("password");
+  const toggleButton3 = document.getElementById("toggle_password3");
+
+  function togglePasswordVisibility(
+    input,
+    toggleButton3,
+    eyeClosedSrc,
+    eyeOpenSrc
+  ) {
+    if (input.type === "password") {
+      input.type = "text";
+      toggleButton3.firstElementChild.src = eyeClosedSrc; // Change the src of the first child (the img)
+    } else {
+      input.type = "password";
+      toggleButton3.firstElementChild.src = eyeOpenSrc; // Change the src of the first child (the img)
+    }
+  }
+
+  // Add click event listeners to toggle buttons
+  toggleButton3.addEventListener("click", () => {
+    togglePasswordVisibility(
+      passwordInput,
+      toggleButton3,
+      "assets/images/eye-slash-solid.svg",
+      "assets/images/eye-solid.svg"
+    );
   });
 });
 

@@ -1,6 +1,6 @@
 /* coded by eunji */
 
-.event-container{
+.event-container, .record-container{
     display: none;
 }
 
@@ -50,18 +50,40 @@
     width: 500px;
 }
 
- table {
+#participantSearchResult table, #volunteerSearchResult table {
+
+  font-size : 0.8rem;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+}
+
+
+
+#event_record_result table, #volunteer_record_result table, #volunteerQueryResult table, #partner_record_result table {
   font-size: 0.8rem;
     text-align: center;
     margin: auto;
+    border-collapse: collapse;
+  width: 100%;
 }
 
-th {
-padding: 5px 10px;
+
+
+tr.calculate-total th {
+  font-weight: bold;
+  background-color: #e1eee5;
+  border-top: none;
 }
 
-td{
- padding: 2px;
+
+/* Set a fixed width for the name and total title columns */
+#name-column, #total-title {
+  width: 20%; /* Adjust the width as needed */
+}
+
+.event-record-table th:not(#name-column):not(#total-title) {
+  width: 20%; /* Adjust the width as needed */
 }
 
 .clickable-row {
@@ -72,6 +94,7 @@ td{
 .search-result-phrase {
   font-size:0.7rem;
   color: #313939;
+  margin-bottom: 8px;
 }
 
 .searchForm :where(.input-box input, .select-box) {
@@ -184,6 +207,17 @@ td{
     margin-top:3%;
 }
 
+
+.laundromat-info{
+  margin-bottom: 15px;
+}
+
+.laundromat-info h5 {
+   margin-bottom:3px;
+}
+
+
+
 /* Media query for tablet-sized screens */
 @media (max-width: 1024px) {
     .event-navigation {
@@ -217,4 +251,72 @@ td{
     }
 
 
+    table thead, .select-box option, table td{
+      font-size:0.7rem;
+    }
+    
+    .container h2 {
+      font-size: 1.2rem;
+    }
+    #bring_partners {
+      font-size: 0.7rem;
+    }
+
   }
+
+
+#event_record_retrieval {
+  max-width: 880px;
+}
+
+
+#volunteer_record_table_wrapper, #partner_record_table_wrapper {
+  overflow-x: auto;
+}
+
+#volunteer_record_table th, #partner_record_table th, .event-record-table th {
+  padding: 5px 10px;
+  text-align: center;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+}
+
+
+
+
+.partner-record-button-container{
+  text-align: center;
+}
+
+
+#bring_partners {
+    background-color: black;
+    color: white;
+    font-size: 0.8rem;
+    border: none;
+    width: 250px;
+    height: 40px;
+    padding: 9px;
+    margin:15px 0 15px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+    
+}
+
+.table-container {
+  max-height: 600px; 
+  overflow-y: auto; 
+}
+
+
+#volunteer_record_result thead, #event_record_result thead {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+
+#volunteer_record_result td, #event_record_result td, #partner_record_table td   {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  text-align: center;
+}

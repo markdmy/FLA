@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-
+    date_default_timezone_set('America/Toronto');
     $formCreated = date('Y-m-d H:i:s');
 
     $partnerInfo = add_partner($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
