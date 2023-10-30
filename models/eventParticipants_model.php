@@ -6,11 +6,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $participantID = $_POST['participant_id'];
     $costOfWash = $_POST['cost_of_wash'];
     $costOfDry = $_POST['cost_of_dry'];
-    $amountOfDetergent = $_POST['detergent_amount'];
-    $amountOfDryersheet = $_POST['dryersheet_amount'];
+    $productCost = $_POST['product_cost'];
+    $totalCost = $costOfWash + $costOfDry + $productCost;
 
     // Insert data into the eventParticipants table
-    $result = add_eventParticipants($eventID, $participantID, $costOfWash, $costOfDry, $amountOfDetergent, $amountOfDryersheet);
+    $result = add_eventParticipants($eventID, $participantID, $costOfWash, $costOfDry, $productCost, $totalCost);
 
     if ($result) {
         // If the insertion is successful, retrieve firstname and email
@@ -26,7 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $eventDate = $eventData['eventDate'];
                 $nameOfLaundromat = $eventData['nameOfLaundromat'];
                 $streetAddress = $eventData['streetAddress'];
-                $totalCost = $costOfWash + $costOfDry;
+                $totalCost = $costOfWash + $costOfDry + $productCost;
+                
                 // Redirect to another page with query parameters
                 $redirectUrl = "../submitSuccess.php?eventParticipantName=" . urlencode($eventParticipantName) .
                                "&eventParticipantEmail=" . urlencode($eventParticipantEmail) .
@@ -44,26 +45,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             echo "Participant data retrieval failed.";
         }
     } else {
-        echo "Event not created properly.";
+        echo "participant to the event not registered properly.";
     }
 }
 
 
 
-function add_eventParticipants($eventID, $participantID, $costOfWash, $costOfDry, $amountOfDetergent, $amountOfDryersheet)
+function add_eventParticipants($eventID, $participantID, $costOfWash, $costOfDry, $productCost, $totalCost)
 {
     global $db;
 
     try {
-        $query = "INSERT INTO eventparticipants (eventID, participantID, costOfWash, costOfDry, amountOfDetergent, amountOfDryersheet) 
-                  VALUES (:eventID, :participantID, :costOfWash, :costOfDry, :amountOfDetergent, :amountOfDryersheet)";
+        $query = "INSERT INTO eventparticipants (eventID, participantID, costOfWash, costOfDry, productCost, totalCost) 
+                  VALUES (:eventID, :participantID, :costOfWash, :costOfDry, :productCost, :totalCost)";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':eventID', $eventID, PDO::PARAM_INT);
         $stmt->bindParam(':participantID', $participantID, PDO::PARAM_INT);
         $stmt->bindParam(':costOfWash', $costOfWash, PDO::PARAM_STR);
         $stmt->bindParam(':costOfDry', $costOfDry, PDO::PARAM_STR);
-        $stmt->bindParam(':amountOfDetergent', $amountOfDetergent, PDO::PARAM_STR);
-        $stmt->bindParam(':amountOfDryersheet', $amountOfDryersheet, PDO::PARAM_STR);
+        $stmt->bindParam(':productCost', $productCost, PDO::PARAM_STR);
+        $stmt->bindParam(':totalCost', $totalCost, PDO::PARAM_STR);
 
         return $stmt->execute();
     } catch (PDOException $e) {

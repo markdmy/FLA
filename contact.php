@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactEmail = $_POST["contact-email"];
     $contactPhoneNumber = $_POST["contact-phone"];
     $contactComments = $_POST["contact-comments"];
+    date_default_timezone_set('America/Toronto');
     $contactFormCreated = date('Y-m-d H:i:s');
     $redirectUrl = send_email_from_contact_form($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
    

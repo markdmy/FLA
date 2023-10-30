@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['vl_postalCode'])){
         $postalCode = $_POST['vl_postalCode'];
     }
-    
+    date_default_timezone_set('America/Toronto');
     $formCreated = date('Y-m-d H:i:s');
 
     //this code below is not using reference. 

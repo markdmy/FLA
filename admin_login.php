@@ -3,6 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 include("models/authAdmin_model.php");
+$error_message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($_POST["password"])) {
     $entered_username = $_POST["username"];
@@ -44,12 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
         <form action="admin_login.php" method="post" id="admin-login-form" class="form">
             <div class="form-container">
                 <div class="input-box">
-                    <label for="username">Username:</label>
+                    <label for="username">Username(or email):</label>
                     <input type="text" id="username" name="username" required>
                 </div>
                 <div class="input-box">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" required>
+                        <span id="toggle_password3"><img class="pw-eye" src="assets/images/eye-solid.svg"
+                                alt="password-see-eye" /></span>
+                    </div>
                 </div>
 
             </div>
@@ -58,14 +63,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
                 <?php echo $error_message; ?>
             </div>
             <?php endif; ?>
+            <div class="signup-box">
+                <p><span id="signup_link" class="underline-text"><a href="event_admin_signup.php" target="_blank">Create
+                            an
+                            account</a></span>(for
+                    volunteers/staff)</p>
+            </div>
 
             <button type="submit" id="adminSubmit" class="btn-container" onclick="">
-                <div class="btn btn-submit">
-                    <span>SUBMIT</span>
+                <div class="btn btn-login">
+                    <span>LOG IN</span>
                 </div>
             </button>
         </form>
     </section>
+
 
     <?php
 include('components/footer.php'); 
@@ -73,6 +85,7 @@ include('components/footer.php');
 ?>
 
     <script src="js/app.js"></script>
+
 
 
 </body>

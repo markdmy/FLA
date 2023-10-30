@@ -36,10 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 echo "Event data retrieval failed.";
             }
         } else {
-            echo "Participant data retrieval failed.";
+            echo "Volunteer data retrieval failed.";
         }
     } else {
-        echo "Event not created properly.";
+        echo "volunteer to the event not registered properly.";
     }
 }
 

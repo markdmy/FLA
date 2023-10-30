@@ -49,7 +49,7 @@ function send_email_from_contact_form($contactName, $contactEmail, $contactPhone
 
 
 //this function will be called when a user submit a registration from from registration.php
-function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram, $formCreated, $id_file_path, $income_proof_file_path, array $familyMemberInfo)
+function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram,  $additionalNote, $formCreated, $id_file_path, $income_proof_file_path, array $familyMemberInfo)
 {
    
     try {
@@ -89,6 +89,7 @@ function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOf
         Housing Situation: $housing_situation<br>
         Found Program: $combinedFoundProgram<br>
         Form Created: $formCreated<br>
+        Additional Note: $additionalNote<br>
         identification file info: $id_file_path<br>
         income proof file info: $income_proof_file_path<br>
         Family Member Details:<br>" . implode("<br>", $familyMemberInfo);
@@ -97,7 +98,7 @@ function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOf
         Date of Birth: $dateOfBirth\nNumber of Household: $numberOfHousehold\nNumber of Adults: $numberOfAdults\n
         Number of Children Under 12: $NumberOfChildrenUnder12\nNumber of Children Over 12: $NumberOfChildrenOver12\n
         Address: $address\ncity: $city\nProvince: $province\nPostal Code: $postalCode\n
-        Housing Situation: $housing_situation\nFound Program: $combinedFoundProgram\nForm Created: $formCreated\n
+        Housing Situation: $housing_situation\nFound Program: $combinedFoundProgram\nForm Created: $formCreated\nAdditional Note: $additionalNote\n
         Family Member Details:\n" . implode("\n", $familyMemberInfo);
         
 

@@ -59,6 +59,10 @@
 .input-box label, .housing-box label, .file-upload label {
   color: #333;
 }
+
+
+
+
 .form :where(.input-box input, .select-box) {
   position: relative;
   height: 50px;
@@ -113,6 +117,7 @@
 .income-phrase {
   accent-color: #5b8da8;
 }
+
 
 
 .income-phrase input[type="radio"] {
@@ -206,7 +211,7 @@
   background: #5b8da8;
 }
 .form button[type="button"]:hover {
-  background: #85D4FF;
+  background: #8cbad3;
 }
 
 
@@ -235,14 +240,25 @@
   }
 
   .log-in-container {
-    padding: 11% 3% 7%;
+    padding: 7% 3% 7%;
   }
 
+  #admin-login-form .input-box{
+    width: 60%;
+    margin: 8px auto 3px;
+  
+  }
+  
 
   .submission-success-message{
     padding:10% 15% 10%;
     text-align: center;
     margin: 5% 0 5%;
+  }
+
+  #searchVolunteerReference {
+    width: 30%;
+
   }
 
   }
@@ -259,10 +275,19 @@
   .log-in-container {
     padding: 35% 5% 35%;
   }
-  
+
+ 
+  .signup-phrase {
+    font-size: 0.8rem;
+   }
+   
+   #searchVolunteerReference {
+    width: 100%;
+    
+  }
+
 
 }
-
 
 
 .remove-member-button {
@@ -339,17 +364,17 @@
 
 
 
-.btn-submit {
+.btn-submit, .btn-login {
   content: '';
   color: #FFF;
   transition: all 0.3s;
   position: relative;
   letter-spacing: 2px;
 }
-.btn-submit span {
+.btn-submit span, .btn-login span {
   transition: all 0.3s;
 }
-.btn-submit::before {
+.btn-submit::before, .btn-login::before {
   content: '';
   position: absolute;
   bottom: 0;
@@ -367,11 +392,11 @@
   border-bottom-color: rgba(0, 0, 0, 0.5);
   transform: scale(0.1, 1);
 }
-.btn-submit:hover span {
+.btn-submit:hover span, .btn-login:hover span {
   content: '';
   color: black;
 }
-.btn-submit:hover::before {
+.btn-submit:hover::before, .btn-login:hover::before {
   color: black;
   opacity: 1; 
   transform: scale(1, 1); 
@@ -389,7 +414,22 @@
   transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.951);
 }
-.btn-submit:hover::after {
+
+.btn-login::after {
+  border-radius: 25px 25px 0 25px;
+  content: 'LOG IN';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.3s;
+  background-color: rgba(0, 0, 0, 0.951);
+}
+
+
+.btn-submit:hover::after, .btn-login:hover::after {
   opacity: 0; 
   transform: scale(0.1, 1);
 }
@@ -503,7 +543,7 @@
 }
 .btn-goevent::after {
   border-radius: 25px 25px 0 25px;
-  content: 'Go back to event.php';
+  content: 'Go to event.php';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -585,3 +625,107 @@
 .menu.active .menu-content {
   display: block;
 }
+
+
+
+/* admin-login page css*/
+
+
+.signup-box{
+  margin-top: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.signup-box a{
+  color: #02383B;
+
+}
+.underline-text {
+  text-decoration: underline;
+}
+
+.underline-text:hover {
+  cursor: pointer;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#signup_admin{
+  background: #fff; 
+  border-radius: 5px;
+  padding: 16px 25px;
+  max-width: 90%;
+  margin: auto;
+}
+
+
+#volunteerEmailSearch {
+  background: #fff; 
+  border-radius: 5px;
+  padding: 16px 25px;
+  width: 320px;
+  height: 360px;
+
+}
+
+
+
+#partnerReferenceResult {
+  margin-top:12px;
+  cursor: pointer;
+}
+
+
+.signup-h2 {
+  padding: 20px 0 20px;
+}
+
+#volunteerEmailResult{
+   margin-top: 5px;
+}
+
+
+#volunteerQueryResult{
+   background: #fff;
+    border-radius: 5px;
+    padding: 16px 25px;
+    width: 588px;
+}
+
+#pw_not_matched {
+  margin-top: 15px;
+}
+
+.pw-eye {
+  position: absolute;
+  top: 45%;
+  right: 4%;
+  cursor: pointer;
+  color: lightgray;
+  width:16px;
+}
+
+.password-container{
+  position: relative;
+}
+
+#password-strength, #password-length, .password-requirement {
+  font-size: 0.7rem;
+}
+
+

@@ -34,7 +34,7 @@ include("models/search_partner.php");
         <button class="event-nav-button clicked" data-form="add-event">Add Events</button>
         <button class="event-nav-button" data-form="add-participant">Add Participants</button>
         <button class="event-nav-button" data-form="add-volunteer">Add Volunteers</button>
-        <button class="event-nav-button" data-form="event_record_retrieval">Event Records</button>
+        <button class="event-nav-button" data-form="event_record_retrieval">Search Record</button>
     </div>
 
     <section id="add-event" class="container event-container">
@@ -47,11 +47,13 @@ include("models/search_partner.php");
                 </div>
                 <div class="input-box">
                     <label for="partner_id">Partnership Reference Number:</label>
-                    <input type="text" name="partner_id" required>
+                    <input type="text" name="partner_id" disabled>
+                    <button type="button" id="searchPartnerButton">Search Reference</button>
                 </div>
-                <button type="button" id="searchPartnerButton">Search Reference</button>
-
+                <p>Partner not registered - click <a href="partnership.php" target="_blank">here</a> to register.
+                </p>
             </div>
+
 
             <button type="submit" id="eventSubmit" class="btn-container" onclick="">
                 <div class="btn btn-submit">
@@ -63,11 +65,12 @@ include("models/search_partner.php");
 
         <div id="popup-search-partner" class="popup" style="display: none;">
             <div id="partnerSearch">
-                <form action="models/search_partner.php" method="post" class="searchForm">
+                <form class="searchForm">
                     <div class="input-box">
                         <label for="name-of-laundromat">Enter Name of Laundromat:</label><br>
                         <input type="text" id="laundromat-name" name="laundromat-name" required>
                     </div>
+                    <br>
                     <button type="button" id="searchPartnerIDButton">Search</button>
                 </form>
                 <div id="partnerIDResult"></div>
@@ -87,7 +90,7 @@ include("models/search_partner.php");
                 </div>
                 <div class="input-box">
                     <label for="participant_id">Participant References Number:</label>
-                    <input type="text" name="participant_id" required>
+                    <input type="text" name="participant_id" disabled>
                     <button type="button" id="searchParticipantButton">Search Reference</button>
                 </div>
                 <p>Participant not registered - click <a href="registration.php" target="_blank">here</a> to register.
@@ -103,20 +106,11 @@ include("models/search_partner.php");
                         <label for="cost_of_dry">Cost of Dry:</label>
                         <input type="number" name="cost_of_dry" step="0.01" required><br>
                     </div>
-                </div>
-
-                <div class="column">
                     <div class="input-box">
-                        <label for="detergent_amount">Detergent Amount:</label>
-                        <input type="text" name="detergent_amount" required><br>
-                    </div>
-                    <div class="input-box">
-                        <label for="dryersheet_amount">Dryersheet Amount:</label>
-                        <input type="text" name="dryersheet_amount" required><br>
+                        <label for="product_cost">Product Cost:</label>
+                        <input type="number" name="product_cost" step="0.01" required><br>
                     </div>
                 </div>
-
-
             </div>
             <button type="submit" id="eventParticipantSubmit" class="btn-container" onclick="">
                 <div class="btn btn-submit">
@@ -128,7 +122,7 @@ include("models/search_partner.php");
         <!----search  pop up for adding event participant -->
         <div id="popup-search-participant" class="popup" style="display: none;">
             <div id="participantSearch">
-                <form action="models/search_participant.php" method="post" class="searchForm">
+                <form class="searchForm">
                     <div class="column">
                         <div class="input-box">
                             <label for="fname-eventParticipant">First Name:</label><br>
@@ -146,33 +140,34 @@ include("models/search_partner.php");
                 </form>
                 <div id="participantIDResult"></div>
             </div>
+        </div>
 
 
 
-            <div id="popup_participant_search_result" class="popup" style="display: none;">
-                <div id="participantSearchResult">
-                    <p class="search-result-phrase">Click on the row that matches your query.</p>
-                    <table>
-                        <thead class="table-heading">
-                            <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Date Of Birth</th>
-                                <th>Street Address</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="clickable-row">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+        <div id="popup_participant_search_result" class="popup" style="display: none;">
+            <div id="participantSearchResult">
+                <p class="search-result-phrase">Click on the row that matches your query.</p>
+                <table>
+                    <thead class="table-heading">
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Date Of Birth</th>
+                            <th>Street Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clickable-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
 
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
+        </div>
     </section>
 
 
@@ -192,11 +187,10 @@ include("models/search_partner.php");
                 </div>
                 <div class="input-box">
                     <label for="volunteer_id">Volunteer References Number:</label>
-                    <input type="text" name="volunteer_id" required><br>
+                    <input type="text" name="volunteer_id" disabled><br>
                     <button type="button" id="searchVolunteerButton">Search Reference</button>
                 </div>
                 <p>Volunteer not registered - Click <a href="volunteer.php" target="_blank">here</a>.
-                </p>
                 </p>
             </div>
 
@@ -210,7 +204,7 @@ include("models/search_partner.php");
         <!----search  pop up for adding event volunteer -->
         <div id="popup-search-volunteer" class="popup" style="display: none;">
             <div id="volunteerSearch">
-                <form action="models/search_volunteer.php" method="post" class="searchForm">
+                <form class="searchForm">
                     <div class="column">
                         <div class="input-box">
                             <label for="fname-eventParticipant">First Name:</label><br>
@@ -258,24 +252,142 @@ include("models/search_partner.php");
 
 
     <!---adding volunteer--->
-    <section id="event_record_retrieval" class="container event-container">
-        <form action="models/eventRecords_model.php" method="post" id="event_record_form" class="form">
-            <h2>Event Records</h2>
+    <section id="event_record_retrieval" class="record-container container">
+        <form id="event_record_form" class="form">
+            <h2>Search Event Records</h2>
             <div class="form-container">
                 <div class="select-box">
-
                     <select id="event-for-record" name="event-for-record" required>
-                        <option hidden>Choose Laundromat/Event Date/Address</option>
+                        <option hidden>Choose Laundromat/Event Date/Address </option>
                     </select>
                 </div>
+            </div>
+            <div id="event_record_result" class="table-container" style="display: none;">
+                <div class="laundromat-info" style="display: none;">
+                    <h5>Laundromat Name : <span id="record_laundromat_name"></span></h5>
+                    <h5>Address : <span id="record_laundromat_address"></span></h5>
+                    <h5>Event Date : <span id="record_laundromat_eventdate"></span></h5>
+                </div>
+                <table class="event-record-table">
+                    <thead class="record-table-heading">
+                        <tr>
+                            <th id="name-column">Participant Name</th>
+                            <th>Cost Of Wash</th>
+                            <th>Cost of Dry</th>
+                            <th>Product Cost</th>
+                            <th>Total Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody class="participant-table">
+                        <tr class="participant-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="event-record-table">
+                    <thead>
+                        <tr class="calculate-total">
+                            <th id="total-title">Calculate Total</th>
+                            <th id="total-wash-cost">0.00</th>
+                            <th id="total-dry-cost">0.00</th>
+                            <th id="total-product-cost">0.00</th>
+                            <th id="total-total-cost">0.00</th>
+                        </tr>
+                    </thead>
+                </table>
 
             </div>
-
-
         </form>
 
 
 
+        <form id="volulnteer_by_city_form" class="form">
+            <h2>Search Volunteer by City</h2>
+            <div class="form-container">
+                <div class="select-box">
+                    <select id="volunteers_city" name="volunteers_city_data" required>
+                        <option hidden>Choose a city</option>
+                    </select>
+                </div>
+            </div>
+            <div id="volunteer_record_result" style="display: none;">
+                <div id="volunteer_record_table_wrapper" class="table-container">
+                    <table id="volunteer_record_table">
+                        <thead class="vol-table-heading">
+                            <tr>
+                                <th>Name</th>
+                                <th>Date Of Birth</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Street Address</th>
+                                <th>City</th>
+                                <th>Province</th>
+                                <th>Postal Code</th>
+                            </tr>
+                        </thead>
+                        <tbody class="volunteer-table">
+                            <tr class="volunteer-row">
+                                <td data-label="Name"></td>
+                                <td data-label="Date Of Birth"></td>
+                                <td data-label="Email"></td>
+                                <td data-label="Phone"></td>
+                                <td data-label="Street Address"></td>
+                                <td data-label="City"></td>
+                                <td data-label="Province"></td>
+                                <td data-label="Postal Code"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+
+        <form id="fetch_partner" class="form">
+            <h2>Search All Partners</h2>
+            <div class="partner-record-button-container">
+                <button type="button" id="bring_partners">Click to display partners</button>
+            </div>
+            <div id="partner_record_result" style="display: none;">
+                <div id="partner_record_table_wrapper" class="table-container">
+                    <table id="partner_record_table">
+                        <thead class="partner-table-heading">
+                            <tr>
+                                <th>Name</th>
+                                <th>Name of Laundromat</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Street Address</th>
+                                <th>City</th>
+                                <th>Province</th>
+                                <th>Postal Code</th>
+                                <th># of washers</th>
+                                <th># of dryers</th>
+                                <th>has attendant?</th>
+                            </tr>
+                        </thead>
+                        <tbody class="partner-table">
+                            <tr class="partner-row">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
 
     </section>
 
