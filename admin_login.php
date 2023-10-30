@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
         <form action="admin_login.php" method="post" id="admin-login-form" class="form">
             <div class="form-container">
                 <div class="input-box">
-                    <label for="username">Username:</label>
+                    <label for="username">Username(or email):</label>
                     <input type="text" id="username" name="username" required>
                 </div>
                 <div class="input-box">
@@ -71,8 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
             </div>
 
             <button type="submit" id="adminSubmit" class="btn-container" onclick="">
-                <div class="btn btn-submit">
-                    <span>SUBMIT</span>
+                <div class="btn btn-login">
+                    <span>LOG IN</span>
                 </div>
             </button>
         </form>
@@ -85,7 +85,6 @@ include('components/footer.php');
 ?>
 
     <script src="js/app.js"></script>
-    <script src="js/signup.js"></script>
 
 
 

@@ -363,17 +363,17 @@
 
 
 
-.btn-submit {
+.btn-submit, .btn-login {
   content: '';
   color: #FFF;
   transition: all 0.3s;
   position: relative;
   letter-spacing: 2px;
 }
-.btn-submit span {
+.btn-submit span, .btn-login span {
   transition: all 0.3s;
 }
-.btn-submit::before {
+.btn-submit::before, .btn-login::before {
   content: '';
   position: absolute;
   bottom: 0;
@@ -391,11 +391,11 @@
   border-bottom-color: rgba(0, 0, 0, 0.5);
   transform: scale(0.1, 1);
 }
-.btn-submit:hover span {
+.btn-submit:hover span, .btn-login:hover span {
   content: '';
   color: black;
 }
-.btn-submit:hover::before {
+.btn-submit:hover::before, .btn-login:hover::before {
   color: black;
   opacity: 1; 
   transform: scale(1, 1); 
@@ -413,7 +413,22 @@
   transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.951);
 }
-.btn-submit:hover::after {
+
+.btn-login::after {
+  border-radius: 25px 25px 0 25px;
+  content: 'LOG IN';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.3s;
+  background-color: rgba(0, 0, 0, 0.951);
+}
+
+
+.btn-submit:hover::after, .btn-login:hover::after {
   opacity: 0; 
   transform: scale(0.1, 1);
 }
@@ -711,3 +726,5 @@
 #password-strength, #password-length, .password-requirement {
   font-size: 0.7rem;
 }
+
+
