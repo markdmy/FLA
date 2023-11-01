@@ -54,15 +54,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
                         <input type="password" id="password" name="password" required>
                         <span id="toggle_password3"><img class="pw-eye" src="assets/images/eye-solid.svg"
                                 alt="password-see-eye" /></span>
+
                     </div>
+                    <?php if (isset($error_message)): ?>
+                    <div class="error-message">
+                        <?php echo $error_message; ?>
+                    </div>
+                    <?php endif; ?>
                 </div>
 
+
             </div>
-            <?php if (isset($error_message)): ?>
-            <div class="error-message">
-                <?php echo $error_message; ?>
-            </div>
-            <?php endif; ?>
+
 
 
             <button type="submit" id="adminSubmit" class="btn-container" onclick="">

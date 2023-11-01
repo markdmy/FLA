@@ -161,7 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const confirmInput = document.getElementById("confirm_password_input");
   const toggleButton1 = document.getElementById("toggle_password1");
   const toggleButton2 = document.getElementById("toggle_password2");
-  const toggleButton3 = document.getElementById("toggle_password3");
 
   const pwNotMatched = document.getElementById("pw_not_matched");
 
@@ -192,15 +191,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   toggleButton2.addEventListener("click", () => {
-    togglePasswordVisibility(
-      confirmInput,
-      toggleButton2,
-      "assets/images/eye-slash-solid.svg",
-      "assets/images/eye-solid.svg"
-    );
-  });
-
-  toggleButton3.addEventListener("click", () => {
     togglePasswordVisibility(
       confirmInput,
       toggleButton2,
