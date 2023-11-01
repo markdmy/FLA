@@ -3,7 +3,7 @@ include("db_conn.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     try {
-        $query = "SELECT * FROM partnership ORDER BY NameOfLaundromat";
+        $query = "SELECT * FROM partnership ORDER BY nameOfLaundromat";
         $stmt = $db->query($query);
         $partners = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

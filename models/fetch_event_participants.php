@@ -22,7 +22,7 @@ if (isset($_GET['eventID'])) {
             e.eventDate
         FROM eventParticipants AS ep
         INNER JOIN participants AS p ON ep.participantID = p.participantID
-        LEFT JOIN events AS e ON ep.eventID = e.EventID
+        LEFT JOIN events AS e ON ep.eventID = e.eventID
         LEFT JOIN partnership AS prt ON e.partnerID = prt.partnerID
         WHERE ep.eventID = :eventID
         ORDER BY p.lastName
