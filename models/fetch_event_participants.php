@@ -6,7 +6,6 @@ if (isset($_GET['eventID'])) {
 
     
     try {
-
         $query = "SELECT
             p.firstName,
             p.lastName, 
@@ -20,7 +19,7 @@ if (isset($_GET['eventID'])) {
             prt.province AS partnerProvince,
             prt.postalcode AS partnerPostalCode,
             e.eventDate
-        FROM eventParticipants AS ep
+        FROM eventparticipants AS ep
         INNER JOIN participants AS p ON ep.participantID = p.participantID
         LEFT JOIN events AS e ON ep.eventID = e.eventID
         LEFT JOIN partnership AS prt ON e.partnerID = prt.partnerID
