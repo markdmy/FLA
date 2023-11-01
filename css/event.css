@@ -60,7 +60,7 @@
 
 
 
-#event_record_result table, #volunteer_record_result table, #volunteerQueryResult table, #partner_record_result table {
+#event_record_result table, #volunteer_record_result table, #volunteerQueryResult table, #partner_record_result table, #event_record_bydate_result table {
   font-size: 0.8rem;
     text-align: center;
     margin: auto;
@@ -208,7 +208,7 @@ tr.calculate-total th {
 }
 
 
-.laundromat-info{
+.laundromat-info, #search_by_date{
   margin-bottom: 15px;
 }
 
@@ -262,6 +262,8 @@ tr.calculate-total th {
       font-size: 0.7rem;
     }
 
+
+
   }
 
 
@@ -270,11 +272,11 @@ tr.calculate-total th {
 }
 
 
-#volunteer_record_table_wrapper, #partner_record_table_wrapper {
+#volunteer_record_table_wrapper, #partner_record_table_wrapper, .event_record_bydate_result {
   overflow-x: auto;
 }
 
-#volunteer_record_table th, #partner_record_table th, .event-record-table th {
+#volunteer_record_table th, #partner_record_table th, .event-record-table th, .event-record-bydate-table th {
   padding: 5px 10px;
   text-align: center;
   background-color: #f2f2f2;
@@ -282,19 +284,17 @@ tr.calculate-total th {
 }
 
 
-
-
 .partner-record-button-container{
   text-align: center;
 }
 
 
-#bring_partners {
+#bring_partners, #search_event_bydate_button,  #clear_event_bydate_button, #clear_event_record_button, #clear_volunteer_record_button {
     background-color: black;
     color: white;
     font-size: 0.8rem;
     border: none;
-    width: 250px;
+    width: 230px;
     height: 40px;
     padding: 9px;
     margin:15px 0 15px;
@@ -309,13 +309,13 @@ tr.calculate-total th {
 }
 
 
-#volunteer_record_result thead, #event_record_result thead {
+#volunteer_record_result thead, #event_record_result thead,  #event_record_bydate_result thead{
   background-color: #f2f2f2;
   font-weight: bold;
 }
 
 
-#volunteer_record_result td, #event_record_result td, #partner_record_table td   {
+#volunteer_record_result td, #event_record_result td, #partner_record_table td, .event-record-bydate-table td   {
   border: 1px solid #ddd;
   padding: 5px 10px;
   text-align: center;
@@ -326,3 +326,32 @@ tr.calculate-total th {
   padding: 1px 8px 1px;
 }
 
+.width-adjustment {
+  width:20%;
+  min-width: 100px;
+}
+
+
+
+/* Set the table to use a fixed layout and adjust column widths */
+.event-record-bydate-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* Set specific widths for columns */
+th.width-adjustment {
+  width: 20%;
+  min-width: 100px; /* Adjust as needed */
+}
+
+/* Use media queries to adjust styles for smaller screens (e.g., mobile) */
+@media (max-width: 768px) {
+  .event-record-bydate-table {
+    width: 100%; /* Set both tables to 100% width for mobile */
+  }
+  th.width-adjustment {
+    width: 20%; /* Adjust as needed for smaller screens */
+    min-width: 50px; /* Adjust as needed for smaller screens */
+  }
+}

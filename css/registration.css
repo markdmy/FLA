@@ -585,15 +585,15 @@
 }
 
 
-.error-message {
-  margin-top:15px;
-}
 
 .consent-box {
   border: 1px solid rgb(179, 179, 179);
     padding: 10px;
 }
 
+.error-message {
+  margin-top:6px;
+}
 
 /* mark collapsable menu */
 
@@ -628,11 +628,11 @@
 
 
 
-/* admin-login page css*/
+
 
 
 .signup-box{
-  margin-top: 6px;
+  margin-top: 13px;
   font-size: 0.9rem;
   text-align: center;
 }

@@ -540,8 +540,209 @@ document.addEventListener("DOMContentLoaded", function () {
   // Insert the form to the left of the target div
   targetButton.insertAdjacentElement("afterend", logoutForm);
 
-  //Select element for Event Records
+  //retrieving event data by dates
 
+  const searchButton = document.getElementById("search_event_bydate_button");
+  const clearButton = document.getElementById("clear_event_bydate_button");
+  const startDateInput = document.querySelector(
+    "input[name='event_start_date']"
+  );
+  const finishDateInput = document.querySelector(
+    "input[name='event_finish_date']"
+  );
+  const resultContainer = document.getElementById("event_record_bydate_result");
+
+  startDateInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  });
+
+  finishDateInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      performSearchEventByDate();
+    }
+  });
+
+  clearButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    startDateInput.value = "";
+    finishDateInput.value = "";
+
+    resultContainer.style.display = "none";
+    this.style.display = "none";
+
+    const totalWashCell = document.getElementById("total-bydate-wash-cost");
+    const totalDryCell = document.getElementById("total-bydate-dry-cost");
+    const totalProductCell = document.getElementById(
+      "total-bydate-product-cost"
+    );
+    const totalCostCell = document.getElementById("total-bydate-total-cost");
+
+    totalWashCell.textContent = "$0.00";
+    totalDryCell.textContent = "$0.00";
+    totalProductCell.textContent = "$0.00";
+    totalCostCell.textContent = "$0.00";
+  });
+
+  function performSearchEventByDate() {
+    const startDate = startDateInput.value;
+    const finishDate = finishDateInput.value;
+
+    if (startDate.trim() === "" || finishDate.trim() === "") {
+      alert("Please enter both start and finish dates to execute the search.");
+      return; // Exit the function early
+    }
+    clearButton.style.display = "inline-block";
+    // Create an XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      "GET",
+      `models/fetch_event_by_date.php?event_start_date=${startDate}&event_finish_date=${finishDate}`,
+      true
+    );
+
+    // Define the callback function to handle the response
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        // Parse the JSON response from the PHP script
+        const eventData = JSON.parse(xhr.responseText);
+
+        const datePeriodBox = document.getElementById("search_by_date");
+        const startDatePeriod = document.getElementById("start_date_period");
+        const endDatePeriod = document.getElementById("end_date_period");
+
+        startDatePeriod.innerHTML = startDate;
+        endDatePeriod.innerHTML = finishDate;
+        // Populate the table with the retrieved data
+        const tableBody = resultContainer.querySelector(
+          "#event-record-bydate-table1 .event-bydate-table"
+        );
+
+        const totalRow = document.getElementById("calculate_total_bydate");
+        const totalWashCell = document.getElementById("total-bydate-wash-cost");
+        const totalDryCell = document.getElementById("total-bydate-dry-cost");
+        const totalProductCell = document.getElementById(
+          "total-bydate-product-cost"
+        );
+        const totalCostCell = document.getElementById(
+          "total-bydate-total-cost"
+        );
+
+        tableBody.innerHTML = ""; // Clear the table body
+
+        let totalWash = 0;
+        let totalDry = 0;
+        let totalProduct = 0;
+        let totalCost = 0;
+
+        if (eventData.length > 0) {
+          datePeriodBox.style.display = "block";
+
+          eventData.forEach((event) => {
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+              <td>${event.firstName} ${event.lastName}</td>
+              <td>${event.eventDate}</td>
+              <td>${event.nameOfLaundromat}</td>
+              <td>$${event.costOfWash}</td>
+              <td>$${event.costOfDry}</td>
+              <td>$${event.productCost}</td>
+              <td>$${event.totalCost}</td>
+            `;
+
+            // Calculate the totals
+            totalWash += parseFloat(event.costOfWash);
+            totalDry += parseFloat(event.costOfDry);
+            totalProduct += parseFloat(event.productCost);
+            totalCost += parseFloat(event.totalCost);
+          });
+
+          // Display the results container
+          resultContainer.style.display = "block";
+
+          // Update the "Calculate Total" row with the calculated totals
+          totalWashCell.textContent = "$" + totalWash.toFixed(2);
+          totalDryCell.textContent = "$" + totalDry.toFixed(2);
+          totalProductCell.textContent = "$" + totalProduct.toFixed(2);
+          totalCostCell.textContent = "$" + totalCost.toFixed(2);
+        } else {
+          datePeriodBox.style.display = "none";
+          tableBody.innerHTML =
+            "<tr><td colspan='7'>No results found Or Wrong data input</td></tr>";
+          resultContainer.style.display = "block";
+        }
+      }
+    };
+
+    // Send the XMLHttpRequest
+    xhr.send();
+  }
+
+  searchButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    performSearchEventByDate();
+  });
+
+  document
+    .getElementById("download-event-bydate-button")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Get search period information
+      const start_date =
+        document.getElementById("start_date_period").textContent;
+      const end_date = document.getElementById("end_date_period").textContent;
+
+      // Collect data from the first table
+      const table1 = document.getElementById("event-record-bydate-table1");
+      const headers1 = Array.from(table1.querySelectorAll("thead th")).map(
+        (th) => th.textContent
+      );
+      const rows1 = Array.from(table1.querySelectorAll("tbody tr")).map((row) =>
+        Array.from(row.querySelectorAll("td")).map((td) => td.textContent)
+      );
+
+      // Collect data from the second table
+      const table2 = document.getElementById("event-record-bydate-table2");
+      const headers2 = Array.from(table2.querySelectorAll("thead th")).map(
+        (th) => th.textContent
+      );
+      const rows2 = Array.from(table2.querySelectorAll("tbody tr")).map((row) =>
+        Array.from(row.querySelectorAll("td")).map((td) => td.textContent)
+      );
+
+      // Combine the data, including the date period
+      const data = [
+        [`Search Period: ${start_date} - ${end_date}`],
+        [],
+        headers1,
+        ...rows1,
+        headers2,
+        ...rows2,
+      ];
+
+      // Create a CSV content string
+      const csvContent = data
+        .map((row) => row.map((cell) => `"${cell}"`).join(","))
+        .join("\n");
+
+      // Create a Blob and a download link
+      const blob = new Blob([csvContent], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `event_data_${start_date}_${end_date}.csv`;
+
+      // Trigger a click event on the link to start the download
+      a.click();
+    });
+
+  //Select element for Event Records
+  const clearSearchLaundromat = document.getElementById(
+    "clear_event_record_button"
+  );
   const eventSelectForRecord = document.getElementById("event-for-record");
   let selectedOptionEventRecord = null;
   const eventTableContainer = document.getElementById("event_record_result");
@@ -577,6 +778,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   // Add an event listener to update the select element's value when an option is selected for volunteers
   eventSelectForRecord.addEventListener("change", function () {
+    clearSearchLaundromat.style.display = "inline-block";
     selectedOptionEventRecord = this.options[this.selectedIndex];
     const eventID = selectedOptionEventRecord.value;
     eventTableContainer.style.display = "block";
@@ -595,9 +797,10 @@ document.addEventListener("DOMContentLoaded", function () {
             "#event_record_result .participant-table"
           );
 
-          const calculateTotalRow = document.querySelector(".calculate-total");
+          const calculateTotalRow = document.getElementById(
+            "participant_calculate_total"
+          );
           const landromatInfo = document.querySelector(".laundromat-info");
-          // Hide the table heading and the calculate total row
 
           tableBody.innerHTML = "";
 
@@ -629,6 +832,8 @@ document.addEventListener("DOMContentLoaded", function () {
           } else {
             calculateTotalRow.style.display = "none";
             landromatInfo.style.display = "none";
+            document.getElementById("download-event-button").style.display =
+              "none";
             const noParticipantsRow = document.createElement("tr");
             const noParticipantsCell = document.createElement("td");
             noParticipantsCell.textContent =
@@ -644,6 +849,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     };
     xhr.send();
+  });
+
+  clearSearchLaundromat.addEventListener("click", function () {
+    eventSelectForRecord.selectedIndex = 0;
+    eventTableContainer.style.display = "none";
+    this.style.display = "none";
   });
 
   function populateEventParticipantsTable(participantsData) {
@@ -707,10 +918,15 @@ document.addEventListener("DOMContentLoaded", function () {
     totalTotalCell.textContent = "$" + totalCost.toFixed(2);
   }
 
+  //Search volunteer by City functionamilty
+
   const defaultOptionCity = document.createElement("option");
   defaultOptionCity.text = "Choose a city";
   defaultOptionCity.disabled = true;
   defaultOptionCity.selected = true;
+  const clearVolunteerRecord = document.getElementById(
+    "clear_volunteer_record_button"
+  );
 
   // displaying cities of volunteers in select
   const citySelect = document.getElementById("volunteers_city");
@@ -747,6 +963,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   citySelect.addEventListener("change", function () {
+    clearVolunteerRecord.style.display = "inline-block";
     selectedOption = this.options[this.selectedIndex];
     this.value = selectedOption.value;
     const cityName = selectedOption.value; // Get the eventID from the selected option
@@ -776,6 +993,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     };
     xhr.send();
+  });
+
+  clearVolunteerRecord.addEventListener("click", function () {
+    citySelect.selectedIndex = 0;
+    citySearchResultBox.style.display = "none";
+    this.style.display = "none";
   });
 
   const tableBody = document.querySelector(

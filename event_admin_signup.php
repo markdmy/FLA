@@ -1,3 +1,20 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true) {
+    // Display a message and a button to go to admin_login.php
+    echo "This page needs to be authenticated by the administrator first.<br>";
+    echo '<a href="admin_login.php">Go to admin_login.php</a>';
+    echo " and after successfully logged in, click on Create an account(for volunteers/staff) to access this page.";
+    exit();
+}
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

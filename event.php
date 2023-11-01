@@ -3,9 +3,12 @@ session_start();
 
 if (!isset($_SESSION["admin_authenticated"]) || $_SESSION["admin_authenticated"] !== true) {
     echo "<script>window.location.href='admin_login.php';</script>";
-    // header("Location: admin_login.php");
     exit();
+} else {
+    // Set a session variable to indicate the user is logged in
+    $_SESSION["admin_logged_in"] = true;
 }
+
 
 include("models/events_model.php");
 include("models/search_partner.php");
@@ -259,14 +262,89 @@ include("models/search_partner.php");
 
     <!---adding volunteer--->
     <section id="event_record_retrieval" class="record-container container">
+
         <form id="event_record_form" class="form">
-            <h2>Search Event Records</h2>
+            <h2>Search Event by Date</h2>
+            <div class="form-container">
+                <div class="column">
+                    <div class="input-box">
+                        <label for="event_start_date">Start Date:</label>
+                        <input type="date" name="event_start_date" required><br>
+                    </div>
+                    <div class="input-box">
+                        <label for="event_finish_date">Finish Date:</label>
+                        <input type="date" name="event_finish_date" required><br>
+                    </div>
+
+                </div>
+                <button type="button" id="search_event_bydate_button">Search</button>
+                <button type="button" id="clear_event_bydate_button" style="display: none;">Clear/Re-search</button>
+            </div>
+
+            <div id="event_record_bydate_result" class="table-container" style="display: none;">
+                <div id="search_by_date">
+                    <h5>Search Period: <span id="start_date_period"></span> ~ <span id="end_date_period"></span>
+                    </h5>
+                </div>
+
+                <button id="download-event-bydate-button" class="download-button">Download CSV</button>
+                <table class="event-record-bydate-table" id="event-record-bydate-table1">
+
+                    <thead class="record-table-heading">
+                        <tr>
+                            <th class="width-adjustment">Participant Name</th>
+                            <th class="width-adjustment">eventDate</th>
+                            <th class="width-adjustment">Name of Laundromat</th>
+                            <th>Cost Of Wash</th>
+                            <th>Cost of Dry</th>
+                            <th>Product Cost</th>
+                            <th>Total Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody class="event-bydate-table">
+                        <tr class="event-bydate-row">
+                            <td class="width-adjustment"></td>
+                            <td class="width-adjustment"></td>
+                            <td class="width-adjustment"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="event-record-bydate-table" id="event-record-bydate-table2">
+                    <thead>
+                        <tr class="calculate-total" id="calculate_total_bydate">
+                            <th class="width-adjustment">Calculate Total</th>
+                            <th class="width-adjustment"></th>
+                            <th class="width-adjustment"></th>
+                            <th id="total-bydate-wash-cost">0.00</th>
+                            <th id="total-bydate-dry-cost">0.00</th>
+                            <th id="total-bydate-product-cost">0.00</th>
+                            <th id="total-bydate-total-cost">0.00</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+        </form>
+
+
+
+
+
+        <form id="event_record_form" class="form">
+            <h2>Search by laundromat</h2>
             <div class="form-container">
                 <div class="select-box">
                     <select id="event-for-record" name="event-for-record" required>
                         <option hidden>Choose Laundromat/Event Date/Address </option>
                     </select>
                 </div>
+                <button type="button" id="clear_event_record_button" style="display: none;">Clear</button>
+
             </div>
             <div id="event_record_result" class="table-container" style="display: none;">
                 <div class="laundromat-info" style="display: none;">
@@ -297,7 +375,7 @@ include("models/search_partner.php");
                 </table>
                 <table class="event-record-table">
                     <thead>
-                        <tr class="calculate-total">
+                        <tr class="calculate-total" id="participant_calculate_total">
                             <th id="total-title">Calculate Total</th>
                             <th id="total-wash-cost">0.00</th>
                             <th id="total-dry-cost">0.00</th>
@@ -320,6 +398,7 @@ include("models/search_partner.php");
                         <option hidden>Choose a city</option>
                     </select>
                 </div>
+                <button type="button" id="clear_volunteer_record_button" style="display: none;">Clear</button>
             </div>
             <div id="volunteer_record_result" style="display: none;">
                 <div id="volunteer_record_table_wrapper" class="table-container">
