@@ -263,7 +263,7 @@ include("models/search_partner.php");
     <!---adding volunteer--->
     <section id="event_record_retrieval" class="record-container container">
 
-        <form id="event_record_form" class="form">
+        <form id="event_record_form_bydate" class="form">
             <h2>Search Event by Date</h2>
             <div class="form-container">
                 <div class="column">
@@ -335,7 +335,7 @@ include("models/search_partner.php");
 
 
 
-        <form id="event_record_form" class="form">
+        <form id="event_record_form_bylaundromat" class="form">
             <h2>Search by laundromat</h2>
             <div class="form-container">
                 <div class="select-box">
