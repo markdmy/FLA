@@ -48,6 +48,9 @@ function send_email_from_contact_form($contactName, $contactEmail, $contactPhone
 }
 
 
+
+
+
 //this function will be called when a user submit a registration from from registration.php
 function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram,  $additionalNote, $formCreated, $id_file_path, $income_proof_file_path, array $familyMemberInfo)
 {

@@ -36,6 +36,12 @@ include("models/search_partner.php");
         <button class="event-nav-button" data-form="add-volunteer">Add Volunteers</button>
         <button class="event-nav-button" data-form="event_record_retrieval">Search Record</button>
     </div>
+    <div class="signup-box">
+        <p><span id="signup_link" class="underline-text"><a href="event_admin_signup.php" target="_blank">Create
+                    an
+                    account</a></span>(for
+            volunteers/staff)</p>
+    </div>
 
     <section id="add-event" class="container event-container">
         <form action="models/events_model.php" method="post" id="eventForm" class="form">
@@ -268,6 +274,7 @@ include("models/search_partner.php");
                     <h5>Address : <span id="record_laundromat_address"></span></h5>
                     <h5>Event Date : <span id="record_laundromat_eventdate"></span></h5>
                 </div>
+                <button id="download-event-button" class="download-button">Download CSV</button>
                 <table class="event-record-table">
                     <thead class="record-table-heading">
                         <tr>
@@ -316,6 +323,7 @@ include("models/search_partner.php");
             </div>
             <div id="volunteer_record_result" style="display: none;">
                 <div id="volunteer_record_table_wrapper" class="table-container">
+                    <button id="download-vol-rec-button" class="download-button">Download CSV</button>
                     <table id="volunteer_record_table">
                         <thead class="vol-table-heading">
                             <tr>
@@ -353,6 +361,7 @@ include("models/search_partner.php");
             </div>
             <div id="partner_record_result" style="display: none;">
                 <div id="partner_record_table_wrapper" class="table-container">
+                    <button id="download-partner-button" class="download-button">Download CSV</button>
                     <table id="partner_record_table">
                         <thead class="partner-table-heading">
                             <tr>
@@ -364,8 +373,8 @@ include("models/search_partner.php");
                                 <th>City</th>
                                 <th>Province</th>
                                 <th>Postal Code</th>
-                                <th># of washers</th>
-                                <th># of dryers</th>
+                                <th>Number of washers</th>
+                                <th>Number of dryers</th>
                                 <th>has attendant?</th>
                             </tr>
                         </thead>

@@ -84,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((data) => {
         data = JSON.parse(data);
-        console.log(data);
 
         if (data !== "Partner information not found") {
           const confirmation = confirm(
@@ -177,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
     selectedOption = this.options[this.selectedIndex];
     this.value = selectedOption.value;
     const eventID = selectedOption.value; // Get the eventID from the selected option
-    console.log(eventID); // Log the eventID
   });
 
   //search participant functionality
@@ -370,7 +368,6 @@ document.addEventListener("DOMContentLoaded", function () {
     selectedOptionVolunteer = this.options[this.selectedIndex];
     this.value = selectedOptionVolunteer.value;
     const eventID = selectedOptionVolunteer.value;
-    console.log(eventID);
   });
 
   //Search volunteer button functionality
@@ -582,7 +579,6 @@ document.addEventListener("DOMContentLoaded", function () {
   eventSelectForRecord.addEventListener("change", function () {
     selectedOptionEventRecord = this.options[this.selectedIndex];
     const eventID = selectedOptionEventRecord.value;
-    console.log(eventID);
     eventTableContainer.style.display = "block";
     const xhr = new XMLHttpRequest();
     xhr.open(
@@ -592,7 +588,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log(xhr.responseText); // Log the response
         try {
           const data = JSON.parse(xhr.responseText);
 
@@ -755,7 +750,6 @@ document.addEventListener("DOMContentLoaded", function () {
     selectedOption = this.options[this.selectedIndex];
     this.value = selectedOption.value;
     const cityName = selectedOption.value; // Get the eventID from the selected option
-    console.log(cityName);
 
     citySearchResultBox.style.display = "block";
     const xhr = new XMLHttpRequest();
@@ -770,7 +764,6 @@ document.addEventListener("DOMContentLoaded", function () {
           const responseText = xhr.responseText;
           if (responseText) {
             const data = JSON.parse(responseText);
-            console.log(data);
             populateVolunteerTable(data);
           } else {
             // Handle the case where the response is empty
@@ -841,7 +834,6 @@ document.addEventListener("DOMContentLoaded", function () {
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
           const data = JSON.parse(xhr.responseText);
-          console.log(data);
 
           const tableBody = document.querySelector(".partner-table");
           tableBody.innerHTML = "";
@@ -916,4 +908,117 @@ document.addEventListener("DOMContentLoaded", function () {
       partnerTable.style.display = "none";
     }
   });
+
+  document
+    .getElementById("download-vol-rec-button")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
+      let table = document.getElementById("volunteer_record_table");
+
+      // Create a CSV string
+      let csv = [];
+      let headerRow = table.querySelector("thead tr");
+      let headerCols = headerRow.querySelectorAll("th");
+      let header = Array.from(headerCols, (th) => th.textContent);
+      csv.push(header.join(","));
+
+      let rows = table.querySelectorAll("tbody tr");
+      for (let i = 0; i < rows.length; i++) {
+        let row = [];
+        let cols = rows[i].querySelectorAll("td");
+        for (let j = 0; j < cols.length; j++) {
+          row.push(cols[j].textContent);
+        }
+        csv.push(row.join(","));
+      }
+
+      let csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "table_data_volunteer.csv");
+      document.body.appendChild(link);
+
+      link.click();
+    });
+
+  document
+    .getElementById("download-partner-button")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
+      // Get the table element
+      let table = document.getElementById("partner_record_table");
+
+      let csv = [];
+
+      let headerRow = table.querySelector("thead tr");
+      let headerCols = headerRow.querySelectorAll("th");
+      let header = Array.from(headerCols, (th) => th.textContent);
+      csv.push(header.join(","));
+
+      let dataRows = table.querySelectorAll("tbody tr");
+      for (let i = 0; i < dataRows.length; i++) {
+        let row = [];
+        let cols = dataRows[i].querySelectorAll("td");
+        for (let j = 0; j < cols.length; j++) {
+          let cellText = cols[j].textContent;
+          row.push(cellText);
+        }
+        csv.push(row.join(","));
+      }
+
+      let csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+
+      // Create a download link
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "partner_table_data.csv");
+      document.body.appendChild(link);
+
+      link.click();
+    });
+
+  document
+    .getElementById("download-event-button")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
+      let laundromatName = document.getElementById(
+        "record_laundromat_name"
+      ).textContent;
+      let laundromatAddress = document.getElementById(
+        "record_laundromat_address"
+      ).textContent;
+      let eventDate = document.getElementById(
+        "record_laundromat_eventdate"
+      ).textContent;
+
+      let tables = document.querySelectorAll(".event-record-table");
+
+      let csv = [];
+
+      csv.push(`Laundromat Name: ${laundromatName}`);
+      csv.push(`Address: ${laundromatAddress}`);
+      csv.push(`Event Date: ${eventDate}`);
+
+      tables.forEach((table) => {
+        let rows = table.querySelectorAll("tr");
+        rows.forEach((row) => {
+          let cols = row.querySelectorAll("td, th");
+          let rowArray = Array.from(cols, (col) => col.textContent);
+          csv.push(rowArray.join(","));
+        });
+      });
+
+      let csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "event_table_data.csv");
+      document.body.appendChild(link);
+
+      link.click();
+    });
 });
