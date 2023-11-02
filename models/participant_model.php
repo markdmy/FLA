@@ -122,9 +122,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $housing_situation = $_POST["housing_situation"];
     }
 
-    if(isset($_POST["additional_note"]){
+    if(isset($_POST["additional_note"])){
         $additionalNote = $_POST["additional_note"];
-    })
+    }
 
     //use $combinedFoundProgram
     $foundProgram = isset($_POST["found_program"]) ? $_POST["found_program"] : array();
@@ -146,6 +146,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($participantInfo) {
         $participantID = $participantInfo['participantID'];
         $participantEmail = $participantInfo['email'];
+        $familyMemberInfo = array(); 
+        
         if($participantID){
             //this is a code to see the posted data
             // var_dump($_POST);
