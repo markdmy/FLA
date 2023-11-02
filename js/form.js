@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Check if the age input in this template should show the "family_income_proof" div
         const ageInput = clonedTemplate.querySelector('input[type="date"]');
+
         ageInput.addEventListener("change", function () {
           // Calculate age and show/hide "family_income_proof" based on the date value
           let birthDateValue = new Date(this.value);
@@ -149,6 +150,12 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       // Hide the additional members container
       additionalMembersContainer.style.display = "none";
+      let requiredElements = additionalMembersContainer.querySelectorAll([
+        "required",
+      ]);
+      for (let i = 0; i < requiredElements.length; i++) {
+        requiredElements[i].removeAttribute("required");
+      }
     }
   }
 
