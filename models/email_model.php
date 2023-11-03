@@ -63,12 +63,13 @@ function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOf
         $mail->isSMTP();
         $mail->SMTPAuth = true;
 
-        $mail->Host = "smtp.netfirms.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port = 465;
-        //in the future, email address can be changed depending on the form
+        //Conner changed the it to gmail on 11/02/2023 but this is not working
+        $mail->Host = "smtp.gmail.com";
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->SMTPAuth = true;
         $mail->Username = "contact@freelaundryaccess.com";
-        $mail->Password = "Freelaundryaccess4168441484";
+        $mail->Password = "freelaundry1234";
 
         $mail->setFrom("contact@freelaundryaccess.com", $firstName . ' ' . $lastName);
         $mail->addAddress("contact@freelaundryaccess.com", "Nancy");
