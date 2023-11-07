@@ -12,10 +12,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactFormCreated = date('Y-m-d H:i:s');
     $redirectUrl = send_email_from_contact_form($contactName, $contactEmail, $contactPhoneNumber, $contactComments, $contactFormCreated);
    
-    if($redirectUrl){
-        echo "<script>window.location.href='$redirectUrl';</script>";
-        exit();
-    }
+
+    //comment below line when email server works
+    $redirectUrl = "submitSuccess.php?contactName=$contactName";
+    echo "<script>window.location.href='$redirectUrl';</script>";
+    
+    //uncomment these below line when email server works
+    // if($redirectUrl){
+    //     echo "<script>window.location.href='$redirectUrl';</script>";
+    //     exit();
+    // }
 }    
 ?>
 <!DOCTYPE html>
