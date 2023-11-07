@@ -59,13 +59,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $volunteerInfo = add_volunteer($volunteerFirstName, $lastName, $dateOfBirth,  $isAge18AndOver, $email, $phone, $address, $city, $province, $postalCode, $formCreated);
     if ($volunteerInfo) {
     $email = $volunteerInfo['email'];
-    $redirectUrl = send_email_from_volunteer_form($volunteerFirstName, $lastName, $dateOfBirth, $isAge18AndOver, $email, $phone, $address, $city, $province, $postalCode, $formCreated);
     
-    if ($redirectUrl) {
-        // Redirect to success page
-        echo "<script>window.location.href='$redirectUrl';</script>";
-        exit();
-    }
+    //comment this when email server works.
+    $redirectUrl = "../submitSuccess.php?volunteerEmail=$email&volunteerFirstName=$volunteerFirstName";
+    echo "<script>window.location.href='$redirectUrl';</script>";
+    
+    //uncomment these below lines when email server works.
+    // $redirectUrl = send_email_from_volunteer_form($volunteerFirstName, $lastName, $dateOfBirth, $isAge18AndOver, $email, $phone, $address, $city, $province, $postalCode, $formCreated);
+    
+    // if ($redirectUrl) {
+    //     // Redirect to success page
+    //     echo "<script>window.location.href='$redirectUrl';</script>";
+    //     exit();
+    // }
     
     }    
     
