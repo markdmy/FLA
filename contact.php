@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         class="form-input" required>
                 </div>
                 <div class="input-box">
-                    <label for="phone" class="form-label">phone number(Optional)</label>
+                    <label for="phone" class="form-label">Phone Number (Optional)</label>
                     <input type="tel" id="contact-phone" name="contact-phone" placeholder="Format: 123-456-7890"
                         pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-input">
 
