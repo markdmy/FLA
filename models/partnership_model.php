@@ -66,18 +66,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $laundromatName = $partnerInfo['laundromatName'];
     $email = $partnerInfo['email'];
 
-    //comment below line when email server works
-    $redirectUrl = "../submitSuccess.php?partnerEmail=$email&partnerFirstName=$partnerFirstName&laundromatName=$laundromatName";
-    echo "<script>window.location.href='$redirectUrl';</script>";
-    
-     //uncomment these below line when email server works
-    // $redirectUrl = send_email_from_partnership_form($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
 
-    // if ($redirectUrl) {
-    //     // Redirect to success page
-    //     echo "<script>window.location.href='$redirectUrl';</script>";
-    //     exit();
-    // }
+    $redirectUrl = send_email_from_partnership_form($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated);
+
+    if ($redirectUrl) {
+        // Redirect to success page
+        echo "<script>window.location.href='$redirectUrl';</script>";
+        exit();
+    }
 
 
 
