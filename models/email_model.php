@@ -24,7 +24,7 @@ function send_email_from_contact_form($contactName, $contactEmail, $contactPhone
         $mail->setFrom("contact@freelaundryaccess.com", $contactName);
         $mail->addAddress("contact@freelaundryaccess.com", "Nancy");
 
-        $mail->Subject = "(test)FLA Contact Us";
+        $mail->Subject = "FLA Contact Us";
 
         //this line (isHTML true ) will format the content in html format so we can add line break<br>--eunji--
         $mail->IsHTML(true);
@@ -128,7 +128,7 @@ function send_email_from_partnership_form($partnerFirstName, $lastName, $laundro
         $mail->setFrom("contact@freelaundryaccess.com", $partnerFirstName . ' from ' . $laundromatName);
         $mail->addAddress("contact@freelaundryaccess.com", "Nancy");
 
-        $mail->Subject = "(test)FLA Partnership Form Submitted";
+        $mail->Subject = "FLA Partnership Form Submitted";
 
         $mail->IsHTML(true);
         $mail->Body = "Name: $partnerFirstName $lastName<br>Name of Laundromat: $laundromatName<br>Email Address: $email<br>Phone Number: $phone<br>Street Address: $address<br>City: $city<br>Province: $province<br>Postal Code: $postalCode<br>Number of Washers: $numberOfWashers<br>Number of Dryers: $NumberOfDryers<br>Has Attendant: $hasAttendant<br>Form Created: $formCreated";
@@ -170,7 +170,7 @@ function send_email_from_volunteer_form($volunteerFirstName, $lastName, $dateOfB
         $mail->setFrom("contact@freelaundryaccess.com",  $volunteerFirstName . ' ' . $lastName);
         $mail->addAddress("contact@freelaundryaccess.com", "Nancy");
 
-        $mail->Subject = "(test)FLA Volunteer Form Submitted";
+        $mail->Subject = "FLA Volunteer Form Submitted";
 
         $mail->IsHTML(true);
         $mail->Body = "Name: $volunteerFirstName $lastName<br>

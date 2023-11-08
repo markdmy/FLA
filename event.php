@@ -32,7 +32,6 @@ include("models/search_partner.php");
 
 <body>
     <?php include('components/header.php'); ?>
-
     <div class="event-navigation">
         <button class="event-nav-button clicked" data-form="add-event">Add Events</button>
         <button class="event-nav-button" data-form="add-participant">Add Participants</button>
@@ -59,7 +58,7 @@ include("models/search_partner.php");
                     <input type="text" name="partner_id" disabled>
                     <button type="button" id="searchPartnerButton">Search Reference</button>
                 </div>
-                <p>Partner not registered - click <a href="partnership.php" target="_blank">here</a> to register.
+                <p>Partner not registered - Click Here<a href="partnership.php" target="_blank">here</a> to register.
                 </p>
             </div>
 
