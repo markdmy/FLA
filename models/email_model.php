@@ -1,7 +1,6 @@
 <!--
-    this is alternated from contact_model.php
-    coded by Mark to connect email server
-    function created by eunji. PLEASE REMOVE (test) before the email subject for the real deployment !!!!!!!-->
+    Coded by Mark to connect email server.
+    Functions created by eunji. PLEASE REMOVE (test) before the email subject for the real deployment !!!!!!!-->
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -45,10 +44,6 @@ function send_email_from_contact_form($contactName, $contactEmail, $contactPhone
 
 }
 
-
-
-
-
 //this function will be called when a user submit a registration from from registration.php
 function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOfHousehold, $numberOfAdults, $NumberOfChildrenUnder12, $NumberOfChildrenOver12, $email, $address, $phone, $city, $province, $postalCode, $housing_situation, $combinedFoundProgram,  $additionalNote, $formCreated, $id_file_path, $income_proof_file_path, array $familyMemberInfo)
 {
@@ -59,15 +54,12 @@ function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOf
         $mail = new PHPMailer(true);
 
         $mail->isSMTP();
-        $mail->SMTPAuth = true;
-
-        //Conner changed the it to gmail on 11/02/2023 but this is not working
         $mail->Host = "smtp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
         $mail->Port = 587;
         $mail->SMTPAuth = true;
         $mail->Username = "contact@freelaundryaccess.com";
-        $mail->Password = "freelaundry1234";
+        $mail->Password = "wtvd deuo dwep sffp";
 
         $mail->setFrom("contact@freelaundryaccess.com", $firstName . ' ' . $lastName);
         $mail->addAddress("contact@freelaundryaccess.com", "Nancy");
@@ -116,8 +108,6 @@ function send_email_from_reg_form($firstName, $lastName, $dateOfBirth, $numberOf
     }
 
 }
-
-
 //this function will be called when a user submit a partnership from from partnership.php
 function send_email_from_partnership_form($partnerFirstName, $lastName, $laundromatName, $email, $phone, $address, $city, $province, $postalCode, $numberOfWashers, $NumberOfDryers, $hasAttendant, $formCreated)
 {
@@ -128,13 +118,12 @@ function send_email_from_partnership_form($partnerFirstName, $lastName, $laundro
         $mail = new PHPMailer(true);
 
         $mail->isSMTP();
-        $mail->SMTPAuth = true;
         $mail->Host = "smtp.gmail.com";
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
         $mail->Port = 587;
         $mail->SMTPAuth = true;
-        $mail->Username = "markfreelaundryaccess@gmail.com";
-        $mail->Password = "freelaundry1234";
+        $mail->Username = "contact@freelaundryaccess.com";
+        $mail->Password = "wtvd deuo dwep sffp";
 
         $mail->setFrom("contact@freelaundryaccess.com", $partnerFirstName . ' from ' . $laundromatName);
         $mail->addAddress("contact@freelaundryaccess.com", "Nancy");
@@ -171,13 +160,12 @@ function send_email_from_volunteer_form($volunteerFirstName, $lastName, $dateOfB
         $mail = new PHPMailer(true);
 
         $mail->isSMTP();
-        $mail->SMTPAuth = true;
         $mail->Host = "smtp.gmail.com";
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
         $mail->Port = 587;
         $mail->SMTPAuth = true;
-        $mail->Username = "markfreelaundryaccess@gmail.com";
-        $mail->Password = "freelaundry1234";
+        $mail->Username = "contact@freelaundryaccess.com";
+        $mail->Password = "wtvd deuo dwep sffp";
 
         $mail->setFrom("contact@freelaundryaccess.com",  $volunteerFirstName . ' ' . $lastName);
         $mail->addAddress("contact@freelaundryaccess.com", "Nancy");
